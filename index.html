@@ -88,21 +88,19 @@
       height: 30px;
     }
 
-    .menu a, .submenu a {
+    .menu button, .submenu button {
+      background: none;
+      border: none;
       color: white;
-      text-decoration: none;
       font-size: 1.2em;
       font-weight: bold;
+      cursor: pointer;
       transition: color 0.3s;
-      pointer-events: auto;
+      font-family: inherit;
     }
 
-    .menu a:hover, .submenu a:hover {
+    .menu button:hover, .submenu button:hover {
       color: #9866ff;
-    }
-
-    .menu a::after, .submenu a::after {
-      display: none !important;
     }
 
     .submenu {
@@ -123,9 +121,11 @@
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    .submenu a {
+    .submenu button {
       display: block;
+      width: 100%;
       padding: 8px 20px;
+      text-align: center;
     }
 
     .menu-item:hover .submenu,
@@ -152,28 +152,28 @@
 
   <div class="menu">
     <div class="menu-item">
-      <a href="index.html">HOME</a>
+      <button onclick="navigateTo('index.html')">HOME</button>
     </div>
     <div class="menu-item">
-      <a href="javascript:void(0)">GALLERY</a>
+      <button>GALLERY</button>
       <div class="submenu">
-        <a href="her-name.html">HER NAME? PROJECT</a>
-        <a href="artist-edits.html">ARTIST EDITS</a>
-        <a href="other-edits.html">OTHER EDITS</a>
+        <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+        <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+        <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
       </div>
     </div>
     <div class="menu-item">
-      <a href="javascript:void(0)">LINKS</a>
+      <button>LINKS</button>
       <div class="submenu">
-        <a href="sites.html">SITES</a>
-        <a href="social.html">SOCIAL MEDIA</a>
+        <button onclick="navigateTo('sites.html')">SITES</button>
+        <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
       </div>
     </div>
     <div class="menu-item">
-      <a href="legal.html">CONTACT</a>
+      <button onclick="navigateTo('legal.html')">CONTACT</button>
     </div>
     <div class="menu-item">
-      <a href="about.html">ABOUT</a>
+      <button onclick="navigateTo('about.html')">ABOUT</button>
     </div>
   </div>
 
@@ -184,6 +184,10 @@
 
     function exitSite() {
       window.location.href = "https://www.google.com/";
+    }
+
+    function navigateTo(url) {
+      window.location.href = url;
     }
   </script>
 
