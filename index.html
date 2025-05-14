@@ -94,11 +94,11 @@
       color: #9866ff;
     }
 
-    /* SUBMENU FIXED & CENTERED */
+    /* SUBMENU - centered and sticky */
     .submenu {
       display: none;
       position: absolute;
-      top: -110px; /* Aparece hacia arriba */
+      top: -140px; /* más alto */
       left: 50%;
       transform: translateX(-50%);
       background: rgba(0, 0, 0, 0.85);
@@ -107,6 +107,7 @@
       min-width: 220px;
       text-align: center;
       z-index: 99;
+      pointer-events: auto;
     }
 
     .submenu a {
@@ -120,7 +121,8 @@
       color: #9866ff;
     }
 
-    .menu-item:hover .submenu {
+    .menu-item:hover .submenu,
+    .menu-item .submenu:hover {
       display: block;
     }
   </style>
