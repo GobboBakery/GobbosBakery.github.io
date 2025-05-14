@@ -16,7 +16,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      backdrop-filter: brightness(0.6);
     }
 
     h1 {
@@ -42,20 +41,30 @@
       background-color: #ff85c1;
     }
 
-    /* MODAL STYLES */
+    /* FULL BLOCKING MODAL */
     #ageModal {
       position: fixed;
       top: 0;
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: rgba(0, 0, 0, 0.9);
+      background-color: #000000; /* TOTAL BLACK */
       color: white;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
+    }
+
+    #ageModal h2 {
+      margin-bottom: 10px;
+      font-size: 2em;
+    }
+
+    #ageModal p {
+      margin-bottom: 20px;
+      font-size: 1.2em;
     }
 
     #ageModal button {
@@ -78,7 +87,7 @@
 
   <!-- AGE VERIFICATION MODAL -->
   <div id="ageModal">
-    <h2>This site contains adult content.</h2>
+    <h2>This site contains adult content</h2>
     <p>Are you 18 years of age or older?</p>
     <button onclick="enterSite()">Yes, I’m 18+</button>
     <button onclick="exitSite()">No, take me away</button>
