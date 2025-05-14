@@ -12,7 +12,6 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    /* BACKGROUND VIDEO */
     #backgroundVideo {
       position: fixed;
       top: 0;
@@ -23,7 +22,6 @@
       z-index: -1;
     }
 
-    /* AGE VERIFICATION */
     #ageModal {
       position: fixed;
       top: 0;
@@ -64,7 +62,6 @@
       background-color: #ff85c1;
     }
 
-    /* MAIN MENU */
     .menu {
       position: fixed;
       bottom: 0;
@@ -94,13 +91,14 @@
       color: #9866ff;
     }
 
-    /* SUBMENU - centered and sticky */
     .submenu {
       display: none;
       position: absolute;
-      top: -140px; /* más alto */
+      bottom: 100%; /* pegar arriba de la barra */
+      top: auto;
       left: 50%;
       transform: translateX(-50%);
+      margin-bottom: 10px;
       background: rgba(0, 0, 0, 0.85);
       padding: 10px 0;
       border-radius: 10px;
@@ -129,7 +127,6 @@
 </head>
 <body>
 
-  <!-- AGE VERIFICATION -->
   <div id="ageModal">
     <h2>This site contains adult content</h2>
     <p>Are you 18 years of age or older?</p>
@@ -137,13 +134,11 @@
     <button onclick="exitSite()">No, take me away</button>
   </div>
 
-  <!-- BACKGROUND VIDEO -->
   <video autoplay muted loop id="backgroundVideo">
     <source src="background.mp4" type="video/mp4">
     Your browser does not support HTML5 video.
   </video>
 
-  <!-- MENU -->
   <div class="menu">
     <div class="menu-item">
       <a href="index.html">HOME</a>
