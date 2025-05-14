@@ -94,22 +94,30 @@
       color: #9866ff;
     }
 
-    /* SUBMENU */
+    /* SUBMENU FIXED & CENTERED */
     .submenu {
       display: none;
       position: absolute;
-      bottom: 50px;
-      left: 0;
-      background: rgba(0, 0, 0, 0.8);
+      top: -110px; /* Aparece hacia arriba */
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.85);
       padding: 10px 0;
       border-radius: 10px;
-      min-width: 200px;
+      min-width: 220px;
       text-align: center;
+      z-index: 99;
     }
 
     .submenu a {
       display: block;
       padding: 8px 20px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .submenu a:hover {
+      color: #9866ff;
     }
 
     .menu-item:hover .submenu {
@@ -136,7 +144,7 @@
   <!-- MENU -->
   <div class="menu">
     <div class="menu-item">
-      <a href="#">HOME</a>
+      <a href="index.html">HOME</a>
     </div>
     <div class="menu-item">
       <a href="#">GALLERY</a>
