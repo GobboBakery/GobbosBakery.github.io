@@ -88,16 +88,21 @@
       height: 30px;
     }
 
-    .menu a {
+    .menu a, .submenu a {
       color: white;
       text-decoration: none;
       font-size: 1.2em;
       font-weight: bold;
       transition: color 0.3s;
+      pointer-events: auto;
     }
 
-    .menu a:hover {
+    .menu a:hover, .submenu a:hover {
       color: #9866ff;
+    }
+
+    .menu a::after, .submenu a::after {
+      display: none !important;
     }
 
     .submenu {
@@ -105,7 +110,8 @@
       position: absolute;
       bottom: 100%;
       left: 50%;
-      transform: translateX(-50%) translateY(10px);
+      transform: translateX(-50%) translateY(20px);
+      margin-bottom: 20px;
       background: rgba(0, 0, 0, 0.85);
       padding: 10px 0;
       border-radius: 10px;
@@ -120,12 +126,6 @@
     .submenu a {
       display: block;
       padding: 8px 20px;
-      color: white;
-      text-decoration: none;
-    }
-
-    .submenu a:hover {
-      color: #9866ff;
     }
 
     .menu-item:hover .submenu,
@@ -155,7 +155,7 @@
       <a href="index.html">HOME</a>
     </div>
     <div class="menu-item">
-      <a href="#">GALLERY</a>
+      <a href="javascript:void(0)">GALLERY</a>
       <div class="submenu">
         <a href="her-name.html">HER NAME? PROJECT</a>
         <a href="artist-edits.html">ARTIST EDITS</a>
@@ -163,7 +163,7 @@
       </div>
     </div>
     <div class="menu-item">
-      <a href="#">LINKS</a>
+      <a href="javascript:void(0)">LINKS</a>
       <div class="submenu">
         <a href="sites.html">SITES</a>
         <a href="social.html">SOCIAL MEDIA</a>
