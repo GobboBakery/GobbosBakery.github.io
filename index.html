@@ -4,51 +4,58 @@
   <meta charset="UTF-8">
   <title>Gobbo's Bakery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
-      height: 100vh;
-      background: url('background.gif') no-repeat center center fixed;
-      background-size: cover;
-      color: #ffb6c1;
+    }
+
+    /* VIDEO FULLSCREEN */
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    /* MENU BAR */
+    .menu {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
-      text-align: center;
+      padding: 15px 0;
+      z-index: 10;
     }
 
-    h1 {
-      font-size: 3em;
-      margin-bottom: 40px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px 20px;
-      border-radius: 12px;
-    }
-
-    a {
-      text-decoration: none;
+    .menu a {
       color: white;
-      background-color: rgba(255, 105, 180, 0.8);
-      padding: 12px 24px;
-      border-radius: 20px;
-      margin: 10px;
+      text-decoration: none;
       font-size: 1.2em;
-      transition: background 0.3s;
+      font-weight: bold;
+      transition: color 0.3s;
     }
 
-    a:hover {
-      background-color: #ff85c1;
+    .menu a:hover {
+      color: #ff69b4;
     }
 
-    /* FULL BLOCKING MODAL */
+    /* MODAL - AGE VERIFICATION */
     #ageModal {
       position: fixed;
       top: 0;
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: #000000; /* TOTAL BLACK */
+      background-color: #000000;
       color: white;
       display: flex;
       flex-direction: column;
@@ -81,11 +88,24 @@
     #ageModal button:hover {
       background-color: #ff85c1;
     }
+
+    /* Optional title in the center */
+    .centered-title {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3em;
+      text-shadow: 0 0 10px black;
+      text-align: center;
+      z-index: 5;
+    }
   </style>
 </head>
 <body>
 
-  <!-- AGE VERIFICATION MODAL -->
+  <!-- AGE VERIFICATION -->
   <div id="ageModal">
     <h2>This site contains adult content</h2>
     <p>Are you 18 years of age or older?</p>
@@ -93,11 +113,24 @@
     <button onclick="exitSite()">No, take me away</button>
   </div>
 
-  <!-- MAIN CONTENT -->
-  <h1>Gobbo's Bakery</h1>
-  <a href="https://rule34video.com/users/gobbo" target="_blank">🔞 Watch My Edits on Rule34Video</a>
-  <a href="https://mega.nz/folder/xxx" target="_blank">🍑 Fap Hero Mega Pack</a>
-  <a href="https://discord.gg/tuserver" target="_blank">💌 Contact Me on Discord</a>
+  <!-- BACKGROUND VIDEO -->
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="background.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Optional title -->
+  <div class="centered-title">
+    Gobbo's Bakery
+  </div>
+
+  <!-- MENU -->
+  <div class="menu">
+    <a href="#">HOME</a>
+    <a href="#">MENU 1</a>
+    <a href="#">MENU 2</a>
+    <a href="#">MENU 3</a>
+  </div>
 
   <script>
     function enterSite() {
