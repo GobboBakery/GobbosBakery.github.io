@@ -12,7 +12,7 @@
       font-family: 'Segoe UI', sans-serif;
     }
 
-    /* VIDEO FULLSCREEN */
+    /* BACKGROUND VIDEO */
     #backgroundVideo {
       position: fixed;
       top: 0;
@@ -23,32 +23,7 @@
       z-index: -1;
     }
 
-    /* MENU BAR */
-    .menu {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      padding: 15px 0;
-      z-index: 10;
-    }
-
-    .menu a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.2em;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-
-    .menu a:hover {
-      color: #ff69b4;
-    }
-
-    /* MODAL - AGE VERIFICATION */
+    /* AGE VERIFICATION */
     #ageModal {
       position: fixed;
       top: 0;
@@ -88,6 +63,58 @@
     #ageModal button:hover {
       background-color: #ff85c1;
     }
+
+    /* MAIN MENU */
+    .menu {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 10;
+    }
+
+    .menu-item {
+      position: relative;
+      margin: 0 20px;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .menu a:hover {
+      color: #9866ff;
+    }
+
+    /* SUBMENU */
+    .submenu {
+      display: none;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px 0;
+      border-radius: 10px;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .submenu a {
+      display: block;
+      padding: 8px 20px;
+    }
+
+    .menu-item:hover .submenu {
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -108,10 +135,25 @@
 
   <!-- MENU -->
   <div class="menu">
-    <a href="#">HOME</a>
-    <a href="#">MENU 1</a>
-    <a href="#">MENU 2</a>
-    <a href="#">MENU 3</a>
+    <div class="menu-item">
+      <a href="#">HOME</a>
+    </div>
+    <div class="menu-item">
+      <a href="#">GALLERY</a>
+      <div class="submenu">
+        <a href="her-name.html">HER NAME? PROJECT</a>
+        <a href="artist-edits.html">ARTIST EDITS</a>
+        <a href="other-edits.html">OTHER EDITS</a>
+      </div>
+    </div>
+    <div class="menu-item">
+      <a href="#">ABOUT</a>
+      <div class="submenu">
+        <a href="about.html">About the Project</a>
+        <a href="links.html">My Socials</a>
+        <a href="legal.html">Legal & Contact</a>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -123,5 +165,6 @@
       window.location.href = "https://www.google.com/";
     }
   </script>
+
 </body>
 </html>
