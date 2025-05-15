@@ -453,14 +453,109 @@
       <h2 id="modalTitle">Nylism - Song: Perfect Woman - DJ Gobbolin & SUNO</h2>
     </div>
 
-    <div class="button-row">
-      <a href="https://vaultfiles.free.nf" target="_blank" class="button-4k">🔒 4K</a>
-      <a href="https://vaultfiles.free.nf/fullhd" target="_blank" class="button-hd">🔒 FullHD</a>
-      <a href="https://iwara.tv/" target="_blank" class="button-free">Watch Free (1080p)</a>
+    <div class="quality-buttons">
+      <a href="https://vaultfiles.free.nf/4k.php" target="_blank" class="btn-4k">🔒 4K Premium</a>
+      <a href="https://vaultfiles.free.nf/fullhd.php" target="_blank" class="btn-fullhd">🔒 FullHD Access</a>
+      <a href="https://iwara.tv/" target="_blank" class="btn-free">Watch Free (1080p)</a>
     </div>
-
   </div>
 </div>
+
+<style>
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.modal-content.password-layout {
+  background-color: #1a1a1a;
+  margin: 5% auto;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 960px;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.modal-title h2 {
+  margin-bottom: 30px;
+  font-size: 1.3em;
+  color: #9866ff;
+}
+
+.quality-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.quality-buttons a {
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  transition: 0.3s;
+  text-align: center;
+  min-width: 150px;
+}
+
+/* 4K - Dorado */
+.btn-4k {
+  background: linear-gradient(to right, gold, orange);
+  color: black;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+.btn-4k:hover {
+  background: linear-gradient(to right, orange, gold);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
+}
+
+/* FullHD - Plateado */
+.btn-fullhd {
+  background: linear-gradient(to right, silver, lightgray);
+  color: black;
+  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
+}
+.btn-fullhd:hover {
+  background: linear-gradient(to right, lightgray, silver);
+  box-shadow: 0 0 15px rgba(180, 180, 180, 0.6);
+}
+
+/* Gratuito - Neutro */
+.btn-free {
+  background: transparent;
+  color: white;
+  border: 2px solid white;
+}
+.btn-free:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #ccc;
+  cursor: pointer;
+}
+</style>
+
+<script>
+document.querySelector(".close").addEventListener("click", () => {
+  document.getElementById("artistModal").style.display = "none";
+});
+</script>
 
 </body>
 </html>
