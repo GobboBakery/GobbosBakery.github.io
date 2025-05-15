@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HER NAME? PROJECT - Gobbo's Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      background-color: #111;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .thumb {
+      position: relative;
+      width: 320px;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    .thumb img.static-thumb,
+    .thumb video.hover-preview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .thumb video.hover-preview {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .thumb:hover video.hover-preview {
+      opacity: 1;
+    }
+
+    .thumb:hover img.static-thumb {
+      opacity: 0;
+    }
+
+    .label {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sombra -->
+  <div>
+    <div class="thumb" onclick="location.href='sombra-project.html'">
+      <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
+      <video class="hover-preview" muted loop playsinline>
+        <source src="SOMBRA.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">SOMBRA</div>
+  </div>
+
+  <!-- Squirrel Girl -->
+  <div>
+    <div class="thumb" onclick="location.href='squirrelgirl-project.html'">
+      <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
+      <video class="hover-preview" muted loop playsinline>
+        <source src="SQUIRRELGIRL.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">SQUIRREL GIRL</div>
+  </div>
+
+</body>
+</html>
