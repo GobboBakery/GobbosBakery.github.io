@@ -450,7 +450,7 @@
     <span class="close">&times;</span>
 
     <div class="modal-title">
-      <h2 id="modalTitle">Nylism - Song: Perfect Woman - DJ Gobbolin & SUNO</h2>
+      <h2 id="modalTitle">Video Title</h2>
     </div>
 
     <div class="quality-buttons">
@@ -555,6 +555,8 @@
   // Mostrar el modal al hacer clic en cualquier miniatura
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
     thumb.addEventListener('click', () => {
+      const label = thumb.querySelector('.label')?.textContent || "Untitled";
+      document.getElementById('modalTitle').textContent = label + " - DJ Gobbolin & SUNO";
       document.getElementById('artistModal').style.display = 'block';
     });
   });
