@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HER NAME? PROJECT - Pagination Test</title>
+  <title>HER NAME? PROJECT - Paginated Gallery</title>
   <style>
     body {
       margin: 0;
@@ -10,6 +10,44 @@
       background-color: #111;
       color: white;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .controls input[type="text"] {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      border: none;
+      width: 300px;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .filter-buttons,
+    .sort-buttons {
+      margin-top: 10px;
+    }
+
+    .filter-buttons button,
+    .sort-buttons button {
+      margin: 5px;
+      padding: 8px 16px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-buttons button.active,
+    .sort-buttons button.active {
+      background-color: #9866ff;
+      border-color: #9866ff;
     }
 
     .gallery {
@@ -65,6 +103,10 @@
       color: #ccc;
     }
 
+    .thumb-wrapper[data-title^="test"] .label {
+      display: none;
+    }
+
     .pagination {
       text-align: center;
       margin-top: 30px;
@@ -93,9 +135,26 @@
 </head>
 <body>
 
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search projects...">
+
+    <div class="filter-buttons">
+      <button class="tag-btn active" data-tag="all">All</button>
+      <button class="tag-btn" data-tag="overwatch">Overwatch</button>
+      <button class="tag-btn" data-tag="marvel">Marvel</button>
+    </div>
+
+    <div class="sort-buttons">
+      <button class="sort-btn active" data-sort="az">A → Z</button>
+      <button class="sort-btn" data-sort="za">Z → A</button>
+      <button class="sort-btn" data-sort="newest">Newest</button>
+      <button class="sort-btn" data-sort="oldest">Oldest</button>
+    </div>
+  </div>
+
   <div class="gallery" id="gallery">
     <!-- Reales -->
-    <div class="thumb-wrapper" data-title="sombra">
+    <div class="thumb-wrapper" data-title="sombra" data-tags="overwatch" data-date="2024-11-05">
       <div class="thumb">
         <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
         <video class="hover-preview" muted autoplay loop playsinline>
@@ -105,7 +164,7 @@
       <div class="label">SOMBRA</div>
     </div>
 
-    <div class="thumb-wrapper" data-title="squirrel girl">
+    <div class="thumb-wrapper" data-title="squirrel girl" data-tags="marvel" data-date="2024-10-01">
       <div class="thumb">
         <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
         <video class="hover-preview" muted autoplay loop playsinline>
@@ -115,39 +174,36 @@
       <div class="label">SQUIRREL GIRL</div>
     </div>
 
-    <!-- Falsas para prueba -->
-    <div class="thumb-wrapper" data-title="test 1">
-      <div class="thumb"></div>
-      <div class="label">TEST 1</div>
-    </div>
-
-    <div class="thumb-wrapper" data-title="test 2">
-      <div class="thumb"></div>
-      <div class="label">TEST 2</div>
-    </div>
-
-    <div class="thumb-wrapper" data-title="test 3">
-      <div class="thumb"></div>
-      <div class="label">TEST 3</div>
-    </div>
-
-    <div class="thumb-wrapper" data-title="test 4">
-      <div class="thumb"></div>
-      <div class="label">TEST 4</div>
-    </div>
+    <!-- Dummy thumbnails -->
+    <!-- Reutilizamos bloques dummy para rellenar hasta 15 -->
+    ${[...Array(13)].map((_, i) => `
+      <div class="thumb-wrapper" data-title="test ${i+1}" data-tags="dummy" data-date="2024-01-${String(i+1).padStart(2, '0')}">
+        <div class="thumb"></div>
+        <div class="label">TEST ${i+1}</div>
+      </div>
+    `).join('')}
   </div>
 
   <div class="pagination" id="pagination"></div>
 
   <script>
-    const itemsPerPage = 6;
+    const itemsPerPage = 15;
     let currentPage = 1;
 
+    const input = document.getElementById("searchInput");
     const gallery = document.getElementById("gallery");
     const pagination = document.getElementById("pagination");
-    const allItems = Array.from(gallery.children);
+    const filterButtons = document.querySelectorAll(".tag-btn");
+    const sortButtons = document.querySelectorAll(".sort-btn");
+
+    let allItems = [];
+
+    function updateAllItems() {
+      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
+    }
 
     function showPage(page) {
+      updateAllItems();
       const start = (page - 1) * itemsPerPage;
       const end = start + itemsPerPage;
 
@@ -174,8 +230,76 @@
       }
     }
 
+    input.addEventListener("input", () => {
+      filterProjects();
+    });
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".tag-btn.active").classList.remove("active");
+        button.classList.add("active");
+        filterProjects();
+      });
+    });
+
+    sortButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".sort-btn.active").classList.remove("active");
+        button.classList.add("active");
+        sortProjects(button.dataset.sort);
+        filterProjects();
+      });
+    });
+
+    function filterProjects() {
+      const searchTerm = input.value.toLowerCase();
+      const selectedTag = document.querySelector(".tag-btn.active").getAttribute("data-tag");
+      const items = Array.from(gallery.children);
+
+      items.forEach(thumb => {
+        const title = thumb.getAttribute("data-title");
+        const tags = thumb.getAttribute("data-tags");
+
+        const matchesSearch = title.includes(searchTerm);
+        const matchesTag = (selectedTag === "all") || tags.includes(selectedTag);
+
+        const shouldShow = matchesSearch && matchesTag;
+
+        thumb.classList.toggle("hidden-search", !shouldShow);
+      });
+
+      showPage(1);
+    }
+
+    function sortProjects(sortType) {
+      const items = Array.from(gallery.children);
+
+      items.sort((a, b) => {
+        const titleA = a.dataset.title.toLowerCase();
+        const titleB = b.dataset.title.toLowerCase();
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+
+        switch (sortType) {
+          case "az":
+            return titleA.localeCompare(titleB);
+          case "za":
+            return titleB.localeCompare(titleA);
+          case "newest":
+            return dateB - dateA;
+          case "oldest":
+            return dateA - dateB;
+          default:
+            return 0;
+        }
+      });
+
+      items.forEach(item => gallery.appendChild(item));
+    }
+
     // Inicial
-    showPage(currentPage);
+    sortProjects("az");
+    filterProjects();
   </script>
 
 </body>
