@@ -453,7 +453,7 @@
     </div>
 
     <!-- 🔧 Vista previa del video (formato .mp4 con sonido) -->
-    <div id="modalPreview" style="margin: 20px 0;">
+    <div id="modalPreview" style="margin: 20px 0; display: none;">
       <video id="modalVideo" controls autoplay loop style="width: 100%; max-width: 800px; border-radius: 12px;">
         <source id="modalVideoSrc" src="" type="video/mp4">
         Your browser does not support the video tag.
@@ -461,14 +461,14 @@
     </div>
 
     <!-- 🔧 Información personalizada del artista y canción -->
-    <div id="modalInfo" style="margin-bottom: 20px; font-size: 1em;">
+    <div id="modalInfo" style="margin-bottom: 20px; font-size: 1em; display: none;">
       <p id="infoText" style="color: #ccc;"></p>
     </div>
 
     <div class="quality-buttons">
-      <a id="btn-4k" href="#" target="_blank" class="btn-4k" style="background: linear-gradient(135deg, gold, orange); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">🔒 4K Premium</a>
-      <a id="btn-fullhd" href="#" target="_blank" class="btn-fullhd" style="background: linear-gradient(135deg, silver, lightgray); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">🔒 FullHD Access</a>
-      <a id="btn-free" href="#" target="_blank" class="btn-free" style="background-color: #9866ff; color: white; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">Watch Free (1080p)</a>
+      <a id="btn-4k" href="#" target="_blank" class="btn-4k" style="background: linear-gradient(135deg, gold, orange); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">🔒 4K Premium</a>
+      <a id="btn-fullhd" href="#" target="_blank" class="btn-fullhd" style="background: linear-gradient(135deg, silver, lightgray); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">🔒 FullHD Access</a>
+      <a id="btn-free" href="#" target="_blank" class="btn-free" style="background-color: #9866ff; color: white; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">Watch Free (1080p)</a>
     </div>
   </div>
 </div>
@@ -503,7 +503,6 @@ const videoData = {
       "free": "https://iwara.tv/dzoo"
     }
   }
-  // Puedes seguir con los demás...
 };
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -523,7 +522,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("modalPreview").style.display = 'none';
       }
 
-      document.getElementById("infoText").innerHTML = data?.infoText || "";
+      const infoTextEl = document.getElementById("infoText");
+      const modalInfoEl = document.getElementById("modalInfo");
+      if (data?.infoText) {
+        infoTextEl.innerHTML = data.infoText;
+        modalInfoEl.style.display = 'block';
+      } else {
+        modalInfoEl.style.display = 'none';
+      }
 
       const btn4k = document.getElementById("btn-4k");
       const btnFullhd = document.getElementById("btn-fullhd");
