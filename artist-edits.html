@@ -444,5 +444,133 @@
     });
   </script>
 
+  
+<!-- MODAL STRUCTURE -->
+<div id="artistModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <div class="modal-left">
+      <video id="modalVideo" controls autoplay loop muted playsinline></video>
+    </div>
+
+    <div class="modal-right">
+      <h2 id="modalTitle">Artist Name</h2>
+      <p id="modalTrack">Track Title</p>
+      <div class="modal-links">
+        <p><strong>Official Links:</strong></p>
+        <p>• Artist Page → <a href="#" target="_blank" id="artistLink">Link</a></p>
+        <p>• Song Link → <a href="#" target="_blank" id="songLink">Link</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Modal base styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.modal-content {
+  display: flex;
+  background-color: #1a1a1a;
+  margin: 5% auto;
+  padding: 20px;
+  border-radius: 12px;
+  width: 80%;
+  max-width: 1000px;
+  color: white;
+  gap: 30px;
+  position: relative;
+}
+
+.modal-left video {
+  width: 480px;
+  height: 270px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: #000;
+}
+
+.modal-right {
+  flex-grow: 1;
+}
+
+.modal-right h2 {
+  margin-top: 0;
+  color: #9866ff;
+}
+
+.modal-links a {
+  color: #86b7ff;
+  text-decoration: underline;
+}
+
+.close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: #ccc;
+  cursor: pointer;
+}
+</style>
+
+<script>
+  const modal = document.getElementById("artistModal");
+  const modalVideo = document.getElementById("modalVideo");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalTrack = document.getElementById("modalTrack");
+  const artistLink = document.getElementById("artistLink");
+  const songLink = document.getElementById("songLink");
+
+  const artistData = {
+    "nyl": {
+      title: "Nyl2",
+      track: "Perfect Woman - DJ Gobbolin & SUNO",
+      video: "NYL.webm",
+      artistPage: "https://www.patreon.com/",
+      songPage: "#"
+    }
+    // Más artistas pueden agregarse aquí
+  };
+
+  document.querySelectorAll(".thumb-wrapper").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      const key = thumb.dataset.title;
+      if (artistData[key]) {
+        const data = artistData[key];
+        modalTitle.textContent = data.title;
+        modalTrack.textContent = data.track;
+        artistLink.href = data.artistPage;
+        songLink.href = data.songPage;
+
+        modalVideo.src = data.video;
+        modal.style.display = "flex";
+      }
+    });
+  });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    modal.style.display = "none";
+    modalVideo.pause();
+    modalVideo.src = "";
+  });
+
+  window.addEventListener("click", e => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      modalVideo.pause();
+      modalVideo.src = "";
+    }
+  });
+</script>
+
 </body>
 </html>
