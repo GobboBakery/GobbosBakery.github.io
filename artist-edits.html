@@ -187,7 +187,7 @@
       top: 105%;
     }
 
-    .thumb-wrapper:hover .tooltip-box {
+    .thumb-wrapper .tooltip-box.visible {
       display: block;
     }
 
@@ -462,9 +462,32 @@ Official Links:
       items.forEach(item => gallery.appendChild(item));
     }
 
-    // Initial load
+        // Initial load
     sortProjects("az");
     filterProjects();
+  </script>
+
+  <!-- Tooltip repositioning script -->
+  <script>
+    document.querySelectorAll('.thumb-wrapper').forEach(wrapper => {
+      const tooltip = wrapper.querySelector('.tooltip-box');
+
+      wrapper.addEventListener('mouseenter', () => {
+        tooltip.classList.add('visible');
+        tooltip.classList.remove('tooltip-top', 'tooltip-bottom');
+        tooltip.classList.add('tooltip-top');
+
+        const rect = tooltip.getBoundingClientRect();
+        if (rect.top < 0) {
+          tooltip.classList.remove('tooltip-top');
+          tooltip.classList.add('tooltip-bottom');
+        }
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible', 'tooltip-top', 'tooltip-bottom');
+      });
+    });
   </script>
 
 </body>
