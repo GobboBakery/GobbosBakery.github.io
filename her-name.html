@@ -10,10 +10,31 @@
       background-color: #111;
       color: white;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .search-container input {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      border: none;
+      width: 300px;
+      outline: none;
+    }
+
+    .gallery {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
+    }
+
+    .thumb-wrapper {
+      text-align: center;
     }
 
     .thumb {
@@ -51,38 +72,65 @@
     }
 
     .label {
-      text-align: center;
       margin-top: 10px;
       font-size: 1.1em;
       font-weight: bold;
       color: #ccc;
     }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Sombra -->
-  <div>
-    <div class="thumb" onclick="location.href='sombra-project.html'">
-      <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
-      <video class="hover-preview" muted autoplay loop playsinline>
-        <source src="SOMBRA.webm" type="video/webm">
-      </video>
-    </div>
-    <div class="label">SOMBRA</div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search projects...">
   </div>
 
-  <!-- Squirrel Girl -->
-  <div>
-    <div class="thumb" onclick="location.href='squirrelgirl-project.html'">
-      <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
-      <video class="hover-preview" muted autoplay loop playsinline>
-        <source src="SQUIRRELGIRL.webm" type="video/webm">
-      </video>
+  <div class="gallery" id="gallery">
+
+    <!-- Sombra -->
+    <div class="thumb-wrapper" data-title="sombra">
+      <div class="thumb" onclick="location.href='sombra-project.html'">
+        <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
+        <video class="hover-preview" muted autoplay loop playsinline>
+          <source src="SOMBRA.webm" type="video/webm">
+        </video>
+      </div>
+      <div class="label">SOMBRA</div>
     </div>
-    <div class="label">SQUIRREL GIRL</div>
+
+    <!-- Squirrel Girl -->
+    <div class="thumb-wrapper" data-title="squirrel girl">
+      <div class="thumb" onclick="location.href='squirrelgirl-project.html'">
+        <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
+        <video class="hover-preview" muted autoplay loop playsinline>
+          <source src="SQUIRRELGIRL.webm" type="video/webm">
+        </video>
+      </div>
+      <div class="label">SQUIRREL GIRL</div>
+    </div>
+
   </div>
+
+  <script>
+    const input = document.getElementById("searchInput");
+    const thumbs = document.querySelectorAll(".thumb-wrapper");
+
+    input.addEventListener("input", () => {
+      const searchTerm = input.value.toLowerCase();
+      thumbs.forEach(thumb => {
+        const title = thumb.getAttribute("data-title");
+        if (title.includes(searchTerm)) {
+          thumb.classList.remove("hidden");
+        } else {
+          thumb.classList.add("hidden");
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
-
