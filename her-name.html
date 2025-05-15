@@ -46,6 +46,14 @@
       background-color: #9866ff;
     }
 
+    .controls select {
+      margin-top: 15px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 1em;
+      border: none;
+    }
+
     .gallery {
       display: flex;
       flex-wrap: wrap;
@@ -107,10 +115,19 @@
 
   <div class="controls">
     <input type="text" id="searchInput" placeholder="Search projects...">
+
     <div class="filter-buttons">
       <button class="tag-btn active" data-tag="all">All</button>
       <button class="tag-btn" data-tag="overwatch">Overwatch</button>
       <button class="tag-btn" data-tag="marvel">Marvel</button>
+    </div>
+
+    <div>
+      <label for="sortSelect" style="margin-top: 10px; display: block;">Sort by:</label>
+      <select id="sortSelect">
+        <option value="az">A → Z</option>
+        <option value="za">Z → A</option>
+      </select>
     </div>
   </div>
 
@@ -144,19 +161,23 @@
     const input = document.getElementById("searchInput");
     const thumbs = document.querySelectorAll(".thumb-wrapper");
     const filterButtons = document.querySelectorAll(".tag-btn");
+    const sortSelect = document.getElementById("sortSelect");
 
-    // Búsqueda por nombre
     input.addEventListener("input", () => {
       filterProjects();
     });
 
-    // Filtros por tag
     filterButtons.forEach(button => {
       button.addEventListener("click", () => {
         document.querySelector(".tag-btn.active").classList.remove("active");
         button.classList.add("active");
         filterProjects();
       });
+    });
+
+    sortSelect.addEventListener("change", () => {
+      sortProjects();
+      filterProjects();
     });
 
     function filterProjects() {
@@ -177,6 +198,28 @@
         }
       });
     }
+
+    function sortProjects() {
+      const gallery = document.getElementById("gallery");
+      const items = Array.from(gallery.children);
+
+      items.sort((a, b) => {
+        const titleA = a.getAttribute("data-title");
+        const titleB = b.getAttribute("data-title");
+        const order = sortSelect.value;
+
+        if (order === "az") {
+          return titleA.localeCompare(titleB);
+        } else {
+          return titleB.localeCompare(titleA);
+        }
+      });
+
+      items.forEach(item => gallery.appendChild(item));
+    }
+
+    // Orden inicial
+    sortProjects();
   </script>
 
 </body>
