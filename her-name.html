@@ -27,16 +27,6 @@
       margin-bottom: 15px;
     }
 
-    .filter-tags {
-      margin: 10px 0;
-      text-align: center;
-    }
-
-    .filter-tags label {
-      margin: 0 10px;
-      cursor: pointer;
-    }
-
     .sort-buttons {
       margin-top: 15px;
     }
@@ -168,13 +158,6 @@
   <div class="controls">
     <input type="text" id="searchInput" placeholder="Search characters...">
 
-    <div class="filter-tags">
-      <label><input type="checkbox" class="tag-checkbox" value="overwatch"> Overwatch</label>
-      <label><input type="checkbox" class="tag-checkbox" value="marvel"> Marvel</label>
-      <label><input type="checkbox" class="tag-checkbox" value="latina"> Latina</label>
-      <label><input type="checkbox" class="tag-checkbox" value="avenger"> Avenger</label>
-    </div>
-
     <div class="sort-buttons">
       <button class="sort-btn active" data-sort="az">A → Z</button>
       <button class="sort-btn" data-sort="za">Z → A</button>
@@ -186,7 +169,7 @@
   <div class="gallery" id="gallery">
 
     <!-- Project: Sombra -->
-    <div class="thumb-wrapper" data-title="sombra" data-tags="overwatch,latina" data-date="2024-11-05">
+    <div class="thumb-wrapper" data-title="sombra" data-date="2024-11-05">
       <div class="thumb">
         <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
         <video class="hover-preview" muted autoplay loop playsinline>
@@ -213,7 +196,7 @@ Cunning and manipulative, obsessed with secrets and control.
     </div>
 
     <!-- Project: Squirrel Girl -->
-    <div class="thumb-wrapper" data-title="squirrel girl" data-tags="marvel,avenger" data-date="2024-10-01">
+    <div class="thumb-wrapper" data-title="squirrel girl" data-date="2024-10-01">
       <div class="thumb">
         <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
         <video class="hover-preview" muted autoplay loop playsinline>
@@ -239,10 +222,10 @@ Has defeated Doctor Doom, Thanos, and more—often humorously.
     </div>
 
     <!-- Dummy thumbnails -->
-    <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
-    <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
-    <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
-    <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
+    <div class="thumb-wrapper" data-title="test 1" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
+    <div class="thumb-wrapper" data-title="test 2" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
+    <div class="thumb-wrapper" data-title="test 3" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
+    <div class="thumb-wrapper" data-title="test 4" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
 
   </div>
 
@@ -255,7 +238,6 @@ Has defeated Doctor Doom, Thanos, and more—often humorously.
     const input = document.getElementById("searchInput");
     const gallery = document.getElementById("gallery");
     const pagination = document.getElementById("pagination");
-    const filterCheckboxes = document.querySelectorAll(".tag-checkbox");
     const sortButtons = document.querySelectorAll(".sort-btn");
 
     let allItems = [];
@@ -296,12 +278,6 @@ Has defeated Doctor Doom, Thanos, and more—often humorously.
       filterProjects();
     });
 
-    filterCheckboxes.forEach(checkbox => {
-      checkbox.addEventListener("change", () => {
-        filterProjects();
-      });
-    });
-
     sortButtons.forEach(button => {
       button.addEventListener("click", () => {
         document.querySelector(".sort-btn.active").classList.remove("active");
@@ -313,22 +289,13 @@ Has defeated Doctor Doom, Thanos, and more—often humorously.
 
     function filterProjects() {
       const searchTerm = input.value.toLowerCase();
-      const selectedTags = Array.from(filterCheckboxes)
-        .filter(cb => cb.checked)
-        .map(cb => cb.value);
-
       const items = Array.from(gallery.children);
 
       items.forEach(thumb => {
-        const title = thumb.getAttribute("data-title");
-        const tags = thumb.getAttribute("data-tags").split(",").map(t => t.trim());
-
+        const title = thumb.getAttribute("data-title").toLowerCase();
         const matchesSearch = title.includes(searchTerm);
-        const matchesTags = selectedTags.every(tag => tags.includes(tag));
 
-        const shouldShow = matchesSearch && matchesTags;
-
-        thumb.classList.toggle("hidden-search", !shouldShow);
+        thumb.classList.toggle("hidden-search", !matchesSearch);
       });
 
       showPage(1);
