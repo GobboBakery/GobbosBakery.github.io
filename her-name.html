@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HER NAME? PROJECT - Gobbo's Bakery</title>
+  <title>HER NAME? PROJECT - Pagination Test</title>
   <style>
     body {
       margin: 0;
@@ -10,59 +10,6 @@
       background-color: #111;
       color: white;
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    .controls {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .controls input[type="text"] {
-      padding: 10px 20px;
-      font-size: 1.1em;
-      border-radius: 12px;
-      border: none;
-      width: 300px;
-      outline: none;
-      margin-bottom: 15px;
-    }
-
-    .filter-buttons {
-      margin-top: 10px;
-    }
-
-    .filter-buttons button {
-      margin: 5px;
-      padding: 8px 16px;
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .filter-buttons button.active {
-      background-color: #9866ff;
-    }
-
-    .sort-buttons {
-      margin-top: 20px;
-    }
-
-    .sort-buttons button {
-      margin: 5px;
-      padding: 8px 16px;
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .sort-buttons button.active {
-      background-color: #9866ff;
     }
 
     .gallery {
@@ -84,6 +31,7 @@
       overflow: hidden;
       cursor: pointer;
       box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      background-color: #222;
     }
 
     .thumb img.static-thumb,
@@ -117,6 +65,27 @@
       color: #ccc;
     }
 
+    .pagination {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .pagination button {
+      background-color: #222;
+      border: 1px solid #444;
+      color: white;
+      margin: 0 5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .pagination button.active {
+      background-color: #9866ff;
+      border-color: #9866ff;
+    }
+
     .hidden {
       display: none !important;
     }
@@ -124,27 +93,10 @@
 </head>
 <body>
 
-  <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search projects...">
-
-    <div class="filter-buttons">
-      <button class="tag-btn active" data-tag="all">All</button>
-      <button class="tag-btn" data-tag="overwatch">Overwatch</button>
-      <button class="tag-btn" data-tag="marvel">Marvel</button>
-    </div>
-
-    <div class="sort-buttons">
-      <button class="sort-btn active" data-sort="az">A → Z</button>
-      <button class="sort-btn" data-sort="za">Z → A</button>
-      <button class="sort-btn" data-sort="newest">Newest First</button>
-      <button class="sort-btn" data-sort="oldest">Oldest First</button>
-    </div>
-  </div>
-
   <div class="gallery" id="gallery">
-    <!-- Sombra -->
-    <div class="thumb-wrapper" data-title="sombra" data-tags="overwatch" data-date="2024-11-05">
-      <div class="thumb" onclick="location.href='sombra-project.html'">
+    <!-- Reales -->
+    <div class="thumb-wrapper" data-title="sombra">
+      <div class="thumb">
         <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
         <video class="hover-preview" muted autoplay loop playsinline>
           <source src="SOMBRA.webm" type="video/webm">
@@ -153,9 +105,8 @@
       <div class="label">SOMBRA</div>
     </div>
 
-    <!-- Squirrel Girl -->
-    <div class="thumb-wrapper" data-title="squirrel girl" data-tags="marvel" data-date="2024-10-01">
-      <div class="thumb" onclick="location.href='squirrelgirl-project.html'">
+    <div class="thumb-wrapper" data-title="squirrel girl">
+      <div class="thumb">
         <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
         <video class="hover-preview" muted autoplay loop playsinline>
           <source src="SQUIRRELGIRL.webm" type="video/webm">
@@ -163,86 +114,68 @@
       </div>
       <div class="label">SQUIRREL GIRL</div>
     </div>
+
+    <!-- Falsas para prueba -->
+    <div class="thumb-wrapper" data-title="test 1">
+      <div class="thumb"></div>
+      <div class="label">TEST 1</div>
+    </div>
+
+    <div class="thumb-wrapper" data-title="test 2">
+      <div class="thumb"></div>
+      <div class="label">TEST 2</div>
+    </div>
+
+    <div class="thumb-wrapper" data-title="test 3">
+      <div class="thumb"></div>
+      <div class="label">TEST 3</div>
+    </div>
+
+    <div class="thumb-wrapper" data-title="test 4">
+      <div class="thumb"></div>
+      <div class="label">TEST 4</div>
+    </div>
   </div>
 
+  <div class="pagination" id="pagination"></div>
+
   <script>
-    const input = document.getElementById("searchInput");
-    const thumbs = document.querySelectorAll(".thumb-wrapper");
-    const filterButtons = document.querySelectorAll(".tag-btn");
-    const sortButtons = document.querySelectorAll(".sort-btn");
+    const itemsPerPage = 6;
+    let currentPage = 1;
 
-    let currentSort = "az";
+    const gallery = document.getElementById("gallery");
+    const pagination = document.getElementById("pagination");
+    const allItems = Array.from(gallery.children);
 
-    input.addEventListener("input", () => {
-      filterProjects();
-    });
+    function showPage(page) {
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
 
-    filterButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelector(".tag-btn.active").classList.remove("active");
-        button.classList.add("active");
-        filterProjects();
+      allItems.forEach((item, index) => {
+        item.classList.toggle("hidden", index < start || index >= end);
       });
-    });
 
-    sortButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelector(".sort-btn.active").classList.remove("active");
-        button.classList.add("active");
-        currentSort = button.getAttribute("data-sort");
-        sortProjects();
-        filterProjects();
-      });
-    });
-
-    function filterProjects() {
-      const searchTerm = input.value.toLowerCase();
-      const selectedTag = document.querySelector(".tag-btn.active").getAttribute("data-tag");
-
-      thumbs.forEach(thumb => {
-        const title = thumb.getAttribute("data-title");
-        const tags = thumb.getAttribute("data-tags");
-
-        const matchesSearch = title.includes(searchTerm);
-        const matchesTag = (selectedTag === "all") || tags.includes(selectedTag);
-
-        if (matchesSearch && matchesTag) {
-          thumb.classList.remove("hidden");
-        } else {
-          thumb.classList.add("hidden");
-        }
-      });
+      updatePagination(page);
     }
 
-    function sortProjects() {
-      const gallery = document.getElementById("gallery");
-      const items = Array.from(gallery.children);
+    function updatePagination(activePage) {
+      const pageCount = Math.ceil(allItems.length / itemsPerPage);
+      pagination.innerHTML = "";
 
-      items.sort((a, b) => {
-        const titleA = a.getAttribute("data-title").toLowerCase();
-        const titleB = b.getAttribute("data-title").toLowerCase();
-        const dateA = new Date(a.getAttribute("data-date"));
-        const dateB = new Date(b.getAttribute("data-date"));
-
-        switch (currentSort) {
-          case "az":
-            return titleA.localeCompare(titleB);
-          case "za":
-            return titleB.localeCompare(titleA);
-          case "newest":
-            return dateB - dateA;
-          case "oldest":
-            return dateA - dateB;
-          default:
-            return 0;
-        }
-      });
-
-      items.forEach(item => gallery.appendChild(item));
+      for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.classList.toggle("active", i === activePage);
+        btn.addEventListener("click", () => {
+          currentPage = i;
+          showPage(currentPage);
+        });
+        pagination.appendChild(btn);
+      }
     }
 
     // Inicial
-    sortProjects();
+    showPage(currentPage);
   </script>
 
 </body>
