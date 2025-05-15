@@ -175,13 +175,19 @@
     </div>
 
     <!-- Dummy thumbnails -->
-    <!-- Reutilizamos bloques dummy para rellenar hasta 15 -->
-    ${[...Array(13)].map((_, i) => `
-      <div class="thumb-wrapper" data-title="test ${i+1}" data-tags="dummy" data-date="2024-01-${String(i+1).padStart(2, '0')}">
-        <div class="thumb"></div>
-        <div class="label">TEST ${i+1}</div>
-      </div>
-    `).join('')}
+    <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
+    <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
+    <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
+    <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
+    <div class="thumb-wrapper" data-title="test 5" data-tags="dummy" data-date="2024-01-05"><div class="thumb"></div><div class="label">TEST 5</div></div>
+    <div class="thumb-wrapper" data-title="test 6" data-tags="dummy" data-date="2024-01-06"><div class="thumb"></div><div class="label">TEST 6</div></div>
+    <div class="thumb-wrapper" data-title="test 7" data-tags="dummy" data-date="2024-01-07"><div class="thumb"></div><div class="label">TEST 7</div></div>
+    <div class="thumb-wrapper" data-title="test 8" data-tags="dummy" data-date="2024-01-08"><div class="thumb"></div><div class="label">TEST 8</div></div>
+    <div class="thumb-wrapper" data-title="test 9" data-tags="dummy" data-date="2024-01-09"><div class="thumb"></div><div class="label">TEST 9</div></div>
+    <div class="thumb-wrapper" data-title="test 10" data-tags="dummy" data-date="2024-01-10"><div class="thumb"></div><div class="label">TEST 10</div></div>
+    <div class="thumb-wrapper" data-title="test 11" data-tags="dummy" data-date="2024-01-11"><div class="thumb"></div><div class="label">TEST 11</div></div>
+    <div class="thumb-wrapper" data-title="test 12" data-tags="dummy" data-date="2024-01-12"><div class="thumb"></div><div class="label">TEST 12</div></div>
+    <div class="thumb-wrapper" data-title="test 13" data-tags="dummy" data-date="2024-01-13"><div class="thumb"></div><div class="label">TEST 13</div></div>
   </div>
 
   <div class="pagination" id="pagination"></div>
@@ -281,16 +287,11 @@
         const dateB = new Date(b.dataset.date);
 
         switch (sortType) {
-          case "az":
-            return titleA.localeCompare(titleB);
-          case "za":
-            return titleB.localeCompare(titleA);
-          case "newest":
-            return dateB - dateA;
-          case "oldest":
-            return dateA - dateB;
-          default:
-            return 0;
+          case "az": return titleA.localeCompare(titleB);
+          case "za": return titleB.localeCompare(titleA);
+          case "newest": return dateB - dateA;
+          case "oldest": return dateA - dateB;
+          default: return 0;
         }
       });
 
