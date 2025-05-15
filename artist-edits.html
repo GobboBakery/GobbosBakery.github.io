@@ -444,9 +444,7 @@
     });
   </script>
 
-  
-
-<!-- MODAL WITH PASSWORD-PROTECTED LINKS -->
+<!-- MODAL WITH DIRECT REDIRECTIONS -->
 <div id="artistModal" class="modal">
   <div class="modal-content password-layout">
     <span class="close">&times;</span>
@@ -456,168 +454,13 @@
     </div>
 
     <div class="button-row">
-      <button class="button-4k" onclick="showPassword('4k')">🔒 4K</button>
-      <button class="button-hd" onclick="showPassword('hd')">🔒 FullHD</button>
-      <button class="button-free" onclick="window.open('https://iwara.tv/', '_blank')">Watch Free (1080p)</button>
+      <a href="https://vaultfiles.free.nf" target="_blank" class="button-4k">🔒 4K</a>
+      <a href="https://vaultfiles.free.nf/fullhd" target="_blank" class="button-hd">🔒 FullHD</a>
+      <a href="https://iwara.tv/" target="_blank" class="button-free">Watch Free (1080p)</a>
     </div>
-
-    <!-- 🔑 PASSWORD FIELD ZONE (edit below as needed) -->
-    <div id="passwordPrompt" class="password-box hidden">
-      <p>Enter password to unlock:</p>
-      <input type="password" id="passwordInput" placeholder="Enter password...">
-      <button onclick="checkPassword()">Unlock</button>
-      <p id="errorMessage" class="error-message"></p>
-    </div>
-    <!-- 🔚 END PASSWORD FIELD ZONE -->
 
   </div>
 </div>
-
-<style>
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0; top: 0;
-  width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-}
-
-.modal-content.password-layout {
-  background-color: #1a1a1a;
-  margin: 5% auto;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 960px;
-  color: white;
-  text-align: center;
-  position: relative;
-}
-
-.modal-title h2 {
-  margin-bottom: 30px;
-  font-size: 1.3em;
-  color: #9866ff;
-}
-
-.button-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-bottom: 25px;
-}
-
-.button-4k {
-  background: linear-gradient(45deg, #FFD700, #FFA500);
-  color: #111;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.button-4k:hover { box-shadow: 0 0 15px gold; }
-
-.button-hd {
-  background: linear-gradient(45deg, #C0C0C0, #A9A9A9);
-  color: #111;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.button-hd:hover { box-shadow: 0 0 15px silver; }
-
-.button-free {
-  background-color: #444;
-  color: white;
-  border: 1px solid #666;
-  border-radius: 8px;
-  padding: 12px 20px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.button-free:hover { background-color: #666; }
-
-.password-box {
-  margin-top: 15px;
-}
-.password-box input {
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #666;
-  width: 240px;
-  margin-right: 10px;
-}
-.password-box button {
-  padding: 8px 16px;
-  border-radius: 6px;
-  background-color: #9866ff;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-.error-message {
-  color: #ff5c5c;
-  margin-top: 10px;
-}
-.hidden {
-  display: none;
-}
-.close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 28px;
-  color: #ccc;
-  cursor: pointer;
-}
-</style>
-
-<script>
-let targetLink = "";
-
-function showPassword(type) {
-  const prompt = document.getElementById("passwordPrompt");
-  const error = document.getElementById("errorMessage");
-  error.textContent = "";
-  prompt.classList.remove("hidden");
-  targetLink = type;
-}
-
-function checkPassword() {
-  const userInput = document.getElementById("passwordInput").value;
-
-  // 🔐 PASSWORD TO EDIT BELOW
-  const validPassword = "Gobbo2025%&?#"; // <--- CAMBIA ESTA CONTRASEÑA
-  // 🔚
-
-  const links = {
-    "4k": "https://mega.nz/folder/GOLDEN_LINK",
-    "hd": "https://mega.nz/folder/SILVER_LINK"
-  };
-
-  if (userInput === validPassword) {
-    window.open(links[targetLink], "_blank");
-    document.getElementById("passwordPrompt").classList.add("hidden");
-    document.getElementById("passwordInput").value = "";
-  } else {
-    document.getElementById("errorMessage").textContent = "Incorrect password. Check your subscription.";
-  }
-}
-
-document.querySelector(".close").addEventListener("click", () => {
-  document.getElementById("artistModal").style.display = "none";
-  document.getElementById("passwordPrompt").classList.add("hidden");
-  document.getElementById("passwordInput").value = "";
-  document.getElementById("errorMessage").textContent = "";
-});
-</script>
 
 </body>
 </html>
