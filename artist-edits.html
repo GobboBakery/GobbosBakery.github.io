@@ -494,7 +494,7 @@ const videoData = {
     }
   },
   "aanix": {
-    title: "AANIX - Cyber Delight",
+    title: "AANIX - Bangarang",
     infoText: '<strong>AANIX:</strong> <a href="https://artist.com/aanix" target="_blank">Link</a> / <strong>Cyber:</strong> <a href="https://open.spotify.com/track/cyber-delight" target="_blank">Link</a>',
     video: "AANIX.mp4",
     links: {
@@ -504,7 +504,7 @@ const videoData = {
     }
   },
   "dzoo": {
-    title: "DZOO - Visual Jungle",
+    title: "DZOO - Pump it Louder",
     infoText: '<strong>DZOO:</strong> <a href="https://artist.com/dzoo" target="_blank">Link</a> / <strong>Jungle:</strong> <a href="https://open.spotify.com/track/jungle" target="_blank">Link</a>',
     video: "DZOO.mp4",
     links: {
@@ -512,7 +512,7 @@ const videoData = {
     }
   },
   "araw": {
-    title: "ARAW - Neon Ritual",
+    title: "ARAW - Just Wine",
     infoText: '<strong>ARAW:</strong> <a href="https://artist.com/araw" target="_blank">Link</a> / <strong>Ritual:</strong> <a href="https://open.spotify.com/track/ritual" target="_blank">Link</a>',
     video: "ARAW.mp4",
     links: {
@@ -521,7 +521,7 @@ const videoData = {
     }
   },
   "noname": {
-    title: "NONAME - Silent Waves",
+    title: "NONAME - Osaka Psycho",
     infoText: '<strong>NONAME:</strong> <a href="https://artist.com/noname" target="_blank">Link</a> / <strong>Silent:</strong> <a href="https://open.spotify.com/track/silent" target="_blank">Link</a>',
     video: "NONAME.mp4",
     links: {
@@ -529,7 +529,7 @@ const videoData = {
     }
   },
   "yeye": {
-    title: "YEYE - Bass Eclipse",
+    title: "YEYE - Dat Phonk",
     infoText: '<strong>YEYE:</strong> <a href="https://artist.com/yeye" target="_blank">Link</a> / <strong>Eclipse:</strong> <a href="https://open.spotify.com/track/eclipse" target="_blank">Link</a>',
     video: "YEYE.mp4",
     links: {
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = videoData[id];
       const modal = document.getElementById("artistModal");
 
-      document.getElementById("modalTitle").textContent = (data?.title || "Untitled") + " - DJ Gobbolin & SUNO";
+      document.getElementById("modalTitle").textContent = data?.title || "Untitled";
 
       if (data?.video) {
         document.getElementById("modalPreview").style.display = 'block';
