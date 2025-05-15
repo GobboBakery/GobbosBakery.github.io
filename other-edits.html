@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ARTIST EDITS - Gobbo's Bakery</title>
+  <style>
+    /* --- Main Styles --- */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* --- Navigation Menu --- */
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      border-top: 2px solid #444;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      text-decoration: none;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #9866ff;
+    }
+
+    /* Submenu */
+    .submenu {
+      display: none;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      background-color: #000;
+      border: 1px solid #444;
+    }
+
+    nav li:hover .submenu {
+      display: block;
+    }
+
+    .submenu li a {
+      white-space: nowrap;
+    }
+
+    /* --- Controls --- */
+    .controls {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    .controls input[type="text"] {
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      border: none;
+      width: 300px;
+      outline: none;
+      margin-bottom: 15px;
+    }
+
+    .sort-buttons button {
+      margin: 5px;
+      padding: 8px 16px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .sort-buttons button.active {
+      background-color: #9866ff;
+      border-color: #9866ff;
+    }
+
+    /* --- Gallery --- */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 20px;
+      margin-bottom: 100px;
+    }
+
+    .thumb-wrapper {
+      position: relative;
+      text-align: center;
+    }
+
+    .thumb {
+      position: relative;
+      width: 480px;
+      height: 270px;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      background-color: #222;
+    }
+
+    .thumb img.static-thumb,
+    .thumb video.hover-preview {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
+    .thumb video.hover-preview {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .thumb:hover video.hover-preview {
+      opacity: 1;
+    }
+
+    .thumb:hover img.static-thumb {
+      opacity: 0;
+    }
+
+    .label {
+      margin-top: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      color: #ccc;
+    }
+
+    .tooltip-box {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      text-align: left;
+      line-height: 1.4;
+      white-space: pre-line;
+      z-index: 999;
+      max-width: 320px;
+      display: none;
+      pointer-events: auto; /* permite seleccionar texto y hacer clic */
+    }
+
+    .tooltip-box a {
+      color: #86b7ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .tooltip-top {
+      bottom: 105%;
+    }
+
+    .tooltip-bottom {
+      top: 105%;
+    }
+
+    .thumb-wrapper .tooltip-box.visible {
+      display: block;
+    }
+
+    .pagination {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .pagination button {
+      background-color: #222;
+      border: 1px solid #444;
+      color: white;
+      margin: 0 5px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .pagination button.active {
+      background-color: #9866ff;
+      border-color: #9866ff;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Menu -->
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li>
+        <a href="#">GALLERY</a>
+        <ul class="submenu">
+          <li><a href="her-name-project.html">HER NAME? PROJECT</a></li>
+          <li><a href="artist-edits.html">ARTIST EDITS</a></li>
+          <li><a href="other-edits.html">OTHER EDITS</a></li>
+        </ul>
+      </li>
+      <li><a href="sites.html">SITES</a></li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+    </ul>
+  </nav>
+
+  <!-- Controls -->
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search artist or track...">
+    <div class="sort-buttons">
+      <button class="sort-btn active" data-sort="az">A → Z</button>
+      <button class="sort-btn" data-sort="za">Z → A</button>
+      <button class="sort-btn" data-sort="newest">Newest</button>
+      <button class="sort-btn" data-sort="oldest">Oldest</button>
+    </div>
+  </div>
+
+<!-- Gallery -->
+<div class="gallery" id="gallery">
+  <!-- tus thumb-wrapper aquí -->
+
+  <!-- Artist Edit: NYL -->
+  <div class="thumb-wrapper" data-title="nyl" data-date="2024-06-01">
+    <div class="thumb">
+      <img src="NYL.jpg" class="static-thumb" alt="NYL">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="NYL.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">NYL</div>
+  </div>
+
+  <!-- Artist Edit: AANIX -->
+  <div class="thumb-wrapper" data-title="aanix" data-date="2024-05-31">
+    <div class="thumb">
+      <img src="AANIX.jpg" class="static-thumb" alt="AANIX">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="AANIX.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">SHARING IS CARING</div>
+  </div>
+
+  <!-- Artist Edit: DZOO -->
+  <div class="thumb-wrapper" data-title="dzoo" data-date="2024-05-30">
+    <div class="thumb">
+      <img src="DZOO.jpg" class="static-thumb" alt="DZOO">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="DZOO.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">DO AS THE LEGENDS DO</div>
+  </div>
+
+  <!-- Artist Edit: ARAW -->
+  <div class="thumb-wrapper" data-title="araw" data-date="2024-05-29">
+    <div class="thumb">
+      <img src="ARAW.jpg" class="static-thumb" alt="ARAW">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="ARAW.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">LEAGUE OF BABES</div>
+  </div>
+
+  <!-- Artist Edit: NONAME -->
+  <div class="thumb-wrapper" data-title="noname" data-date="2024-05-28">
+    <div class="thumb">
+      <img src="NONAME.jpg" class="static-thumb" alt="NONAME">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="NONAME.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">EVERYONE IS BEIGN HORDED</div>
+  </div>
+
+  <!-- Artist Edit: YEYE -->
+  <div class="thumb-wrapper" data-title="yeye" data-date="2024-05-27">
+    <div class="thumb">
+      <img src="YEYE.jpg" class="static-thumb" alt="YEYE">
+      <video class="hover-preview" muted autoplay loop playsinline>
+        <source src="YEYE.webm" type="video/webm">
+      </video>
+    </div>
+    <div class="label">PHONKY SLUTS</div>
+  </div>
+
+</div>
+
+<!-- Pagination -->
+<div class="pagination" id="pagination"></div>
+
+  <!-- Script -->
+  <script>
+    const itemsPerPage = 6;
+    let currentPage = 1;
+
+    const input = document.getElementById("searchInput");
+    const gallery = document.getElementById("gallery");
+    const pagination = document.getElementById("pagination");
+    const sortButtons = document.querySelectorAll(".sort-btn");
+
+    let allItems = [];
+
+    function updateAllItems() {
+      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
+    }
+
+    function showPage(page) {
+      updateAllItems();
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      allItems.forEach((item, index) => {
+        item.classList.toggle("hidden", index < start || index >= end);
+      });
+
+      updatePagination(page);
+    }
+
+    function updatePagination(activePage) {
+      const pageCount = Math.ceil(allItems.length / itemsPerPage);
+      pagination.innerHTML = "";
+
+      for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.classList.toggle("active", i === activePage);
+        btn.addEventListener("click", () => {
+          currentPage = i;
+          showPage(currentPage);
+        });
+        pagination.appendChild(btn);
+      }
+    }
+
+    input.addEventListener("input", () => {
+      filterProjects();
+    });
+
+    sortButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelector(".sort-btn.active").classList.remove("active");
+        button.classList.add("active");
+        sortProjects(button.dataset.sort);
+        filterProjects();
+      });
+    });
+
+    function filterProjects() {
+      const searchTerm = input.value.toLowerCase();
+      const items = Array.from(gallery.children);
+
+      items.forEach(thumb => {
+        const title = thumb.getAttribute("data-title").toLowerCase();
+        const matchesSearch = title.includes(searchTerm);
+
+        thumb.classList.toggle("hidden-search", !matchesSearch);
+      });
+
+      showPage(1);
+    }
+
+    function sortProjects(sortType) {
+      const items = Array.from(gallery.children);
+
+      items.sort((a, b) => {
+        const titleA = a.dataset.title.toLowerCase();
+        const titleB = b.dataset.title.toLowerCase();
+        const dateA = new Date(a.dataset.date);
+        const dateB = new Date(b.dataset.date);
+
+        switch (sortType) {
+          case "az": return titleA.localeCompare(titleB);
+          case "za": return titleB.localeCompare(titleA);
+          case "newest": return dateB - dateA;
+          case "oldest": return dateA - dateB;
+          default: return 0;
+        }
+      });
+
+      items.forEach(item => gallery.appendChild(item));
+    }
+
+        // Initial load
+    sortProjects("az");
+    filterProjects();
+  </script>
+
+  <!-- Tooltip repositioning script -->
+  <script>
+    document.querySelectorAll('.thumb-wrapper').forEach(wrapper => {
+      const tooltip = wrapper.querySelector('.tooltip-box');
+
+      wrapper.addEventListener('mouseenter', () => {
+        tooltip.classList.add('visible');
+        tooltip.classList.remove('tooltip-top', 'tooltip-bottom');
+        tooltip.classList.add('tooltip-top');
+
+        const rect = tooltip.getBoundingClientRect();
+        if (rect.top < 0) {
+          tooltip.classList.remove('tooltip-top');
+          tooltip.classList.add('tooltip-bottom');
+        }
+      });
+
+      wrapper.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible', 'tooltip-top', 'tooltip-bottom');
+      });
+    });
+  </script>
+
+<!-- MODAL WITH DIRECT REDIRECTIONS -->
+<div id="artistModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; overflow-y: auto;">
+  <div class="modal-content password-layout" style="background-color: #2a2a2a; color: white; padding: 30px; border-radius: 12px; max-width: 900px; margin: 100px auto; text-align: center; position: relative;">
+    <span class="close" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+
+    <div class="modal-title">
+      <h2 id="modalTitle">Video Title</h2>
+    </div>
+
+    <!-- 🔧 Vista previa del video (formato .mp4 con sonido) -->
+    <div id="modalPreview" style="margin: 20px 0; display: none;">
+      <video id="modalVideo" controls autoplay loop style="width: 100%; max-width: 800px; border-radius: 12px;">
+        <source id="modalVideoSrc" src="" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- 🔧 Información personalizada del artista y canción -->
+    <div id="modalInfo" style="margin-bottom: 20px; font-size: 1em; display: none;">
+      <p id="infoText" style="color: #ccc;"></p>
+    </div>
+
+    <div class="quality-buttons">
+      <a id="btn-4k" href="#" target="_blank" class="btn-4k" style="background: linear-gradient(135deg, gold, orange); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">🔒 4K Premium</a>
+      <a id="btn-fullhd" href="#" target="_blank" class="btn-fullhd" style="background: linear-gradient(135deg, silver, lightgray); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">🔒 FullHD Access</a>
+      <a id="btn-free" href="#" target="_blank" class="btn-free" style="background-color: #9866ff; color: white; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold; display: none;">Watch Free (1080p)</a>
+    </div>
+  </div>
+</div>
+
+<style>
+#modalInfo a {
+  color: #9866ff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+</style>
+
+<script>
+const videoData = {
+  "nyl": {
+    title: "Nylism - Song: Perfect Woman",
+    infoText: '<strong>Nyl2:</strong> <a href="https://artist.com/nyl" target="_blank">Link</a> / <strong>BLACKPINK:</strong> <a href="https://open.spotify.com/track/perfect-woman" target="_blank">Link</a>',
+    video: "NYL.mp4",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/nyl-video"
+    }
+  },
+  "aanix": {
+    title: "AANIX - Bangarang",
+    infoText: '<strong>AANIX:</strong> <a href="https://artist.com/aanix" target="_blank">Link</a> / <strong>Cyber:</strong> <a href="https://open.spotify.com/track/cyber-delight" target="_blank">Link</a>',
+    video: "AANIX.mp4",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/aanix"
+    }
+  },
+  "dzoo": {
+    title: "DZOO - Pump it Louder",
+    infoText: '<strong>DZOO:</strong> <a href="https://artist.com/dzoo" target="_blank">Link</a> / <strong>Jungle:</strong> <a href="https://open.spotify.com/track/jungle" target="_blank">Link</a>',
+    video: "DZOO.mp4",
+    links: {
+      "free": "https://iwara.tv/dzoo"
+    }
+  },
+  "araw": {
+    title: "ARAW - Just Wine",
+    infoText: '<strong>ARAW:</strong> <a href="https://artist.com/araw" target="_blank">Link</a> / <strong>Ritual:</strong> <a href="https://open.spotify.com/track/ritual" target="_blank">Link</a>',
+    video: "ARAW.mp4",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "free": "https://iwara.tv/araw"
+    }
+  },
+  "noname": {
+    title: "NONAME - Osaka Psycho",
+    infoText: '<strong>NONAME:</strong> <a href="https://artist.com/noname" target="_blank">Link</a> / <strong>Silent:</strong> <a href="https://open.spotify.com/track/silent" target="_blank">Link</a>',
+    video: "NONAME.mp4",
+    links: {
+      "free": "https://iwara.tv/noname"
+    }
+  },
+  "yeye": {
+    title: "YEYE - Dat Phonk",
+    infoText: '<strong>YEYE:</strong> <a href="https://artist.com/yeye" target="_blank">Link</a> / <strong>Eclipse:</strong> <a href="https://open.spotify.com/track/eclipse" target="_blank">Link</a>',
+    video: "YEYE.mp4",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/yeye"
+    }
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.getAttribute("data-title");
+      const data = videoData[id];
+      const modal = document.getElementById("artistModal");
+
+      document.getElementById("modalTitle").textContent = data?.title || "Untitled";
+
+      if (data?.video) {
+        document.getElementById("modalPreview").style.display = 'block';
+        document.getElementById("modalVideoSrc").src = data.video;
+        document.getElementById("modalVideo").load();
+      } else {
+        document.getElementById("modalPreview").style.display = 'none';
+      }
+
+      const infoTextEl = document.getElementById("infoText");
+      const modalInfoEl = document.getElementById("modalInfo");
+      if (data?.infoText) {
+        infoTextEl.innerHTML = data.infoText;
+        modalInfoEl.style.display = 'block';
+      } else {
+        modalInfoEl.style.display = 'none';
+      }
+
+      const btn4k = document.getElementById("btn-4k");
+      const btnFullhd = document.getElementById("btn-fullhd");
+      const btnFree = document.getElementById("btn-free");
+
+      btn4k.style.display = data?.links?.["4k"] ? 'inline-block' : 'none';
+      btnFullhd.style.display = data?.links?.["fullhd"] ? 'inline-block' : 'none';
+      btnFree.style.display = data?.links?.["free"] ? 'inline-block' : 'none';
+
+      btn4k.href = data?.links?.["4k"] || "#";
+      btnFullhd.href = data?.links?.["fullhd"] || "#";
+      btnFree.href = data?.links?.["free"] || "#";
+
+      modal.style.display = 'block';
+    });
+  });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    const modal = document.getElementById("artistModal");
+    document.getElementById("modalVideo").pause();
+    document.getElementById("modalVideo").currentTime = 0;
+    modal.style.display = "none";
+  });
+});
+</script>
+
+</body>
+</html>
