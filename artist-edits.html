@@ -474,12 +474,7 @@
   </div>
 </div>
 
-<style>
-/* (Se mantiene el CSS actual sin cambios) */
-</style>
-
 <script>
-// ✅ Datos individuales por miniatura — AHORA con preview y metadatos
 const videoData = {
   "nyl": {
     title: "Nylism - Song: Perfect Woman",
@@ -544,18 +539,15 @@ const videoData = {
   }
 };
 
-// ✅ Asegura que el DOM esté listo antes de asignar eventos
-window.onload = () => {
+document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
     thumb.addEventListener('click', () => {
       const id = thumb.getAttribute("data-title");
       const data = videoData[id];
       const modal = document.getElementById("artistModal");
 
-      // Título
-      document.getElementById("modalTitle").textContent = data?.title + " - DJ Gobbolin & SUNO" || "Untitled";
+      document.getElementById("modalTitle").textContent = (data?.title || "Untitled") + " - DJ Gobbolin & SUNO";
 
-      // Vista previa del video
       if (data?.video) {
         document.getElementById("modalPreview").style.display = 'block';
         document.getElementById("modalVideoSrc").src = data.video;
@@ -564,7 +556,6 @@ window.onload = () => {
         document.getElementById("modalPreview").style.display = 'none';
       }
 
-      // Enlaces del artista y canción
       if (data?.artistLink || data?.songLink) {
         document.getElementById("modalInfo").style.display = 'block';
         document.getElementById("artistLink").href = data.artistLink || "#";
@@ -573,7 +564,6 @@ window.onload = () => {
         document.getElementById("modalInfo").style.display = 'none';
       }
 
-      // Botones de calidad
       const btn4k = document.getElementById("btn-4k");
       const btnFullhd = document.getElementById("btn-fullhd");
       const btnFree = document.getElementById("btn-free");
@@ -590,11 +580,10 @@ window.onload = () => {
     });
   });
 
-  // Cerrar modal
   document.querySelector(".close").addEventListener("click", () => {
     document.getElementById("artistModal").style.display = "none";
   });
-};
+});
 </script>
 
 </body>
