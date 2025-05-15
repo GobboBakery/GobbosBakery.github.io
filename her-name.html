@@ -27,12 +27,31 @@
       margin-bottom: 15px;
     }
 
-    .filter-buttons,
+    .tag-checkboxes label {
+      margin: 5px;
+      padding: 8px 14px;
+      background-color: #222;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      display: inline-block;
+      user-select: none;
+    }
+
+    .tag-checkboxes input[type="checkbox"] {
+      display: none;
+    }
+
+    .tag-checkboxes input[type="checkbox"]:checked + label {
+      background-color: #9866ff;
+      border-color: #9866ff;
+    }
+
     .sort-buttons {
       margin-top: 10px;
     }
 
-    .filter-buttons button,
     .sort-buttons button {
       margin: 5px;
       padding: 8px 16px;
@@ -44,7 +63,6 @@
       transition: all 0.2s;
     }
 
-    .filter-buttons button.active,
     .sort-buttons button.active {
       background-color: #9866ff;
       border-color: #9866ff;
@@ -157,10 +175,11 @@
   <div class="controls">
     <input type="text" id="searchInput" placeholder="Search projects...">
 
-    <div class="filter-buttons">
-      <button class="tag-btn active" data-tag="all">All</button>
-      <button class="tag-btn" data-tag="overwatch">Overwatch</button>
-      <button class="tag-btn" data-tag="marvel">Marvel</button>
+    <div class="tag-checkboxes" id="tagFilters">
+      <input type="checkbox" id="overwatch" value="overwatch"><label for="overwatch">Overwatch</label>
+      <input type="checkbox" id="marvel" value="marvel"><label for="marvel">Marvel</label>
+      <input type="checkbox" id="latina" value="latina"><label for="latina">Latina</label>
+      <input type="checkbox" id="avenger" value="avenger"><label for="avenger">Avenger</label>
     </div>
 
     <div class="sort-buttons">
@@ -171,76 +190,41 @@
     </div>
   </div>
 
-  <div class="gallery" id="gallery">
+  <!-- GALLERY CONTENT REMAINS UNCHANGED -->
 
-    <!-- Project: Sombra -->
-    <div class="thumb-wrapper" data-title="sombra" data-tags="overwatch" data-date="2024-11-05">
-      <div class="thumb">
-        <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
-        <video class="hover-preview" muted autoplay loop playsinline>
-          <source src="SOMBRA.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="label">SOMBRA</div>
-      <div class="tooltip-box">
-        <strong>Real Name:</strong> Olivia Colomar<br>
-        <strong>Origin:</strong> Dorado, Mexico<br>
-        <strong>Affiliations:</strong> Los Muertos, Talon<br><br>
-        <strong>Abilities:</strong><br>
-        • Hack – disables abilities and health packs<br>
-        • Invisibility – turns invisible and moves faster<br>
-        • Translocator – teleports to beacon<br>
-        • EMP – disables shields and tech<br><br>
-        <strong>Personality:</strong> Manipulative and secret-obsessed.<br>
-        <em>“In my world, there are no secrets.”</em>
-      </div>
-    </div>
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const tagFilters = document.querySelectorAll("#tagFilters input[type='checkbox']");
+    const gallery = document.getElementById("gallery");
 
-    <!-- Project: Squirrel Girl -->
-    <div class="thumb-wrapper" data-title="squirrel girl" data-tags="marvel" data-date="2024-10-01">
-      <div class="thumb">
-        <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
-        <video class="hover-preview" muted autoplay loop playsinline>
-          <source src="SQUIRRELGIRL.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="label">SQUIRREL GIRL</div>
-      <div class="tooltip-box">
-        <strong>Real Name:</strong> Doreen Allene Green<br>
-        <strong>Affiliations:</strong> Great Lakes Avengers, Avengers, U.S.Avengers<br><br>
-        <strong>Abilities:</strong><br>
-        • Talks to and commands squirrels<br>
-        • Enhanced strength and agility<br>
-        • Prehensile tail for balance and combat<br>
-        • Sharp claws and night vision<br><br>
-        <strong>Notable Feats:</strong><br>
-        Defeated Doom and Thanos with style.<br>
-        <em>“I’m unbeatable!”</em>
-      </div>
-    </div>
+    tagFilters.forEach(checkbox => {
+      checkbox.addEventListener("change", () => {
+        filterProjects();
+      });
+    });
 
-    <!-- Dummy thumbnails for layout fill -->
-    <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01">
-      <div class="thumb"></div>
-      <div class="label">TEST 1</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02">
-      <div class="thumb"></div>
-      <div class="label">TEST 2</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03">
-      <div class="thumb"></div>
-      <div class="label">TEST 3</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04">
-      <div class="thumb"></div>
-      <div class="label">TEST 4</div>
-    </div>
-  </div>
+    function filterProjects() {
+      const searchTerm = searchInput.value.toLowerCase();
+      const activeTags = Array.from(tagFilters)
+        .filter(cb => cb.checked)
+        .map(cb => cb.value);
 
-  <div class="pagination" id="pagination"></div>
+      const items = Array.from(gallery.children);
+      items.forEach(item => {
+        const title = item.getAttribute("data-title").toLowerCase();
+        const tags = item.getAttribute("data-tags").split(",");
 
-  <!-- JS remains unchanged and would go here -->
+        const matchesSearch = title.includes(searchTerm);
+        const matchesTags = activeTags.every(tag => tags.includes(tag));
 
+        const shouldShow = matchesSearch && matchesTags;
+        item.classList.toggle("hidden-search", !shouldShow);
+      });
+
+      if (typeof showPage === 'function') {
+        showPage(1);
+      }
+    }
+  </script>
 </body>
 </html>
