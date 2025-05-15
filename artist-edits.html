@@ -157,7 +157,6 @@
 
     .tooltip-box {
       position: absolute;
-      bottom: 105%;
       left: 50%;
       transform: translateX(-50%);
       background-color: rgba(0, 0, 0, 0.85);
@@ -168,9 +167,24 @@
       text-align: left;
       line-height: 1.4;
       white-space: pre-line;
-      display: none;
       z-index: 999;
       max-width: 320px;
+      display: none;
+      pointer-events: auto; /* permite seleccionar texto y hacer clic */
+    }
+
+    .tooltip-box a {
+      color: #86b7ff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .tooltip-top {
+      bottom: 105%;
+    }
+
+    .tooltip-bottom {
+      top: 105%;
     }
 
     .thumb-wrapper:hover .tooltip-box {
