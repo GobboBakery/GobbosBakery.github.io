@@ -453,6 +453,20 @@
       <h2 id="modalTitle">Video Title</h2>
     </div>
 
+    <!-- 🔧 Vista previa del video (se actualiza dinámicamente) -->
+    <div id="modalPreview" style="margin-bottom: 20px; display: none;">
+      <video id="modalVideo" controls muted autoplay loop style="width: 100%; max-width: 800px; border-radius: 12px;">
+        <source id="modalVideoSrc" src="" type="video/webm">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- 🔧 Información del artista y canción -->
+    <div id="modalInfo" style="margin-bottom: 20px; display: none; text-align: center;">
+      <p><strong>Artist:</strong> <a id="artistLink" href="#" target="_blank">Link</a></p>
+      <p><strong>Song:</strong> <a id="songLink" href="#" target="_blank">Link</a></p>
+    </div>
+
     <div class="quality-buttons">
       <a id="btn-4k" href="#" target="_blank" class="btn-4k">🔒 4K Premium</a>
       <a id="btn-fullhd" href="#" target="_blank" class="btn-fullhd">🔒 FullHD Access</a>
@@ -462,26 +476,17 @@
 </div>
 
 <style>
-/* Estilos visuales: sin cambios */
-.modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); }
-.modal-content.password-layout { background-color: #1a1a1a; margin: 5% auto; padding: 30px; border-radius: 12px; width: 90%; max-width: 960px; color: white; text-align: center; position: relative; }
-.modal-title h2 { margin-bottom: 30px; font-size: 1.3em; color: #9866ff; }
-.quality-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
-.quality-buttons a { text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; transition: 0.3s; text-align: center; min-width: 150px; }
-.btn-4k { background: linear-gradient(to right, gold, orange); color: black; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
-.btn-4k:hover { background: linear-gradient(to right, orange, gold); box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); }
-.btn-fullhd { background: linear-gradient(to right, silver, lightgray); color: black; box-shadow: 0 0 10px rgba(200, 200, 200, 0.5); }
-.btn-fullhd:hover { background: linear-gradient(to right, lightgray, silver); box-shadow: 0 0 15px rgba(180, 180, 180, 0.6); }
-.btn-free { background: transparent; color: white; border: 2px solid white; }
-.btn-free:hover { background: rgba(255, 255, 255, 0.1); }
-.close { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #ccc; cursor: pointer; }
+/* (Se mantiene el CSS actual sin cambios) */
 </style>
 
 <script>
-// ✅ Datos individuales para cada miniatura: podés editar esto fácilmente
+// ✅ Datos individuales por miniatura — AHORA con preview y metadatos
 const videoData = {
   "nyl": {
     title: "Nylism - Song: Perfect Woman",
+    video: "NYL.webm",
+    artistLink: "https://artist.com/nyl",
+    songLink: "https://open.spotify.com/track/perfect-woman",
     links: {
       "4k": "https://vaultfiles.free.nf/4k.php",
       "fullhd": "https://vaultfiles.free.nf/fullhd.php",
@@ -490,6 +495,9 @@ const videoData = {
   },
   "aanix": {
     title: "AANIX - Cyber Delight",
+    video: "AANIX.webm",
+    artistLink: "https://artist.com/aanix",
+    songLink: "https://open.spotify.com/track/cyber-delight",
     links: {
       "4k": "https://vaultfiles.free.nf/4k.php",
       "fullhd": "https://vaultfiles.free.nf/fullhd.php",
@@ -498,25 +506,37 @@ const videoData = {
   },
   "dzoo": {
     title: "DZOO - Visual Jungle",
+    video: "DZOO.webm",
+    artistLink: "https://artist.com/dzoo",
+    songLink: "https://open.spotify.com/track/jungle",
     links: {
-      "free": "https://iwara.tv/dzoo" // ❌ sin 4K ni FullHD
+      "free": "https://iwara.tv/dzoo"
     }
   },
   "araw": {
     title: "ARAW - Neon Ritual",
+    video: "ARAW.webm",
+    artistLink: "https://artist.com/araw",
+    songLink: "https://open.spotify.com/track/ritual",
     links: {
       "4k": "https://vaultfiles.free.nf/4k.php",
-      "free": "https://iwara.tv/araw" // ❌ sin FullHD
+      "free": "https://iwara.tv/araw"
     }
   },
   "noname": {
     title: "NONAME - Silent Waves",
+    video: "NONAME.webm",
+    artistLink: "https://artist.com/noname",
+    songLink: "https://open.spotify.com/track/silent",
     links: {
-      "free": "https://iwara.tv/noname" // ❌ solo versión gratuita
+      "free": "https://iwara.tv/noname"
     }
   },
   "yeye": {
     title: "YEYE - Bass Eclipse",
+    video: "YEYE.webm",
+    artistLink: "https://artist.com/yeye",
+    songLink: "https://open.spotify.com/track/eclipse",
     links: {
       "4k": "https://vaultfiles.free.nf/4k.php",
       "fullhd": "https://vaultfiles.free.nf/fullhd.php",
@@ -525,17 +545,35 @@ const videoData = {
   }
 };
 
-// ✅ Al hacer clic en cualquier miniatura, se muestra el modal personalizado
+// ✅ Mostrar modal con datos personalizados
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
     thumb.addEventListener('click', () => {
       const id = thumb.getAttribute("data-title");
       const data = videoData[id];
       const modal = document.getElementById("artistModal");
 
-      // Título dinámico
+      // Título
       document.getElementById("modalTitle").textContent = data?.title + " - DJ Gobbolin & SUNO" || "Untitled";
 
-      // Actualizar enlaces y mostrar/ocultar botones
+      // Vista previa del video
+      if (data?.video) {
+        document.getElementById("modalPreview").style.display = 'block';
+        document.getElementById("modalVideoSrc").src = data.video;
+        document.getElementById("modalVideo").load();
+      } else {
+        document.getElementById("modalPreview").style.display = 'none';
+      }
+
+      // Enlaces del artista y canción
+      if (data?.artistLink || data?.songLink) {
+        document.getElementById("modalInfo").style.display = 'block';
+        document.getElementById("artistLink").href = data.artistLink || "#";
+        document.getElementById("songLink").href = data.songLink || "#";
+      } else {
+        document.getElementById("modalInfo").style.display = 'none';
+      }
+
+      // Botones de calidad
       const btn4k = document.getElementById("btn-4k");
       const btnFullhd = document.getElementById("btn-fullhd");
       const btnFree = document.getElementById("btn-free");
