@@ -454,114 +454,118 @@
     </div>
 
     <div class="quality-buttons">
-      <a href="https://vaultfiles.free.nf/4k.php" target="_blank" class="btn-4k">🔒 4K Premium</a>
-      <a href="https://vaultfiles.free.nf/fullhd.php" target="_blank" class="btn-fullhd">🔒 FullHD Access</a>
-      <a href="https://iwara.tv/" target="_blank" class="btn-free">Watch Free (1080p)</a>
+      <a id="btn-4k" href="#" target="_blank" class="btn-4k">🔒 4K Premium</a>
+      <a id="btn-fullhd" href="#" target="_blank" class="btn-fullhd">🔒 FullHD Access</a>
+      <a id="btn-free" href="#" target="_blank" class="btn-free">Watch Free (1080p)</a>
     </div>
   </div>
 </div>
 
 <style>
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.85);
-}
-
-.modal-content.password-layout {
-  background-color: #1a1a1a;
-  margin: 5% auto;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 960px;
-  color: white;
-  text-align: center;
-  position: relative;
-}
-
-.modal-title h2 {
-  margin-bottom: 30px;
-  font-size: 1.3em;
-  color: #9866ff;
-}
-
-.quality-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-.quality-buttons a {
-  text-decoration: none;
-  padding: 12px 24px;
-  border-radius: 12px;
-  font-weight: bold;
-  transition: 0.3s;
-  text-align: center;
-  min-width: 150px;
-}
-
-/* 4K - Dorado */
-.btn-4k {
-  background: linear-gradient(to right, gold, orange);
-  color: black;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-}
-.btn-4k:hover {
-  background: linear-gradient(to right, orange, gold);
-  box-shadow: 0 0 15px rgba(255, 165, 0, 0.7);
-}
-
-/* FullHD - Plateado */
-.btn-fullhd {
-  background: linear-gradient(to right, silver, lightgray);
-  color: black;
-  box-shadow: 0 0 10px rgba(200, 200, 200, 0.5);
-}
-.btn-fullhd:hover {
-  background: linear-gradient(to right, lightgray, silver);
-  box-shadow: 0 0 15px rgba(180, 180, 180, 0.6);
-}
-
-/* Gratuito - Neutro */
-.btn-free {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
-.btn-free:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-.close {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  font-size: 28px;
-  color: #ccc;
-  cursor: pointer;
-}
+/* Estilos visuales: sin cambios */
+.modal { display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.85); }
+.modal-content.password-layout { background-color: #1a1a1a; margin: 5% auto; padding: 30px; border-radius: 12px; width: 90%; max-width: 960px; color: white; text-align: center; position: relative; }
+.modal-title h2 { margin-bottom: 30px; font-size: 1.3em; color: #9866ff; }
+.quality-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.quality-buttons a { text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: bold; transition: 0.3s; text-align: center; min-width: 150px; }
+.btn-4k { background: linear-gradient(to right, gold, orange); color: black; box-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+.btn-4k:hover { background: linear-gradient(to right, orange, gold); box-shadow: 0 0 15px rgba(255, 165, 0, 0.7); }
+.btn-fullhd { background: linear-gradient(to right, silver, lightgray); color: black; box-shadow: 0 0 10px rgba(200, 200, 200, 0.5); }
+.btn-fullhd:hover { background: linear-gradient(to right, lightgray, silver); box-shadow: 0 0 15px rgba(180, 180, 180, 0.6); }
+.btn-free { background: transparent; color: white; border: 2px solid white; }
+.btn-free:hover { background: rgba(255, 255, 255, 0.1); }
+.close { position: absolute; top: 15px; right: 20px; font-size: 28px; color: #ccc; cursor: pointer; }
 </style>
 
 <script>
-  // Mostrar el modal al hacer clic en cualquier miniatura
+// ✅ Datos individuales para cada miniatura: podés editar esto fácilmente
+const videoData = {
+  "nyl": {
+    title: "Nylism - Song: Perfect Woman",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/nyl-video"
+    }
+  },
+  "aanix": {
+    title: "AANIX - Cyber Delight",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/aanix"
+    }
+  },
+  "dzoo": {
+    title: "DZOO - Visual Jungle",
+    links: {
+      "free": "https://iwara.tv/dzoo" // ❌ sin 4K ni FullHD
+    }
+  },
+  "araw": {
+    title: "ARAW - Neon Ritual",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "free": "https://iwara.tv/araw" // ❌ sin FullHD
+    }
+  },
+  "noname": {
+    title: "NONAME - Silent Waves",
+    links: {
+      "free": "https://iwara.tv/noname" // ❌ solo versión gratuita
+    }
+  },
+  "yeye": {
+    title: "YEYE - Bass Eclipse",
+    links: {
+      "4k": "https://vaultfiles.free.nf/4k.php",
+      "fullhd": "https://vaultfiles.free.nf/fullhd.php",
+      "free": "https://iwara.tv/yeye"
+    }
+  }
+};
+
+// ✅ Al hacer clic en cualquier miniatura, se muestra el modal personalizado
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
     thumb.addEventListener('click', () => {
-      const label = thumb.querySelector('.label')?.textContent || "Untitled";
-      document.getElementById('modalTitle').textContent = label + " - DJ Gobbolin & SUNO";
-      document.getElementById('artistModal').style.display = 'block';
+      const id = thumb.getAttribute("data-title");
+      const data = videoData[id];
+      const modal = document.getElementById("artistModal");
+
+      // Título dinámico
+      document.getElementById("modalTitle").textContent = data?.title + " - DJ Gobbolin & SUNO" || "Untitled";
+
+      // Actualizar enlaces y mostrar/ocultar botones
+      const btn4k = document.getElementById("btn-4k");
+      const btnFullhd = document.getElementById("btn-fullhd");
+      const btnFree = document.getElementById("btn-free");
+
+      if (data?.links?.["4k"]) {
+        btn4k.href = data.links["4k"];
+        btn4k.style.display = 'inline-block';
+      } else {
+        btn4k.style.display = 'none';
+      }
+
+      if (data?.links?.["fullhd"]) {
+        btnFullhd.href = data.links["fullhd"];
+        btnFullhd.style.display = 'inline-block';
+      } else {
+        btnFullhd.style.display = 'none';
+      }
+
+      if (data?.links?.["free"]) {
+        btnFree.href = data.links["free"];
+        btnFree.style.display = 'inline-block';
+      } else {
+        btnFree.style.display = 'none';
+      }
+
+      modal.style.display = 'block';
     });
   });
 
-  // Cerrar el modal
+  // Cerrar modal
   document.querySelector(".close").addEventListener("click", () => {
     document.getElementById("artistModal").style.display = "none";
   });
