@@ -545,7 +545,8 @@ const videoData = {
   }
 };
 
-// ✅ Mostrar modal con datos personalizados
+// ✅ Asegura que el DOM esté listo antes de asignar eventos
+window.onload = () => {
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
     thumb.addEventListener('click', () => {
       const id = thumb.getAttribute("data-title");
@@ -578,26 +579,13 @@ const videoData = {
       const btnFullhd = document.getElementById("btn-fullhd");
       const btnFree = document.getElementById("btn-free");
 
-      if (data?.links?.["4k"]) {
-        btn4k.href = data.links["4k"];
-        btn4k.style.display = 'inline-block';
-      } else {
-        btn4k.style.display = 'none';
-      }
+      btn4k.style.display = data?.links?.["4k"] ? 'inline-block' : 'none';
+      btnFullhd.style.display = data?.links?.["fullhd"] ? 'inline-block' : 'none';
+      btnFree.style.display = data?.links?.["free"] ? 'inline-block' : 'none';
 
-      if (data?.links?.["fullhd"]) {
-        btnFullhd.href = data.links["fullhd"];
-        btnFullhd.style.display = 'inline-block';
-      } else {
-        btnFullhd.style.display = 'none';
-      }
-
-      if (data?.links?.["free"]) {
-        btnFree.href = data.links["free"];
-        btnFree.style.display = 'inline-block';
-      } else {
-        btnFree.style.display = 'none';
-      }
+      btn4k.href = data?.links?.["4k"] || "#";
+      btnFullhd.href = data?.links?.["fullhd"] || "#";
+      btnFree.href = data?.links?.["free"] || "#";
 
       modal.style.display = 'block';
     });
@@ -607,6 +595,7 @@ const videoData = {
   document.querySelector(".close").addEventListener("click", () => {
     document.getElementById("artistModal").style.display = "none";
   });
+};
 </script>
 
 </body>
