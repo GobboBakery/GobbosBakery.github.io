@@ -552,9 +552,17 @@
 </style>
 
 <script>
-document.querySelector(".close").addEventListener("click", () => {
-  document.getElementById("artistModal").style.display = "none";
-});
+  // Mostrar el modal al hacer clic en cualquier miniatura
+  document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      document.getElementById('artistModal').style.display = 'block';
+    });
+  });
+
+  // Cerrar el modal
+  document.querySelector(".close").addEventListener("click", () => {
+    document.getElementById("artistModal").style.display = "none";
+  });
 </script>
 
 </body>
