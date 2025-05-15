@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HER NAME? PROJECT - Paginated Gallery with Tooltips</title>
+  <title>HER NAME? PROJECT - Gallery</title>
   <style>
     body {
       margin: 0;
@@ -27,29 +27,18 @@
       margin-bottom: 15px;
     }
 
-    .tag-checkboxes label {
-      margin: 5px;
-      padding: 8px 14px;
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
-      color: white;
+    .filter-tags {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .filter-tags label {
+      margin: 0 10px;
       cursor: pointer;
-      display: inline-block;
-      user-select: none;
-    }
-
-    .tag-checkboxes input[type="checkbox"] {
-      display: none;
-    }
-
-    .tag-checkboxes input[type="checkbox"]:checked + label {
-      background-color: #9866ff;
-      border-color: #9866ff;
     }
 
     .sort-buttons {
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .sort-buttons button {
@@ -122,22 +111,26 @@
       color: #ccc;
     }
 
-    .tooltip-box {
+    .thumb-wrapper[data-title^="test"] .label {
       display: none;
+    }
+
+    .tooltip-box {
       position: absolute;
-      top: 100%;
+      bottom: 105%;
       left: 50%;
       transform: translateX(-50%);
-      margin-top: 10px;
-      background: rgba(0, 0, 0, 0.95);
+      background-color: rgba(0, 0, 0, 0.85);
       color: white;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 320px;
+      padding: 12px;
+      border-radius: 8px;
       font-size: 0.9em;
       text-align: left;
-      z-index: 10;
-      box-shadow: 0 0 10px black;
+      line-height: 1.4;
+      white-space: pre-line;
+      display: none;
+      z-index: 999;
+      max-width: 320px;
     }
 
     .thumb-wrapper:hover .tooltip-box {
@@ -173,13 +166,13 @@
 <body>
 
   <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search projects...">
+    <input type="text" id="searchInput" placeholder="Search characters...">
 
-    <div class="tag-checkboxes" id="tagFilters">
-      <input type="checkbox" id="overwatch" value="overwatch"><label for="overwatch">Overwatch</label>
-      <input type="checkbox" id="marvel" value="marvel"><label for="marvel">Marvel</label>
-      <input type="checkbox" id="latina" value="latina"><label for="latina">Latina</label>
-      <input type="checkbox" id="avenger" value="avenger"><label for="avenger">Avenger</label>
+    <div class="filter-tags">
+      <label><input type="checkbox" class="tag-checkbox" value="overwatch"> Overwatch</label>
+      <label><input type="checkbox" class="tag-checkbox" value="marvel"> Marvel</label>
+      <label><input type="checkbox" class="tag-checkbox" value="latina"> Latina</label>
+      <label><input type="checkbox" class="tag-checkbox" value="avenger"> Avenger</label>
     </div>
 
     <div class="sort-buttons">
@@ -202,16 +195,20 @@
       </div>
       <div class="label">SOMBRA</div>
       <div class="tooltip-box">
-        <strong>Real Name:</strong> Olivia Colomar<br>
-        <strong>Origin:</strong> Dorado, Mexico<br>
-        <strong>Affiliations:</strong> Los Muertos, Talon<br><br>
-        <strong>Abilities:</strong><br>
-        • Hack – disables abilities and health packs<br>
-        • Invisibility – turns invisible and moves faster<br>
-        • Translocator – teleports to beacon<br>
-        • EMP – disables shields and tech<br><br>
-        <strong>Personality:</strong> Manipulative and secret-obsessed.<br>
-        <em>“In my world, there are no secrets.”</em>
+Real Name: Olivia Colomar
+Origin: Dorado, Mexico
+Affiliations: Los Muertos, Talon
+
+Abilities:
+• Hack: Disables enemy abilities and health packs.
+• Invisibility: Turns invisible and moves faster.
+• Translocator: Teleports to a beacon.
+• EMP: Disables enemy barriers and tech.
+
+Personality:
+Cunning and manipulative, obsessed with secrets and control.
+
+“In my world, there are no secrets.” – Sombra
       </div>
     </div>
 
@@ -225,47 +222,81 @@
       </div>
       <div class="label">SQUIRREL GIRL</div>
       <div class="tooltip-box">
-        <strong>Real Name:</strong> Doreen Allene Green<br>
-        <strong>Affiliations:</strong> Great Lakes Avengers, Avengers, U.S.Avengers<br><br>
-        <strong>Abilities:</strong><br>
-        • Talks to and commands squirrels<br>
-        • Enhanced strength and agility<br>
-        • Prehensile tail for balance and combat<br>
-        • Sharp claws and night vision<br><br>
-        <strong>Notable Feats:</strong><br>
-        Defeated Doom and Thanos with style.<br>
-        <em>“I’m unbeatable!”</em>
+Real Name: Doreen Allene Green
+Affiliations: Great Lakes Avengers, Avengers, U.S.Avengers
+
+Abilities:
+• Communicates with squirrels
+• Super strength and agility
+• Prehensile tail for balance and combat
+• Sharp claws and night vision
+
+Notable Feats:
+Has defeated Doctor Doom, Thanos, and more—often humorously.
+
+“I’m unbeatable!” – Squirrel Girl
       </div>
     </div>
 
     <!-- Dummy thumbnails -->
-    <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01">
-      <div class="thumb"></div>
-      <div class="label">TEST 1</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02">
-      <div class="thumb"></div>
-      <div class="label">TEST 2</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03">
-      <div class="thumb"></div>
-      <div class="label">TEST 3</div>
-    </div>
-    <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04">
-      <div class="thumb"></div>
-      <div class="label">TEST 4</div>
-    </div>
+    <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
+    <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
+    <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
+    <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
+
   </div>
 
   <div class="pagination" id="pagination"></div>
 
   <script>
-    const searchInput = document.getElementById("searchInput");
-    const tagFilters = document.querySelectorAll("#tagFilters input[type='checkbox']");
-    const sortButtons = document.querySelectorAll(".sort-btn");
-    const gallery = document.getElementById("gallery");
+    const itemsPerPage = 6;
+    let currentPage = 1;
 
-    tagFilters.forEach(checkbox => {
+    const input = document.getElementById("searchInput");
+    const gallery = document.getElementById("gallery");
+    const pagination = document.getElementById("pagination");
+    const filterCheckboxes = document.querySelectorAll(".tag-checkbox");
+    const sortButtons = document.querySelectorAll(".sort-btn");
+
+    let allItems = [];
+
+    function updateAllItems() {
+      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
+    }
+
+    function showPage(page) {
+      updateAllItems();
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+
+      allItems.forEach((item, index) => {
+        item.classList.toggle("hidden", index < start || index >= end);
+      });
+
+      updatePagination(page);
+    }
+
+    function updatePagination(activePage) {
+      const pageCount = Math.ceil(allItems.length / itemsPerPage);
+      pagination.innerHTML = "";
+
+      for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.classList.toggle("active", i === activePage);
+        btn.addEventListener("click", () => {
+          currentPage = i;
+          showPage(currentPage);
+        });
+        pagination.appendChild(btn);
+      }
+    }
+
+    input.addEventListener("input", () => {
+      filterProjects();
+    });
+
+    filterCheckboxes.forEach(checkbox => {
       checkbox.addEventListener("change", () => {
         filterProjects();
       });
@@ -281,37 +312,38 @@
     });
 
     function filterProjects() {
-      const searchTerm = searchInput.value.toLowerCase();
-      const activeTags = Array.from(tagFilters)
+      const searchTerm = input.value.toLowerCase();
+      const selectedTags = Array.from(filterCheckboxes)
         .filter(cb => cb.checked)
         .map(cb => cb.value);
 
       const items = Array.from(gallery.children);
-      items.forEach(item => {
-        const title = item.getAttribute("data-title").toLowerCase();
-        const tags = item.getAttribute("data-tags").split(",");
+
+      items.forEach(thumb => {
+        const title = thumb.getAttribute("data-title");
+        const tags = thumb.getAttribute("data-tags").split(",").map(t => t.trim());
 
         const matchesSearch = title.includes(searchTerm);
-        const matchesTags = activeTags.every(tag => tags.includes(tag));
+        const matchesTags = selectedTags.every(tag => tags.includes(tag));
 
         const shouldShow = matchesSearch && matchesTags;
-        item.classList.toggle("hidden-search", !shouldShow);
+
+        thumb.classList.toggle("hidden-search", !shouldShow);
       });
 
-      if (typeof showPage === 'function') {
-        showPage(1);
-      }
+      showPage(1);
     }
 
-    function sortProjects(type) {
+    function sortProjects(sortType) {
       const items = Array.from(gallery.children);
+
       items.sort((a, b) => {
         const titleA = a.dataset.title.toLowerCase();
         const titleB = b.dataset.title.toLowerCase();
         const dateA = new Date(a.dataset.date);
         const dateB = new Date(b.dataset.date);
 
-        switch (type) {
+        switch (sortType) {
           case "az": return titleA.localeCompare(titleB);
           case "za": return titleB.localeCompare(titleA);
           case "newest": return dateB - dateA;
@@ -319,8 +351,14 @@
           default: return 0;
         }
       });
+
       items.forEach(item => gallery.appendChild(item));
     }
+
+    // Initial load
+    sortProjects("az");
+    filterProjects();
   </script>
+
 </body>
 </html>
