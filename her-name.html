@@ -153,7 +153,8 @@
   </div>
 
   <div class="gallery" id="gallery">
-    <!-- Thumbnail: SOMBRA -->
+
+    <!-- Project: SOMBRA -->
     <div class="thumb-wrapper" data-title="sombra" data-tags="overwatch" data-date="2024-11-05">
       <div class="thumb">
         <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
@@ -164,7 +165,7 @@
       <div class="label">SOMBRA</div>
     </div>
 
-    <!-- Thumbnail: SQUIRREL GIRL -->
+    <!-- Project: SQUIRREL GIRL -->
     <div class="thumb-wrapper" data-title="squirrel girl" data-tags="marvel" data-date="2024-10-01">
       <div class="thumb">
         <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
@@ -175,19 +176,18 @@
       <div class="label">SQUIRREL GIRL</div>
     </div>
 
-    <!-- Dummy -->
+    <!-- Dummy thumbnails -->
     <div class="thumb-wrapper" data-title="test 1" data-tags="dummy" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
     <div class="thumb-wrapper" data-title="test 2" data-tags="dummy" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
     <div class="thumb-wrapper" data-title="test 3" data-tags="dummy" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
     <div class="thumb-wrapper" data-title="test 4" data-tags="dummy" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
-    <div class="thumb-wrapper" data-title="test 5" data-tags="dummy" data-date="2024-01-05"><div class="thumb"></div><div class="label">TEST 5</div></div>
-    <div class="thumb-wrapper" data-title="test 6" data-tags="dummy" data-date="2024-01-06"><div class="thumb"></div><div class="label">TEST 6</div></div>
+
   </div>
 
   <div class="pagination" id="pagination"></div>
 
   <script>
-    const itemsPerPage = 8;
+    const itemsPerPage = 6;
     let currentPage = 1;
 
     const input = document.getElementById("searchInput");
@@ -292,7 +292,7 @@
       items.forEach(item => gallery.appendChild(item));
     }
 
-    // Inicial
+    // Initial load
     sortProjects("az");
     filterProjects();
   </script>
