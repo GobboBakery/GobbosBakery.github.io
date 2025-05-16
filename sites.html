@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SITES - Gobbo's Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #111;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      border-top: 2px solid #444;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      text-decoration: none;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #9866ff;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      background-color: #000;
+      border: 1px solid #444;
+    }
+
+    nav li:hover .submenu {
+      display: block;
+    }
+
+    .submenu li a {
+      white-space: nowrap;
+    }
+
+    .container {
+      padding: 80px 20px 60px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #9866ff;
+      margin-bottom: 40px;
+    }
+
+    .site-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+
+    .site-button {
+      background-color: #222;
+      border: 2px solid #9866ff;
+      border-radius: 12px;
+      color: white;
+      padding: 20px 40px;
+      font-size: 1.2em;
+      text-decoration: none;
+      transition: 0.3s ease;
+      width: 240px;
+    }
+
+    .site-button:hover {
+      background-color: #9866ff;
+      color: #111;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- Navigation Menu -->
+<nav>
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li>
+      <a href="#">GALLERY</a>
+      <ul class="submenu">
+        <li><a href="her-name-project.html">HER NAME? PROJECT</a></li>
+        <li><a href="artist-edits.html">ARTIST EDITS</a></li>
+        <li><a href="other-edits.html">OTHER EDITS</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">LINKS</a>
+      <ul class="submenu">
+        <li><a href="sites.html">SITES</a></li>
+        <li><a href="social.html">SOCIAL MEDIA</a></li>
+      </ul>
+    </li>
+    <li><a href="contact.html">CONTACT</a></li>
+    <li><a href="about.html">ABOUT</a></li>
+  </ul>
+</nav>
+
+<!-- Main Content -->
+<div class="container">
+  <h1>My Platforms</h1>
+  <div class="site-grid">
+    <a class="site-button" href="https://iwara.tv/users/gobbo" target="_blank">Iwara</a>
+    <a class="site-button" href="https://rule34video.com/users/gobbolin" target="_blank">Rule34Video</a>
+    <a class="site-button" href="https://pmvhaven.com" target="_blank">PMV Haven</a>
+    <a class="site-button" href="https://mega.nz" target="_blank">Mega Vault</a>
+    <a class="site-button" href="https://www.patreon.com/gobbolin" target="_blank">Patreon</a>
+  </div>
+</div>
+
+</body>
+</html>
