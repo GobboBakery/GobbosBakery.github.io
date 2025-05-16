@@ -1,141 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SITES - Gobbo's Bakery</title>
+  <meta charset="UTF-8">
+  <title>Gobbo's Sites</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background-color: #111;
-      color: white;
+      background: #0b0b0b;
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #000;
-      border-top: 2px solid #444;
-      display: flex;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
-      position: relative;
-    }
-
-    nav a {
-      display: block;
-      padding: 15px 25px;
-      text-decoration: none;
       color: white;
-      transition: background-color 0.3s;
-    }
-
-    nav a:hover {
-      background-color: #9866ff;
-    }
-
-    .submenu {
-      display: none;
-      position: absolute;
-      bottom: 50px;
-      left: 0;
-      background-color: #000;
-      border: 1px solid #444;
-    }
-
-    nav li:hover .submenu {
-      display: block;
-    }
-
-    .submenu li a {
-      white-space: nowrap;
-    }
-
-    .container {
-      padding: 80px 20px 60px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
     h1 {
+      margin-top: 60px;
+      font-size: 2.5em;
       color: #9866ff;
-      margin-bottom: 40px;
     }
 
-    .site-grid {
+    .logo-container {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 25px;
+      gap: 40px;
+      margin-top: 60px;
+      flex-wrap: wrap;
     }
 
-    .site-button {
-      background-color: #222;
-      border: 2px solid #9866ff;
-      border-radius: 12px;
-      color: white;
-      padding: 20px 40px;
-      font-size: 1.2em;
-      text-decoration: none;
-      transition: 0.3s ease;
-      width: 240px;
+    .logo-container a img {
+      width: 200px;
+      height: auto;
+      border-radius: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
+      padding: 12px;
     }
 
-    .site-button:hover {
-      background-color: #9866ff;
-      color: #111;
+    .logo-container a img:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.2);
+      cursor: pointer;
     }
 
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
   </style>
 </head>
 <body>
 
-<!-- Navigation Menu -->
-<nav>
-  <ul>
-    <li><a href="index.html">HOME</a></li>
-    <li>
-      <a href="#">GALLERY</a>
-      <ul class="submenu">
-        <li><a href="her-name-project.html">HER NAME? PROJECT</a></li>
-        <li><a href="artist-edits.html">ARTIST EDITS</a></li>
-        <li><a href="other-edits.html">OTHER EDITS</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">LINKS</a>
-      <ul class="submenu">
-        <li><a href="sites.html">SITES</a></li>
-        <li><a href="social.html">SOCIAL MEDIA</a></li>
-      </ul>
-    </li>
-    <li><a href="contact.html">CONTACT</a></li>
-    <li><a href="about.html">ABOUT</a></li>
-  </ul>
-</nav>
+  <h1>Official Sites</h1>
 
-<!-- Main Content -->
-<div class="container">
-  <h1>My Platforms</h1>
-  <div class="site-grid">
-    <a class="site-button" href="https://iwara.tv/users/gobbo" target="_blank">Iwara</a>
-    <a class="site-button" href="https://rule34video.com/users/gobbolin" target="_blank">Rule34Video</a>
-    <a class="site-button" href="https://pmvhaven.com" target="_blank">PMV Haven</a>
-    <a class="site-button" href="https://mega.nz" target="_blank">Mega Vault</a>
-    <a class="site-button" href="https://www.patreon.com/gobbolin" target="_blank">Patreon</a>
+  <div class="logo-container">
+    <a href="https://rule34video.com/" target="_blank">
+      <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
+    </a>
+    <a href="https://www.patreon.com/" target="_blank">
+      <img src="PATREON.png" alt="Patreon">
+    </a>
+    <a href="https://iwara.tv/" target="_blank">
+      <img src="IWARA.png" alt="Iwara">
+    </a>
   </div>
-</div>
+
+  <footer>
+    © 2025 Gobbo's Bakery. All rights reserved.
+  </footer>
 
 </body>
 </html>
