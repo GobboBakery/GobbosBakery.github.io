@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact - Gobbo's Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0b0b;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .contact-container {
+      max-width: 700px;
+      margin-top: 120px;
+      padding: 30px;
+      background-color: #111;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+
+    h1 {
+      color: #9866ff;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .email-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: #9866ff;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .email-button:hover {
+      background-color: #b48cff;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #000;
+      border-top: 2px solid #444;
+      display: flex;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
+      position: relative;
+    }
+
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      text-decoration: none;
+      color: white;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #9866ff;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      background-color: #000;
+      border: 1px solid #444;
+    }
+
+    nav li:hover .submenu {
+      display: block;
+    }
+
+    .submenu li a {
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-container">
+    <h1>Contact the Goblin</h1>
+    <p>
+      Want to send a love letter, a collaboration idea, or a goblin whisper?<br>
+      Feel free to reach out anytime!
+    </p>
+    <a class="email-button" href="mailto:gobbo@gobbobakery.com">Send Email</a>
+    <p style="margin-top: 30px; font-size: 0.9em; color: #999;">
+      All messages are handled with goblin-level confidentiality. 💌
+    </p>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li>
+        <a href="#">GALLERY</a>
+        <ul class="submenu">
+          <li><a href="her-name.html">HER NAME? PROJECT</a></li>
+          <li><a href="artist-edits.html">ARTIST EDITS</a></li>
+          <li><a href="other-edits.html">OTHER EDITS</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">LINKS</a>
+        <ul class="submenu">
+          <li><a href="sites.html">SITES</a></li>
+          <li><a href="social.html">SOCIAL MEDIA</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+    </ul>
+  </nav>
+
+  <footer>
+    © 2025 Gobbo's Bakery. All rights reserved.
+  </footer>
+
+</body>
+</html>
