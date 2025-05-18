@@ -22,11 +22,29 @@
       color: #9866ff;
     }
 
+    /* Video preview block */
+    .video-preview {
+      margin-top: 40px;
+      width: 960px;
+      max-width: 90vw;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .video-preview video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
     .logo-container {
       display: flex;
       justify-content: center;
       gap: 40px;
-      margin-top: 60px;
+      margin: 60px 0;
       flex-wrap: wrap;
     }
 
@@ -96,6 +114,15 @@
 
   <h1>Official Sites</h1>
 
+  <!-- Video Preview Section -->
+  <div class="video-preview">
+    <video autoplay muted loop playsinline>
+      <source src="preview.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
+  <!-- Logo Buttons -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
