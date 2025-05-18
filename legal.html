@@ -2,108 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gobbo's Sites</title>
+  <title>Contact - Gobbo's Bakery</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       background: #0b0b0b;
-      font-family: 'Segoe UI', sans-serif;
       color: white;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: flex-start;
       min-height: 100vh;
     }
 
-    /* Video preview block */
-    .video-preview {
-      margin-top: 100px;
-      width: 1280px;
-      max-width: 90vw;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-
-    .video-preview video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
-
-    .contact-message {
+    .contact-container {
       max-width: 800px;
+      margin: 100px 20px 40px;
+      padding: 40px;
+      background-color: #1a1a1a;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
       text-align: center;
+    }
+
+    .contact-container h1 {
+      color: #9866ff;
+      margin-bottom: 20px;
+    }
+
+    .contact-container p {
       font-size: 1.1em;
       line-height: 1.6;
       color: #ccc;
-      margin: 30px 20px;
-      padding: 0 20px;
-    }
-
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      margin: 40px 0;
-      flex-wrap: wrap;
-    }
-
-    .logo-container a {
-      position: relative;
-      display: inline-block;
-      overflow: hidden;
-      border-radius: 20px;
-    }
-
-    .logo-container a::after {
-      content: "";
-      position: absolute;
-      top: -100%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-      transform: rotate(25deg);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .logo-container a:hover::after {
-      animation: shine-sweep 1s ease-in-out forwards;
-      opacity: 1;
-    }
-
-    @keyframes shine-sweep {
-      0% {
-        top: -100%;
-        left: -50%;
-      }
-      100% {
-        top: 100%;
-        left: 150%;
-      }
-    }
-
-    .logo-container a img {
-      width: 200px;
-      height: auto;
-      border-radius: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: linear-gradient(145deg, rgba(255,255,255,0.2), rgba(255,255,255,0.05));
-      backdrop-filter: blur(6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.1);
-      padding: 12px;
-    }
-
-    .logo-container a img:hover {
-      transform: scale(1.08);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.2);
-      cursor: pointer;
     }
 
     footer {
@@ -111,114 +43,21 @@
       padding: 20px;
       font-size: 0.9em;
       color: #777;
-    }
-
-    nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #000;
-      border-top: 2px solid #444;
-      display: flex;
-      justify-content: center;
-      z-index: 999;
-    }
-
-    nav ul {
-      list-style: none;
-      display: flex;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
-      position: relative;
-    }
-
-    nav a {
-      display: block;
-      padding: 15px 25px;
-      text-decoration: none;
-      color: white;
-      transition: background-color 0.3s;
-    }
-
-    nav a:hover {
-      background-color: #9866ff;
-    }
-
-    .submenu {
-      display: none;
-      position: absolute;
-      bottom: 50px;
-      left: 0;
-      background-color: #000;
-      border: 1px solid #444;
-    }
-
-    nav li:hover .submenu {
-      display: block;
-    }
-
-    .submenu li a {
-      white-space: nowrap;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <!-- Video Preview Section -->
-  <div class="video-preview">
-    <video autoplay muted loop playsinline>
-      <source src="preview.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
+  <div class="contact-container">
+    <h1>Get in Touch</h1>
+    <p>
+      Interested in collaborating, sending feedback, or whispering secrets to a curious goblin?<br><br>
+      If you're a creator and would like your content removed from any of my videos, feel free to reach out.<br>
+      I create under Fair Use principles, but if this doesn’t feel right to you, I’ll take your concerns seriously.<br><br>
+      Verification of authorship may be requested to avoid impersonation. Once confirmed, the content will be removed without hesitation.
+    </p>
   </div>
-
-  <!-- Contact Message -->
-  <div class="contact-message">
-    <p><strong>Interested in collaborating, sending feedback, or whispering secrets to a curious goblin?</strong><br>
-    If you're a creator and would like your content removed from any of my videos, feel free to reach out.<br>
-    I create under Fair Use principles, but if this doesn’t feel right to you, I’ll take your concerns seriously.<br><br>
-    Verification of authorship may be requested to avoid impersonation. Once confirmed, the content will be removed without hesitation.</p>
-  </div>
-
-  <!-- Logo Buttons -->
-  <div class="logo-container">
-    <a href="https://rule34video.com/" target="_blank">
-      <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
-    </a>
-    <a href="https://www.patreon.com/" target="_blank">
-      <img src="PATREON.png" alt="Patreon">
-    </a>
-    <a href="https://iwara.tv/" target="_blank">
-      <img src="IWARA.png" alt="Iwara">
-    </a>
-  </div>
-
-  <!-- Navigation Menu -->
-  <nav>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li>
-        <a href="#">GALLERY</a>
-        <ul class="submenu">
-          <li><a href="her-name.html">HER NAME? PROJECT</a></li>
-          <li><a href="artist-edits.html">ARTIST EDITS</a></li>
-          <li><a href="other-edits.html">OTHER EDITS</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">LINKS</a>
-        <ul class="submenu">
-          <li><a href="sites.html">SITES</a></li>
-          <li><a href="social.html">SOCIAL MEDIA</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">CONTACT</a></li>
-      <li><a href="about.html">ABOUT</a></li>
-    </ul>
-  </nav>
 
   <footer>
     © 2025 Gobbo's Bakery. All rights reserved.
