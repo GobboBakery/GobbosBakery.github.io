@@ -16,20 +16,66 @@
       min-height: 100vh;
     }
 
-    .preview-banner {
+    /* 🎥 Video Preview */
+    .video-preview {
       width: 100%;
       max-height: 400px;
-      object-fit: cover;
+      overflow: hidden;
       border-radius: 0 0 20px 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
+    .video-preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 🔘 Logo Buttons Container */
     .logo-container {
       display: flex;
       justify-content: center;
       gap: 40px;
-      margin-top: 40px;
+      margin: 60px 0;
       flex-wrap: wrap;
+    }
+
+    .logo-container a {
+      position: relative;
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 20px;
+    }
+
+    .logo-container a::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+      transform: rotate(25deg);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .logo-container a:hover::after {
+      animation: shine-sweep 1s ease-in-out forwards;
+      opacity: 1;
+    }
+
+    @keyframes shine-sweep {
+      0% {
+        top: -100%;
+        left: -50%;
+      }
+      100% {
+        top: 100%;
+        left: 150%;
+      }
     }
 
     .logo-container a img {
@@ -59,13 +105,15 @@
 </head>
 <body>
 
-  <!-- 🎥 Video preview (sin sonido, en loop) -->
-  <video class="preview-banner" autoplay muted loop playsinline>
-    <source src="preview-banner.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+  <!-- 🎬 Video Preview -->
+  <div class="video-preview">
+    <video autoplay muted loop playsinline>
+      <source src="preview.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
 
-  <!-- 🔗 Botones de sitios -->
+  <!-- 🧩 Logo Buttons -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
