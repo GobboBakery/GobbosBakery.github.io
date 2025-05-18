@@ -103,77 +103,55 @@
       color: #777;
     }
 
-    .menu {
+    nav {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background-color: #000;
+      border-top: 2px solid #444;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 15px 0;
-      z-index: 10;
+      z-index: 999;
     }
 
-    .menu-item {
+    nav ul {
+      list-style: none;
+      display: flex;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav li {
       position: relative;
-      margin: 0 20px;
     }
 
-    .menu-item::before {
-      content: "";
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      width: 100%;
-      height: 30px;
-    }
-
-    .menu button, .submenu button {
-      background: none;
-      border: none;
+    nav a {
+      display: block;
+      padding: 15px 25px;
+      text-decoration: none;
       color: white;
-      font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      transition: color 0.3s;
-      font-family: inherit;
+      transition: background-color 0.3s;
     }
 
-    .menu button:hover, .submenu button:hover {
-      color: #9866ff;
+    nav a:hover {
+      background-color: #9866ff;
     }
 
     .submenu {
       display: none;
       position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      margin-bottom: 20px;
-      background: rgba(0, 0, 0, 0.85);
-      padding: 10px 0;
-      border-radius: 10px;
-      min-width: 220px;
-      text-align: center;
-      z-index: 99;
-      pointer-events: auto;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
+      bottom: 50px;
+      left: 0;
+      background-color: #000;
+      border: 1px solid #444;
     }
 
-    .submenu button {
+    nav li:hover .submenu {
       display: block;
-      width: 100%;
-      padding: 8px 20px;
-      text-align: center;
     }
 
-    .menu-item:hover .submenu,
-    .menu-item .submenu:hover {
-      display: block;
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    .submenu li a {
+      white-space: nowrap;
     }
   </style>
 </head>
@@ -182,7 +160,7 @@
   <!-- Video Preview Section -->
   <div class="video-preview">
     <video autoplay muted loop playsinline>
-      <source src="preview.mp4" type="video/mp4">
+      <source src="preview-banner.mp4" type="video/mp4">
       Your browser does not support HTML5 video.
     </video>
   </div>
@@ -200,44 +178,33 @@
     </a>
   </div>
 
-  <!-- Main Menu Bar -->
-  <div class="menu">
-    <div class="menu-item">
-      <button onclick="navigateTo('index.html')">HOME</button>
-    </div>
-    <div class="menu-item">
-      <button>GALLERY</button>
-      <div class="submenu">
-        <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
-        <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
-        <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
-      </div>
-    </div>
-    <div class="menu-item">
-      <button>LINKS</button>
-      <div class="submenu">
-        <button onclick="navigateTo('sites.html')">SITES</button>
-        <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
-      </div>
-    </div>
-    <div class="menu-item">
-      <button onclick="navigateTo('legal.html')">CONTACT</button>
-    </div>
-    <div class="menu-item">
-      <button onclick="navigateTo('about.html')">ABOUT</button>
-    </div>
-  </div>
+  <!-- Navigation Menu -->
+  <nav>
+    <ul>
+      <li><a href="index.html">HOME</a></li>
+      <li>
+        <a href="#">GALLERY</a>
+        <ul class="submenu">
+          <li><a href="her-name.html">HER NAME? PROJECT</a></li>
+          <li><a href="artist-edits.html">ARTIST EDITS</a></li>
+          <li><a href="other-edits.html">OTHER EDITS</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">LINKS</a>
+        <ul class="submenu">
+          <li><a href="sites.html">SITES</a></li>
+          <li><a href="social.html">SOCIAL MEDIA</a></li>
+        </ul>
+      </li>
+      <li><a href="contact.html">CONTACT</a></li>
+      <li><a href="about.html">ABOUT</a></li>
+    </ul>
+  </nav>
 
   <footer>
     © 2025 Gobbo's Bakery. All rights reserved.
   </footer>
 
-  <script>
-    function navigateTo(url) {
-      window.location.href = url;
-    }
-  </script>
-
 </body>
 </html>
-
