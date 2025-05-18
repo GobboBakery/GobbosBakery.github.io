@@ -16,73 +16,20 @@
       min-height: 100vh;
     }
 
-    h1 {
-      margin-top: 60px;
-      font-size: 2.5em;
-      color: #9866ff;
-    }
-
-    /* Video preview block */
-    .video-preview {
-      margin-top: 40px;
-      width: 960px;
-      max-width: 90vw;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-
-    .video-preview video {
+    .preview-banner {
       width: 100%;
-      height: auto;
-      display: block;
+      max-height: 400px;
       object-fit: cover;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
 
     .logo-container {
       display: flex;
       justify-content: center;
       gap: 40px;
-      margin: 60px 0;
+      margin-top: 40px;
       flex-wrap: wrap;
-    }
-
-    .logo-container a {
-      position: relative;
-      display: inline-block;
-      overflow: hidden;
-      border-radius: 20px;
-    }
-
-    .logo-container a::after {
-      content: "";
-      position: absolute;
-      top: -100%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
-      transform: rotate(25deg);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-
-    .logo-container a:hover::after {
-      animation: shine-sweep 1s ease-in-out forwards;
-      opacity: 1;
-    }
-
-    @keyframes shine-sweep {
-      0% {
-        top: -100%;
-        left: -50%;
-      }
-      100% {
-        top: 100%;
-        left: 150%;
-      }
     }
 
     .logo-container a img {
@@ -112,17 +59,13 @@
 </head>
 <body>
 
-  <h1>Official Sites</h1>
+  <!-- 🎥 Video preview (sin sonido, en loop) -->
+  <video class="preview-banner" autoplay muted loop playsinline>
+    <source src="preview-banner.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-  <!-- Video Preview Section -->
-  <div class="video-preview">
-    <video autoplay muted loop playsinline>
-      <source src="preview.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
-  </div>
-
-  <!-- Logo Buttons -->
+  <!-- 🔗 Botones de sitios -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
