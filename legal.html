@@ -34,8 +34,33 @@
 
     .contact-container p {
       font-size: 1.1em;
-      line-height: 1.6;
+      line-height: 1.8;
       color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .contact-container button {
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
+      border: none;
+      color: white;
+      font-size: 1em;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.3s ease;
+    }
+
+    .contact-container button:hover {
+      background: linear-gradient(135deg, #a277ff, #8852ff);
+    }
+
+    .contact-container button svg {
+      width: 20px;
+      height: 20px;
+      fill: white;
     }
 
     footer {
@@ -57,6 +82,10 @@
       I create under Fair Use principles, but if this doesn’t feel right to you, I’ll take your concerns seriously.<br><br>
       Verification of authorship may be requested to avoid impersonation. Once confirmed, the content will be removed without hesitation.
     </p>
+    <button>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      Send Message
+    </button>
   </div>
 
   <footer>
