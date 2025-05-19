@@ -150,12 +150,11 @@
 
   </div>
 
-  <script>
+ <script>
   let currentAudio = null;
-  let currentCanvas = null;
-  let currentDraw = null;
-  let currentCtx = null;
   let currentAnimationId = null;
+  let activeSource = null;
+  let activeAudioContext = null;
 
   function playTrack(audioId, canvasId) {
     const newAudio = document.getElementById(audioId);
@@ -165,8 +164,15 @@
     if (currentAudio && currentAudio !== newAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
+    }
+
+    if (currentAnimationId) {
       cancelAnimationFrame(currentAnimationId);
-      if (currentCtx) currentCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
+      currentAnimationId = null;
+    }
+
+    if (activeAudioContext) {
+      activeAudioContext.close();
     }
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -193,14 +199,15 @@
       }
     }
 
-    currentAudio = newAudio;
-    currentCanvas = newCanvas;
-    currentCtx = newCtx;
-
     audioCtx.resume().then(() => {
+      newAudio.currentTime = 0;
       newAudio.play();
       draw();
     });
+
+    currentAudio = newAudio;
+    activeSource = source;
+    activeAudioContext = audioCtx;
   }
 </script>
 
