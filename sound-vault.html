@@ -152,43 +152,41 @@
 
 <script>
   let currentAudio = null;
-  let currentCanvas = null;
-  let currentAnimationId = null;
-  let currentAudioContext = null;
+  let currentAudioCtx = null;
   let currentSource = null;
+  let currentAnalyser = null;
+  let currentAnimationId = null;
+
+  function stopCurrentAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+    if (currentAnimationId) {
+      cancelAnimationFrame(currentAnimationId);
+      currentAnimationId = null;
+    }
+    if (currentAudioCtx) {
+      currentAudioCtx.close();
+      currentAudioCtx = null;
+    }
+  }
 
   function playTrack(audioId, canvasId) {
- 
-    if (currentAudio && currentAudio.id !== audioId) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      if (currentAnimationId) {
-        cancelAnimationFrame(currentAnimationId);
-      }
-      if (currentAudioContext) {
-        currentAudioContext.close();
-      }
-    }
-
-
-    if (currentAudio && currentAudio.id === audioId && !currentAudio.paused) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      if (currentAnimationId) {
-        cancelAnimationFrame(currentAnimationId);
-      }
-      if (currentAudioContext) {
-        currentAudioContext.close();
-      }
-      return;
-    }
-
-
     const audio = document.getElementById(audioId);
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext("2d");
 
+    // Stop Song
+    if (currentAudio && currentAudio.id === audioId && !audio.paused) {
+      stopCurrentAudio();
+      return;
+    }
 
+    // Stop
+    stopCurrentAudio();
+
+    // New code
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     const analyser = audioCtx.createAnalyser();
     const source = audioCtx.createMediaElementSource(audio);
@@ -202,6 +200,7 @@
     function draw() {
       currentAnimationId = requestAnimationFrame(draw);
       analyser.getByteFrequencyData(dataArray);
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const barWidth = (canvas.width / bufferLength) * 1.5;
       let x = 0;
@@ -213,10 +212,10 @@
       }
     }
 
-
+    // Save Reference
     currentAudio = audio;
-    currentCanvas = canvas;
-    currentAudioContext = audioCtx;
+    currentAudioCtx = audioCtx;
+    currentAnalyser = analyser;
     currentSource = source;
 
     audioCtx.resume().then(() => {
