@@ -8,28 +8,22 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: url('aboutbg1.jpg') no-repeat center center fixed;
-      background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: white;
-      animation: backgroundSlide 36s infinite;
+      overflow: hidden;
     }
 
-    @keyframes backgroundSlide {
-      0%    { background-image: url('aboutbg1.jpg'); }
-      16.6% { background-image: url('aboutbg2.jpg'); }
-      33.2% { background-image: url('aboutbg3.jpg'); }
-      49.8% { background-image: url('aboutbg4.jpg'); }
-      66.4% { background-image: url('aboutbg5.jpg'); }
-      83%   { background-image: url('aboutbg6.jpg'); }
-      100%  { background-image: url('aboutbg1.jpg'); }
+    body {
+      background: url('aboutbg1.jpg') no-repeat center center fixed;
+      background-size: cover;
+      transition: background-image 0.8s ease-in-out;
     }
 
     .about-wrapper {
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       align-items: center;
-      height: 100%;
+      height: 100vh;
       padding: 40px;
     }
 
@@ -37,9 +31,18 @@
       background-color: rgba(20, 20, 20, 0.85);
       padding: 40px;
       border-radius: 16px;
-      max-width: 500px;
-      width: 100%;
+      max-width: 600px;
+      width: 90%;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      transition: transform 0.5s;
+    }
+
+    .about-box.left {
+      align-self: flex-start;
+    }
+
+    .about-box.right {
+      align-self: flex-end;
     }
 
     .about-box h1 {
@@ -52,6 +55,23 @@
       font-size: 1.05em;
       line-height: 1.7;
       margin-bottom: 15px;
+    }
+
+    .nav-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #9866ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .nav-button:hover {
+      background-color: #b891ff;
     }
 
     .back-button {
@@ -75,16 +95,41 @@
 <body>
 
   <div class="about-wrapper">
-    <div class="about-box">
+    <div id="aboutBox" class="about-box left">
       <h1>About Me</h1>
-      <p>Hello! I'm Gobbo, a digital mischief-maker with a passion for remixing pop culture, beats, and fantasy. I spend most of my time crafting HMV edits, interactive experiences, and weird little art projects from the shadows of the internet.</p>
-      <p>Gobbo's Bakery isn't just a name — it's a place where flavors mix: eroticism, humor, nostalgia, and chaos, all baked into audiovisual treats.</p>
-      <p>I'm inspired by all kinds of creators, and I always strive to respect the art and energy behind the content I remix.</p>
-      <p>Behind the goblin persona lies someone who believes in fair use, fun, and mutual respect. I’m open to collaboration, conversation, and ideas — especially the weird ones.</p>
+      <p>Hello! I'm Gobbo, a digital mischief-maker with a passion for remixing pop culture, beats, and fantasy.</p>
+      <p>I spend most of my time crafting HMV edits, interactive experiences, and weird little art projects from the shadows of the internet.</p>
     </div>
   </div>
 
   <button class="back-button" onclick="location.href='index.html'">⬅ Home</button>
+  <button class="nav-button" onclick="nextSlide()">Next ➤</button>
+
+  <script>
+    const texts = [
+      `<h1>About Me</h1><p>Hello! I'm Gobbo, a digital mischief-maker with a passion for remixing pop culture, beats, and fantasy.</p><p>I spend most of my time crafting HMV edits, interactive experiences, and weird little art projects from the shadows of the internet.</p>`,
+      `<h1>My Content</h1><p>My edits blend music, sensuality, and imagination, often featuring characters from across pop culture in unexpected, playful scenarios.</p><p>Everything is carefully crafted to create rhythm, surprise, and sometimes, chaos!</p>`,
+      `<h1>Creative Ethos</h1><p>Fair Use is the foundation of my remixes. I strive to credit and respect original creators whenever possible.</p><p>This project is fueled by appreciation and not for profit.</p>`,
+      `<h1>Respect & Removal</h1><p>If you are a content creator and would like your work removed, you can contact me at any time.</p><p>I may ask for verification, but once confirmed, I will remove the material—no debate needed.</p>`,
+      `<h1>Get Involved</h1><p>I’m open to collabs, feedback, and silly ideas. Whether you’re an artist, editor, or fan, my inbox is always open for goblin whispers.</p>`,
+      `<h1>Thank You</h1><p>Thanks for visiting my little goblin corner of the web. Enjoy, explore, and don’t be shy—there’s always more baking in the oven.</p>`
+    ];
+
+    const backgrounds = [
+      'aboutbg1.jpg', 'aboutbg2.jpg', 'aboutbg3.jpg',
+      'aboutbg4.jpg', 'aboutbg5.jpg', 'aboutbg6.jpg'
+    ];
+
+    let current = 0;
+    const box = document.getElementById('aboutBox');
+
+    function nextSlide() {
+      current = (current + 1) % texts.length;
+      box.innerHTML = texts[current];
+      box.className = `about-box ${current % 2 === 0 ? 'left' : 'right'}`;
+      document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
+    }
+  </script>
 
 </body>
 </html>
