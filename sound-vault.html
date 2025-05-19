@@ -151,42 +151,58 @@
   </div>
 
   <script>
-    function playTrack(audioId, canvasId) {
-      const audio = document.getElementById(audioId);
-      const canvas = document.getElementById(canvasId);
-      const ctx = canvas.getContext("2d");
+  let currentAudio = null;
+  let currentCanvas = null;
+  let currentDraw = null;
+  let currentCtx = null;
+  let currentAnimationId = null;
 
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const analyser = audioCtx.createAnalyser();
-      const source = audioCtx.createMediaElementSource(audio);
-      source.connect(analyser);
-      analyser.connect(audioCtx.destination);
-      analyser.fftSize = 64;
+  function playTrack(audioId, canvasId) {
+    const newAudio = document.getElementById(audioId);
+    const newCanvas = document.getElementById(canvasId);
+    const newCtx = newCanvas.getContext("2d");
 
-      const bufferLength = analyser.frequencyBinCount;
-      const dataArray = new Uint8Array(bufferLength);
-
-      function draw() {
-        requestAnimationFrame(draw);
-        analyser.getByteFrequencyData(dataArray);
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const barWidth = (canvas.width / bufferLength) * 1.5;
-        let x = 0;
-        for (let i = 0; i < bufferLength; i++) {
-          const barHeight = dataArray[i] / 1.5;
-          ctx.fillStyle = `hsl(${barHeight + 200}, 80%, 60%)`;
-          ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-          x += barWidth + 1;
-        }
-      }
-
-      audioCtx.resume().then(() => {
-        audio.play();
-        draw();
-      });
+    if (currentAudio && currentAudio !== newAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      cancelAnimationFrame(currentAnimationId);
+      if (currentCtx) currentCtx.clearRect(0, 0, currentCanvas.width, currentCanvas.height);
     }
-  </script>
+
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const analyser = audioCtx.createAnalyser();
+    const source = audioCtx.createMediaElementSource(newAudio);
+    source.connect(analyser);
+    analyser.connect(audioCtx.destination);
+    analyser.fftSize = 64;
+
+    const bufferLength = analyser.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+
+    function draw() {
+      currentAnimationId = requestAnimationFrame(draw);
+      analyser.getByteFrequencyData(dataArray);
+      newCtx.clearRect(0, 0, newCanvas.width, newCanvas.height);
+      const barWidth = (newCanvas.width / bufferLength) * 1.5;
+      let x = 0;
+      for (let i = 0; i < bufferLength; i++) {
+        const barHeight = dataArray[i] / 1.5;
+        newCtx.fillStyle = `hsl(${barHeight + 200}, 80%, 60%)`;
+        newCtx.fillRect(x, newCanvas.height - barHeight, barWidth, barHeight);
+        x += barWidth + 1;
+      }
+    }
+
+    currentAudio = newAudio;
+    currentCanvas = newCanvas;
+    currentCtx = newCtx;
+
+    audioCtx.resume().then(() => {
+      newAudio.play();
+      draw();
+    });
+  }
+</script>
 
 </body>
 </html>
