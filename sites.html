@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <title>Gobbo's Sites</title>
 
+  <!-- Redirección automática si alguien accede como /sites/ en lugar de /sites.html -->
+  <script>
+    const current = window.location.pathname;
+    if (current.endsWith('/') && !current.endsWith('/index.html')) {
+      const clean = current.replace(/\/$/, '') + '.html';
+      window.location.replace(clean);
+    }
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -191,26 +200,25 @@
     </a>
   </div>
 
-  <!-- Menú corregido con rutas absolutas -->
   <div class="menu">
-    <div class="menu-item"><button onclick="navigateTo('/index.html')">HOME</button></div>
+    <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
     <div class="menu-item">
       <button>GALLERY</button>
       <div class="submenu">
-        <button onclick="navigateTo('/her-name.html')">HER NAME? PROJECT</button>
-        <button onclick="navigateTo('/artist-edits.html')">ARTIST EDITS</button>
-        <button onclick="navigateTo('/other-edits.html')">OTHER EDITS</button>
+        <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+        <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+        <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
       </div>
     </div>
     <div class="menu-item">
       <button>LINKS</button>
       <div class="submenu">
-        <button onclick="navigateTo('/sites.html')">SITES</button>
-        <button onclick="navigateTo('/social.html')">SOCIAL MEDIA</button>
+        <button onclick="navigateTo('sites.html')">SITES</button>
+        <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
       </div>
     </div>
-    <div class="menu-item"><button onclick="navigateTo('/legal.html')">CONTACT</button></div>
-    <div class="menu-item"><button onclick="navigateTo('/about.html')">ABOUT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('legal.html')">CONTACT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('about.html')">ABOUT</button></div>
   </div>
 
   <script>
