@@ -43,7 +43,7 @@
       margin-bottom: 15px;
     }
 
-    .contact-box .send-button {
+    .send-button {
       margin-top: 20px;
       display: inline-flex;
       align-items: center;
@@ -55,14 +55,15 @@
       border-radius: 10px;
       font-size: 1em;
       cursor: pointer;
+      text-decoration: none;
       transition: background 0.3s ease;
     }
 
-    .contact-box .send-button:hover {
+    .send-button:hover {
       background: linear-gradient(135deg, #a277ff, #8852ff);
     }
 
-    .contact-box .send-button svg {
+    .send-button svg {
       width: 20px;
       height: 20px;
       fill: white;
@@ -94,11 +95,13 @@
       <p>Want to collaborate, share feedback, or get in touch with me?</p>
       <p>If you are the creator of any content featured in my videos and would prefer it not to be used, please reach out. While my work operates under Fair Use principles, I understand and respect personal boundaries.</p>
       <p>For transparency, I may request reasonable verification of authorship before proceeding. Once confirmed, your content will be promptly removed—no questions asked.</p>
-      <p><strong>Contact Mail:</strong> (Mail)</p>
-      <button class="send-button">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+      <p><strong>Contact Mail:</strong> Gobbobakery@proton.me</p>
+      <a href="mailto:Gobbobakery@proton.me" class="send-button">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+        </svg>
         Send Message
-      </button>
+      </a>
     </div>
   </div>
 
@@ -106,3 +109,4 @@
 
 </body>
 </html>
+
