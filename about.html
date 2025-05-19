@@ -171,8 +171,13 @@
     }
 
     function updateSlide() {
-      box.innerHTML = texts[current];
-      box.className = `about-box ${current % 2 === 0 ? 'left' : 'right'}`;
+      if (texts[current] === "") {
+        box.style.display = "none";
+      } else {
+        box.style.display = "block";
+        box.innerHTML = texts[current];
+        box.className = `about-box ${current % 2 === 0 ? 'left' : 'right'}`;
+      }
 
       const nextBg = backgrounds[current];
       if (showingBg1) {
