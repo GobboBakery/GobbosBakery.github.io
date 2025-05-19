@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sound Vault - Gobbo's Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0b0b;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 10px;
+    }
+
+    header h1 {
+      font-size: 2.6em;
+      color: #9866ff;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      color: #ccc;
+    }
+
+    .track-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      padding: 40px 20px 100px;
+    }
+
+    .track-card {
+      background-color: #1a1a1a;
+      border-radius: 16px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.5);
+      width: 280px;
+      text-align: center;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .track-card:hover {
+      transform: scale(1.03);
+    }
+
+    .track-cover {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .track-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 15px 0 5px;
+      color: #eee;
+    }
+
+    .button-row {
+      margin: 10px 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 0.95em;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-listen {
+      background-color: #9866ff;
+      color: white;
+    }
+
+    .btn-listen:hover {
+      background-color: #b48cff;
+    }
+
+    .btn-download {
+      background-color: #444;
+      color: white;
+    }
+
+    .btn-download:hover {
+      background-color: #666;
+    }
+
+    audio {
+      margin-top: 10px;
+      width: 100%;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Sound Vault</h1>
+    <p>Original tracks crafted by Gobbo using Suno.ai</p>
+  </header>
+
+  <div class="track-grid">
+
+    <!-- Track 1 -->
+    <div class="track-card">
+      <img src="covers/hathor.jpg" alt="Hathor Cover" class="track-cover">
+      <div class="track-title">Hathor Fertility Ritual</div>
+      <audio controls>
+        <source src="tracks/hathor.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+      <div class="button-row">
+        <a class="btn btn-download" href="tracks/hathor.mp3" download>Download</a>
+      </div>
+    </div>
+
+    <!-- Track 2 -->
+    <div class="track-card">
+      <img src="covers/metro.jpg" alt="Metro City Cover" class="track-cover">
+      <div class="track-title">Metro City Sex Tourism</div>
+      <audio controls>
+        <source src="tracks/metro.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+      </audio>
+      <div class="button-row">
+        <a class="btn btn-download" href="tracks/metro.mp3" download>Download</a>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
