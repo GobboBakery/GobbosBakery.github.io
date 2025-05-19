@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FapHero - Gobbo's Bakery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #0b0b0b;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 2.6em;
+      color: #ff66cc;
+    }
+
+    header p {
+      color: #ccc;
+      margin-top: 10px;
+    }
+
+    .video-section {
+      display: flex;
+      justify-content: center;
+      margin: 40px 20px 20px;
+    }
+
+    .video-section video {
+      width: 90%;
+      max-width: 960px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    }
+
+    .download-section {
+      text-align: center;
+      margin: 30px;
+    }
+
+    .download-btn {
+      background-color: #9866ff;
+      color: white;
+      padding: 12px 24px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .download-btn:hover {
+      background-color: #b48cff;
+    }
+
+    .instructions {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      color: #ddd;
+      line-height: 1.6;
+      font-size: 1em;
+    }
+
+    .menu {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 10;
+    }
+
+    .menu-item {
+      position: relative;
+      margin: 0 20px;
+    }
+
+    .menu-item::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 30px;
+    }
+
+    .menu button, .submenu button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      font-family: inherit;
+      transition: color 0.3s;
+    }
+
+    .menu button:hover, .submenu button:hover {
+      color: #9866ff;
+    }
+
+    .submenu {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 10px 0;
+      border-radius: 10px;
+      min-width: 220px;
+      text-align: center;
+      z-index: 99;
+      pointer-events: auto;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .submenu button {
+      display: block;
+      width: 100%;
+      padding: 8px 20px;
+      text-align: center;
+    }
+
+    .menu-item:hover .submenu,
+    .menu-item .submenu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>FapHero Interactive</h1>
+    <p>Test your rhythm with our sync-enabled project!</p>
+  </header>
+
+  <div class="video-section">
+    <video controls autoplay muted loop playsinline>
+      <source src="faphero-preview.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="download-section">
+    <a href="faphero-test-pack.zip" download class="download-btn">⬇ Download Test Pack (.zip)</a>
+  </div>
+
+  <div class="instructions">
+    <h2>🛠 How to Use</h2>
+    <p>1. Download and extract the ZIP file.</p>
+    <p>2. Open the <strong>.mp4</strong> with <em>ScriptPlayer</em> or compatible software.</p>
+    <p>3. Load the <strong>.funscript</strong> in the player to synchronize it with your device.</p>
+    <p>4. Adjust latency if needed and enjoy your test run!</p>
+    <p>Use this to check compatibility, sync accuracy, and get a taste of what’s coming next in the FapHero Foreplay Pack. More to come soon!</p>
+  </div>
+
+  <!-- Menú -->
+  <div class="menu">
+    <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
+
+    <div class="menu-item">
+      <button>GALLERY</button>
+      <div class="submenu">
+        <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+        <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+        <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <button>PROJECTS</button>
+      <div class="submenu">
+        <button onclick="navigateTo('sound-vault.html')">SOUND VAULT</button>
+        <button onclick="navigateTo('faphero.html')">FAPHERO</button>
+      </div>
+    </div>
+
+    <div class="menu-item">
+      <button>LINKS</button>
+      <div class="submenu">
+        <button onclick="navigateTo('sites.html')">SITES</button>
+        <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
+      </div>
+    </div>
+
+    <div class="menu-item"><button onclick="navigateTo('legal.html')">CONTACT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('about.html')">ABOUT</button></div>
+  </div>
+
+  <script>
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+  </script>
+
+</body>
+</html>
