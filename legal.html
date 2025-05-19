@@ -18,28 +18,43 @@
     }
 
     .contact-container {
-      max-width: 800px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+      max-width: 1000px;
       margin: 100px 20px 40px;
       padding: 40px;
       background-color: #1a1a1a;
       border-radius: 16px;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-      text-align: center;
     }
 
-    .contact-container h1 {
+    .contact-text {
+      flex: 2;
+    }
+
+    .contact-text h1 {
       color: #9866ff;
       margin-bottom: 20px;
     }
 
-    .contact-container p {
+    .contact-text p {
       font-size: 1.1em;
       line-height: 1.7;
       color: #ccc;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    .contact-container button {
+    .contact-action {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-action button {
       background: linear-gradient(135deg, #9866ff, #7a42ff);
       border: none;
       color: white;
@@ -53,11 +68,11 @@
       transition: background 0.3s ease;
     }
 
-    .contact-container button:hover {
+    .contact-action button:hover {
       background: linear-gradient(135deg, #a277ff, #8852ff);
     }
 
-    .contact-container button svg {
+    .contact-action button svg {
       width: 20px;
       height: 20px;
       fill: white;
@@ -75,20 +90,27 @@
 <body>
 
   <div class="contact-container">
-    <h1>Get in Touch</h1>
-    <p>
-      Want to collaborate, share feedback, or get in touch with me?
-    </p>
-    <p>
-      If you are the creator of any content featured in my videos and would prefer it not to be used, please reach out. While my work operates under Fair Use principles, I understand and respect personal boundaries.
-    </p>
-    <p>
-      For transparency, I may request reasonable verification of authorship before proceeding. Once confirmed, your content will be promptly removed—no questions asked.
-    </p>
-    <button>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
-      Send Message
-    </button>
+    <div class="contact-text">
+      <h1>Get in Touch</h1>
+      <p>
+        Want to collaborate, share feedback, or get in touch with me?
+      </p>
+      <p>
+        If you are the creator of any content featured in my videos and would prefer it not to be used, please reach out.
+        While my work operates under Fair Use principles, I understand and respect personal boundaries.
+      </p>
+      <p>
+        For transparency, I may request reasonable verification of authorship before proceeding.
+        Once confirmed, your content will be promptly removed—no questions asked.
+      </p>
+      <p><strong>Contact Mail:</strong> (Mail)</p>
+    </div>
+    <div class="contact-action">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+        Send Message
+      </button>
+    </div>
   </div>
 
   <footer>
