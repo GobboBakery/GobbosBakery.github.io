@@ -16,7 +16,6 @@
       min-height: 100vh;
     }
 
-    /* Video preview block */
     .video-preview {
       margin-top: 100px;
       width: 1280px;
@@ -69,14 +68,8 @@
     }
 
     @keyframes shine-sweep {
-      0% {
-        top: -100%;
-        left: -50%;
-      }
-      100% {
-        top: 100%;
-        left: 150%;
-      }
+      0% { top: -100%; left: -50%; }
+      100% { top: 100%; left: 150%; }
     }
 
     .logo-container a img {
@@ -103,69 +96,90 @@
       color: #777;
     }
 
-    nav {
+    .menu {
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: #000;
-      border-top: 2px solid #444;
+      background: rgba(0, 0, 0, 0.7);
       display: flex;
       justify-content: center;
-      z-index: 999;
+      align-items: center;
+      padding: 15px 0;
+      z-index: 10;
     }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      padding: 0;
-      margin: 0;
-    }
-
-    nav li {
+    .menu-item {
       position: relative;
+      margin: 0 20px;
     }
 
-    nav a {
-      display: block;
-      padding: 15px 25px;
-      text-decoration: none;
+    .menu-item::before {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      height: 30px;
+    }
+
+    .menu button, .submenu button {
+      background: none;
+      border: none;
       color: white;
-      transition: background-color 0.3s;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+      font-family: inherit;
     }
 
-    nav a:hover {
-      background-color: #9866ff;
+    .menu button:hover, .submenu button:hover {
+      color: #9866ff;
     }
 
     .submenu {
       display: none;
       position: absolute;
-      bottom: 50px;
-      left: 0;
-      background-color: #000;
-      border: 1px solid #444;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 10px 0;
+      border-radius: 10px;
+      min-width: 220px;
+      text-align: center;
+      z-index: 99;
+      pointer-events: auto;
+      opacity: 0;
+      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    nav li:hover .submenu {
+    .submenu button {
       display: block;
+      width: 100%;
+      padding: 8px 20px;
+      text-align: center;
     }
 
-    .submenu li a {
-      white-space: nowrap;
+    .menu-item:hover .submenu,
+    .menu-item .submenu:hover {
+      display: block;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
   </style>
 </head>
 <body>
 
-  <!-- Video Preview Section -->
+  <!-- Video Preview -->
   <div class="video-preview">
     <video autoplay muted loop playsinline>
       <source src="preview-banner.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
     </video>
   </div>
 
-  <!-- Logo Buttons -->
+  <!-- Logos -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
@@ -178,29 +192,34 @@
     </a>
   </div>
 
-  <!-- Navigation Menu -->
-  <nav>
-    <ul>
-      <li><a href="index.html">HOME</a></li>
-      <li>
-        <a href="#">GALLERY</a>
-        <ul class="submenu">
-          <li><a href="her-name.html">HER NAME? PROJECT</a></li>
-          <li><a href="artist-edits.html">ARTIST EDITS</a></li>
-          <li><a href="other-edits.html">OTHER EDITS</a></li>
-        </ul>
-      </li>
-      <li>
-        <a href="#">LINKS</a>
-        <ul class="submenu">
-          <li><a href="sites.html">SITES</a></li>
-          <li><a href="social.html">SOCIAL MEDIA</a></li>
-        </ul>
-      </li>
-      <li><a href="contact.html">CONTACT</a></li>
-      <li><a href="legal.html">ABOUT</a></li>
-    </ul>
-  </nav>
+  <!-- Menú dinámico -->
+  <div class="menu">
+    <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
+    <div class="menu-item">
+      <button>GALLERY</button>
+      <div class="submenu">
+        <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+        <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+        <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
+      </div>
+    </div>
+    <div class="menu-item">
+      <button>LINKS</button>
+      <div class="submenu">
+        <button onclick="navigateTo('sites.html')">SITES</button>
+        <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
+      </div>
+    </div>
+    <div class="menu-item"><button onclick="navigateTo('contact.html')">CONTACT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('legal.html')">ABOUT</button></div>
+  </div>
+
+  <!-- Script del menú -->
+  <script>
+    function navigateTo(url) {
+      window.location.href = url;
+    }
+  </script>
 
   <footer>
     © 2025 Gobbo's Bakery. All rights reserved.
