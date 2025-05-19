@@ -85,6 +85,10 @@
       margin-right: 10px;
     }
 
+    .btn-listen.playing {
+      background-color: #5d35b0;
+    }
+
     .btn-listen:hover {
       background-color: #b48cff;
     }
@@ -126,9 +130,8 @@
         <canvas class="visualizer" id="visualizer1" width="260" height="80"></canvas>
         <audio id="audio1">
           <source src="Perfect Woman.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
         </audio>
-        <button class="btn-listen" onclick="playTrack('audio1', 'visualizer1')">▶ Play</button>
+        <button class="btn-listen" onclick="playTrack('audio1', 'visualizer1', this)">▶ Play</button>
         <a href="Perfect Woman.mp3" download class="download-btn">⬇ Download</a>
       </div>
     </div>
@@ -141,9 +144,8 @@
         <canvas class="visualizer" id="visualizer2" width="260" height="80"></canvas>
         <audio id="audio2">
           <source src="Squirrel Girl Loves Nuts.mp3" type="audio/mpeg">
-          Your browser does not support the audio element.
         </audio>
-        <button class="btn-listen" onclick="playTrack('audio2', 'visualizer2')">▶ Play</button>
+        <button class="btn-listen" onclick="playTrack('audio2', 'visualizer2', this)">▶ Play</button>
         <a href="Squirrel Girl Loves Nuts.mp3" download class="download-btn">⬇ Download</a>
       </div>
     </div>
@@ -151,11 +153,11 @@
   </div>
 
 <script>
-  const players = {}; 
+  const players = {};
   let currentId = null;
+  let currentButton = null;
 
-  function playTrack(audioId, canvasId) {
-    // Stop Song
+  function playTrack(audioId, canvasId, button) {
     if (currentId && currentId !== audioId) {
       const prev = players[currentId];
       if (prev) {
@@ -163,14 +165,16 @@
         prev.audio.currentTime = 0;
         if (prev.animationId) cancelAnimationFrame(prev.animationId);
       }
+      if (currentButton) {
+        currentButton.innerText = "▶ Play";
+        currentButton.classList.remove("playing");
+      }
     }
 
-    // Stop elements
     const audio = document.getElementById(audioId);
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext("2d");
 
-    // Audio
     if (!players[audioId]) {
       const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       const analyser = audioCtx.createAnalyser();
@@ -210,19 +214,30 @@
 
     const player = players[audioId];
     currentId = audioId;
+    currentButton = button;
 
-    // (toggle behavior)
     if (!player.audio.paused) {
       player.audio.pause();
       player.audio.currentTime = 0;
       if (player.animationId) cancelAnimationFrame(player.animationId);
+      button.innerText = "▶ Play";
+      button.classList.remove("playing");
       return;
     }
 
     player.audioCtx.resume().then(() => {
       player.audio.play();
       player.draw();
+      button.innerText = "⏹️ Stop";
+      button.classList.add("playing");
     });
+
+    player.audio.onended = () => {
+      button.innerText = "▶ Play";
+      button.classList.remove("playing");
+      currentId = null;
+      currentButton = null;
+    };
   }
 </script>
 
