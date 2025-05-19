@@ -4,43 +4,54 @@
   <meta charset="UTF-8">
   <title>About - Gobbo's Bakery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: url('Aboutbg.jpg') no-repeat center center fixed;
+      height: 100%;
+      background: url('aboutbg1.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: white;
+      animation: backgroundSlide 36s infinite;
+    }
+
+    @keyframes backgroundSlide {
+      0%    { background-image: url('aboutbg1.jpg'); }
+      16.6% { background-image: url('aboutbg2.jpg'); }
+      33.2% { background-image: url('aboutbg3.jpg'); }
+      49.8% { background-image: url('aboutbg4.jpg'); }
+      66.4% { background-image: url('aboutbg5.jpg'); }
+      83%   { background-image: url('aboutbg6.jpg'); }
+      100%  { background-image: url('aboutbg1.jpg'); }
+    }
+
+    .about-wrapper {
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
-      min-height: 100vh;
+      height: 100%;
+      padding: 40px;
     }
 
     .about-box {
-      background-color: rgba(15, 15, 15, 0.85);
+      background-color: rgba(20, 20, 20, 0.85);
       padding: 40px;
       border-radius: 16px;
-      max-width: 800px;
-      width: 90%;
+      max-width: 500px;
+      width: 100%;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
     }
 
     .about-box h1 {
-      font-size: 2.5em;
       color: #9866ff;
       margin-bottom: 20px;
-    }
-
-    .about-box h2 {
-      color: #ccc;
-      margin-top: 30px;
+      font-size: 2em;
     }
 
     .about-box p {
-      font-size: 1.1em;
+      font-size: 1.05em;
       line-height: 1.7;
-      margin: 15px 0;
+      margin-bottom: 15px;
     }
 
     .back-button {
@@ -63,24 +74,17 @@
 </head>
 <body>
 
-  <div class="about-box">
-    <h1>About Gobbo</h1>
-
-    <p>Welcome to Gobbo's Bakery! I'm Gobbo — a curious little gremlin stirring together audiovisual chaos and cheeky creativity. My projects are a blend of rhythm, sensuality, and surreal edits, designed to surprise and delight.</p>
-
-    <h2>What I Do</h2>
-    <p>I create HMVs, FapHero projects, fan edits, and beat-synced audiovisual experiences, often collaborating with AI tools like Suno and editing suites like Ableton, After Effects, and CapCut.</p>
-
-    <h2>Creative Vision</h2>
-    <p>My edits operate under Fair Use principles and are made with respect and admiration for the original creators. If you're an artist and see your work used here and wish for it to be removed, I will ask for verification and remove it immediately — no debate.</p>
-
-    <h2>Fun Facts</h2>
-    <p>Why "Gobbo"? Because mischief is best served with frosting. My first HMV was a total mess — and I loved it. I believe erotic art deserves emotion, rhythm, and charm. That’s why every piece here is baked with love and a spark of magic.</p>
-
-    <p>Thank you for visiting my world. Let’s make it weirder together.</p>
+  <div class="about-wrapper">
+    <div class="about-box">
+      <h1>About Me</h1>
+      <p>Hello! I'm Gobbo, a digital mischief-maker with a passion for remixing pop culture, beats, and fantasy. I spend most of my time crafting HMV edits, interactive experiences, and weird little art projects from the shadows of the internet.</p>
+      <p>Gobbo's Bakery isn't just a name — it's a place where flavors mix: eroticism, humor, nostalgia, and chaos, all baked into audiovisual treats.</p>
+      <p>I'm inspired by all kinds of creators, and I always strive to respect the art and energy behind the content I remix.</p>
+      <p>Behind the goblin persona lies someone who believes in fair use, fun, and mutual respect. I’m open to collaboration, conversation, and ideas — especially the weird ones.</p>
+    </div>
   </div>
 
-  <button class="back-button" onclick="location.href='index.html'">⬅ Inicio</button>
+  <button class="back-button" onclick="location.href='index.html'">⬅ Home</button>
 
 </body>
 </html>
