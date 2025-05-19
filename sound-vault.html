@@ -1,6 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  .menu {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  z-index: 10;
+}
+
+.menu-item {
+  position: relative;
+  margin: 0 20px;
+}
+
+.menu-item::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  height: 30px;
+}
+
+.menu button, .submenu button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+  font-family: inherit;
+}
+
+.menu button:hover, .submenu button:hover {
+  color: #9866ff;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 10px 0;
+  border-radius: 10px;
+  min-width: 220px;
+  text-align: center;
+  z-index: 99;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.submenu button {
+  display: block;
+  width: 100%;
+  padding: 8px 20px;
+  text-align: center;
+}
+
+.menu-item:hover .submenu,
+.menu-item .submenu:hover {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
   <meta charset="UTF-8" />
   <title>Sound Vault - Gobbo's Bakery</title>
   <style>
@@ -238,6 +311,46 @@
       currentId = null;
       currentButton = null;
     };
+  }
+</script>
+
+  <!-- Menú -->
+<div class="menu">
+  <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
+
+  <div class="menu-item">
+    <button>GALLERY</button>
+    <div class="submenu">
+      <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+      <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+      <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button>PROJECTS</button>
+    <div class="submenu">
+      <button onclick="navigateTo('sound-vault.html')">SOUND VAULT</button>
+      <button onclick="navigateTo('faphero.html')">FAPHERO</button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button>LINKS</button>
+    <div class="submenu">
+      <button onclick="navigateTo('sites.html')">SITES</button>
+      <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
+    </div>
+  </div>
+
+  <div class="menu-item"><button onclick="navigateTo('legal.html')">CONTACT</button></div>
+  <div class="menu-item"><button onclick="navigateTo('about.html')">ABOUT</button></div>
+</div>
+
+<!-- Script para navegación -->
+<script>
+  function navigateTo(url) {
+    window.location.href = url;
   }
 </script>
 
