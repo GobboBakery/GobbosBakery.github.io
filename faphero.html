@@ -1,74 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>FapHero - Gobbo's Bakery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: #0b0b0b;
+      height: 100%;
+      background: url('FapHeroBG') no-repeat center center fixed;
+      background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: white;
+    }
+
+    .faphero-wrapper {
       display: flex;
-      flex-direction: column;
+      justify-content: flex-end;
       align-items: center;
-      min-height: 100vh;
+      height: 100%;
+      padding: 40px;
     }
 
-    .video-preview {
-      margin-top: 100px;
-      width: 1280px;
-      max-width: 90vw;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-      position: relative;
-    }
-
-    .video-preview video {
+    .faphero-box {
+      background-color: rgba(20, 20, 20, 0.85);
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 600px;
       width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
     }
 
-    .download-section {
-      margin: 30px 0 20px;
-      text-align: center;
+    .faphero-box h1 {
+      color: #9866ff;
+      margin-bottom: 20px;
+      font-size: 2em;
     }
 
-    .download-btn {
-      background-color: #9866ff;
-      color: white;
-      padding: 12px 24px;
-      font-size: 1.1em;
+    .faphero-box video {
+      width: 100%;
       border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .faphero-box p {
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .download-button {
+      display: inline-block;
+      padding: 12px 22px;
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
+      color: white;
+      border-radius: 10px;
       text-decoration: none;
       font-weight: bold;
-      transition: background-color 0.3s;
-    }
-
-    .download-btn:hover {
-      background-color: #b48cff;
-    }
-
-    .instructions {
-      max-width: 800px;
-      margin: 20px auto 80px;
-      padding: 0 20px;
-      color: #ddd;
-      line-height: 1.6;
       font-size: 1em;
+      margin-top: 10px;
+      transition: background 0.3s ease;
     }
 
-    footer {
-      margin-top: auto;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
+    .download-button:hover {
+      background: linear-gradient(135deg, #a277ff, #8852ff);
     }
 
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #9866ff;
+    }
+
+    /* Menú */
     .menu {
       position: fixed;
       bottom: 0;
@@ -86,15 +102,6 @@
       margin: 0 20px;
     }
 
-    .menu-item::before {
-      content: "";
-      position: absolute;
-      bottom: 100%;
-      left: 0;
-      width: 100%;
-      height: 30px;
-    }
-
     .menu button, .submenu button {
       background: none;
       border: none;
@@ -103,7 +110,6 @@
       font-weight: bold;
       cursor: pointer;
       font-family: inherit;
-      transition: color 0.3s;
     }
 
     .menu button:hover, .submenu button:hover {
@@ -116,14 +122,12 @@
       bottom: 100%;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      margin-bottom: 20px;
       background: rgba(0, 0, 0, 0.85);
       padding: 10px 0;
       border-radius: 10px;
       min-width: 220px;
       text-align: center;
       z-index: 99;
-      pointer-events: auto;
       opacity: 0;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
@@ -132,7 +136,6 @@
       display: block;
       width: 100%;
       padding: 8px 20px;
-      text-align: center;
     }
 
     .menu-item:hover .submenu,
@@ -145,26 +148,25 @@
 </head>
 <body>
 
-  <div class="video-preview">
-    <video autoplay muted loop playsinline controls>
-      <source src="faphero-preview.mp4" type="video/mp4">
-    </video>
+  <div class="faphero-wrapper">
+    <div class="faphero-box">
+      <h1>FapHero Interactive Demo</h1>
+      <video autoplay muted loop playsinline>
+        <source src="faphero-preview.mp4" type="video/mp4">
+      </video>
+      <p>This test pack contains:</p>
+      <ul>
+        <li>🧠 A sample video file (.mp4)</li>
+        <li>📈 A matching .funscript with motion instructions</li>
+      </ul>
+      <p>To use it, download the pack and open it in ScriptPlayer or any compatible app with your toy.</p>
+      <a href="faphero-test-pack.zip" download class="download-button">⬇ Download Pack</a>
+    </div>
   </div>
 
-  <div class="download-section">
-    <a href="faphero-test-pack.zip" download class="download-btn">⬇ Download Test Pack (.zip)</a>
-  </div>
+  <button class="back-button" onclick="location.href='index.html'">⬅ Home</button>
 
-  <div class="instructions">
-    <h2>🛠 How to Use</h2>
-    <p>1. Download and extract the ZIP file.</p>
-    <p>2. Open the <strong>.mp4</strong> with <em>ScriptPlayer</em> or compatible software.</p>
-    <p>3. Load the <strong>.funscript</strong> in the player to synchronize it with your device.</p>
-    <p>4. Adjust latency if needed and enjoy your test run!</p>
-    <p>This project is part of the <strong>FapHero Foreplay Pack</strong>. New tracks and interactivity are coming soon!</p>
-  </div>
-
-  <!-- Menú -->
+  <!-- Menú global -->
   <div class="menu">
     <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
 
