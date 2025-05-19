@@ -4,118 +4,105 @@
   <meta charset="UTF-8">
   <title>Contact - Gobbo's Bakery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      background: #0b0b0b;
-      color: white;
+      height: 100%;
+      background: url('Contactbg') no-repeat center center fixed;
+      background-size: cover;
       font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
+      color: white;
     }
 
-    .contact-container {
+    .contact-wrapper {
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      gap: 40px;
-      max-width: 1000px;
-      margin: 100px 20px 40px;
+      height: 100%;
       padding: 40px;
-      background-color: #1a1a1a;
+    }
+
+    .contact-box {
+      background-color: rgba(20, 20, 20, 0.85);
+      padding: 40px;
       border-radius: 16px;
+      max-width: 500px;
+      width: 100%;
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
     }
 
-    .contact-text {
-      flex: 2;
-    }
-
-    .contact-text h1 {
+    .contact-box h1 {
       color: #9866ff;
       margin-bottom: 20px;
+      font-size: 2em;
     }
 
-    .contact-text p {
-      font-size: 1.1em;
+    .contact-box p {
+      font-size: 1.05em;
       line-height: 1.7;
-      color: #ccc;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
-    .contact-action {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .contact-action button {
-      background: linear-gradient(135deg, #9866ff, #7a42ff);
-      border: none;
-      color: white;
-      font-size: 1em;
-      padding: 12px 24px;
-      border-radius: 10px;
-      cursor: pointer;
-      display: flex;
+    .contact-box .send-button {
+      margin-top: 20px;
+      display: inline-flex;
       align-items: center;
       gap: 10px;
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .contact-action button:hover {
+    .contact-box .send-button:hover {
       background: linear-gradient(135deg, #a277ff, #8852ff);
     }
 
-    .contact-action button svg {
+    .contact-box .send-button svg {
       width: 20px;
       height: 20px;
       fill: white;
     }
 
-    footer {
-      margin-top: auto;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #777;
-      text-align: center;
+    .back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    .back-button:hover {
+      background-color: #9866ff;
     }
   </style>
 </head>
 <body>
 
-  <div class="contact-container">
-    <div class="contact-text">
+  <div class="contact-wrapper">
+    <div class="contact-box">
       <h1>Get in Touch</h1>
-      <p>
-        Want to collaborate, share feedback, or get in touch with me?
-      </p>
-      <p>
-        If you are the creator of any content featured in my videos and would prefer it not to be used, please reach out.
-        While my work operates under Fair Use principles, I understand and respect personal boundaries.
-      </p>
-      <p>
-        For transparency, I may request reasonable verification of authorship before proceeding.
-        Once confirmed, your content will be promptly removed—no questions asked.
-      </p>
+      <p>Want to collaborate, share feedback, or get in touch with me?</p>
+      <p>If you are the creator of any content featured in my videos and would prefer it not to be used, please reach out. While my work operates under Fair Use principles, I understand and respect personal boundaries.</p>
+      <p>For transparency, I may request reasonable verification of authorship before proceeding. Once confirmed, your content will be promptly removed—no questions asked.</p>
       <p><strong>Contact Mail:</strong> (Mail)</p>
-    </div>
-    <div class="contact-action">
-      <button>
+      <button class="send-button">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
         Send Message
       </button>
     </div>
   </div>
 
-  <footer>
-    © 2025 Gobbo's Bakery. All rights reserved.
-  </footer>
+  <button class="back-button" onclick="location.href='index.html'">⬅ Inicio</button>
 
 </body>
 </html>
