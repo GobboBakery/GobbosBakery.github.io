@@ -151,77 +151,77 @@
   </div>
 
 <script>
-  let currentAudio = null;
-  let currentAudioCtx = null;
-  let currentSource = null;
-  let currentAnalyser = null;
-  let currentAnimationId = null;
-
-  function stopCurrentAudio() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-    if (currentAnimationId) {
-      cancelAnimationFrame(currentAnimationId);
-      currentAnimationId = null;
-    }
-    if (currentAudioCtx) {
-      currentAudioCtx.close();
-      currentAudioCtx = null;
-    }
-  }
+  const players = {}; 
+  let currentId = null;
 
   function playTrack(audioId, canvasId) {
+    // Stop Song
+    if (currentId && currentId !== audioId) {
+      const prev = players[currentId];
+      if (prev) {
+        prev.audio.pause();
+        prev.audio.currentTime = 0;
+        if (prev.animationId) cancelAnimationFrame(prev.animationId);
+      }
+    }
+
+    // Stop elements
     const audio = document.getElementById(audioId);
     const canvas = document.getElementById(canvasId);
     const ctx = canvas.getContext("2d");
 
-    // Stop Song
-    if (currentAudio && currentAudio.id === audioId && !audio.paused) {
-      stopCurrentAudio();
+    // Audio
+    if (!players[audioId]) {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioCtx.createAnalyser();
+      const source = audioCtx.createMediaElementSource(audio);
+
+      source.connect(analyser);
+      analyser.connect(audioCtx.destination);
+      analyser.fftSize = 64;
+
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      function draw() {
+        players[audioId].animationId = requestAnimationFrame(draw);
+        analyser.getByteFrequencyData(dataArray);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const barWidth = (canvas.width / bufferLength) * 1.5;
+        let x = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const barHeight = dataArray[i] / 1.5;
+          ctx.fillStyle = `hsl(${barHeight + 200}, 80%, 60%)`;
+          ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+          x += barWidth + 1;
+        }
+      }
+
+      players[audioId] = {
+        audio,
+        ctx,
+        analyser,
+        draw,
+        audioCtx,
+        animationId: null
+      };
+    }
+
+    const player = players[audioId];
+    currentId = audioId;
+
+    // (toggle behavior)
+    if (!player.audio.paused) {
+      player.audio.pause();
+      player.audio.currentTime = 0;
+      if (player.animationId) cancelAnimationFrame(player.animationId);
       return;
     }
 
-    // Stop
-    stopCurrentAudio();
-
-    // New code
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const analyser = audioCtx.createAnalyser();
-    const source = audioCtx.createMediaElementSource(audio);
-    source.connect(analyser);
-    analyser.connect(audioCtx.destination);
-    analyser.fftSize = 64;
-
-    const bufferLength = analyser.frequencyBinCount;
-    const dataArray = new Uint8Array(bufferLength);
-
-    function draw() {
-      currentAnimationId = requestAnimationFrame(draw);
-      analyser.getByteFrequencyData(dataArray);
-
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const barWidth = (canvas.width / bufferLength) * 1.5;
-      let x = 0;
-      for (let i = 0; i < bufferLength; i++) {
-        const barHeight = dataArray[i] / 1.5;
-        ctx.fillStyle = `hsl(${barHeight + 200}, 80%, 60%)`;
-        ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-        x += barWidth + 1;
-      }
-    }
-
-    // Save Reference
-    currentAudio = audio;
-    currentAudioCtx = audioCtx;
-    currentAnalyser = analyser;
-    currentSource = source;
-
-    audioCtx.resume().then(() => {
-      audio.currentTime = 0;
-      audio.play();
-      draw();
+    player.audioCtx.resume().then(() => {
+      player.audio.play();
+      player.draw();
     });
   }
 </script>
