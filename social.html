@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <title>Social Media - Gobbo's Bakery</title>
 
-  <!-- Redirección automática si acceden a /social/ en lugar de /social.html -->
+  <!-- Redirección si entran como /social/ en vez de /social.html -->
   <script>
-    if (window.location.pathname.endsWith('/')) {
-      const cleanPath = window.location.pathname.replace(/\/$/, '');
-      window.location.replace(`${cleanPath}.html`);
+    const current = window.location.pathname;
+    if (current.endsWith('/') && !current.endsWith('/index.html')) {
+      const clean = current.replace(/\/$/, '') + '.html';
+      window.location.replace(clean);
     }
   </script>
 
@@ -77,14 +78,8 @@
     }
 
     @keyframes shine-sweep {
-      0% {
-        top: -100%;
-        left: -50%;
-      }
-      100% {
-        top: 100%;
-        left: 150%;
-      }
+      0% { top: -100%; left: -50%; }
+      100% { top: 100%; left: 150%; }
     }
 
     .logo-container a img {
@@ -190,27 +185,18 @@
   <div class="video-preview">
     <video autoplay muted loop playsinline>
       <source src="socialmedia.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
     </video>
   </div>
 
   <div class="logo-container">
-    <a href="https://rule34video.com/" target="_blank">
-      <img src="discord.png" alt="Rule34Video">
-    </a>
-    <a href="https://bsky.app/profile/gobbobakery.bsky.social" target="_blank">
-      <img src="Bluesky.png" alt="Patreon">
-    </a>
-    <a href="https://x.com/Gobbo_lin" target="_blank">
-      <img src="Twitter.png" alt="Iwara">
-    </a>
+    <a href="https://rule34video.com/" target="_blank"><img src="discord.png" alt="Rule34Video"></a>
+    <a href="https://bsky.app/profile/gobbobakery.bsky.social" target="_blank"><img src="Bluesky.png" alt="Bluesky"></a>
+    <a href="https://x.com/Gobbo_lin" target="_blank"><img src="Twitter.png" alt="Twitter"></a>
   </div>
 
-  <!-- Menú funcional replicado del index -->
+  <!-- Menú funcional -->
   <div class="menu">
-    <div class="menu-item">
-      <button onclick="navigateTo('index.html')">HOME</button>
-    </div>
+    <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
     <div class="menu-item">
       <button>GALLERY</button>
       <div class="submenu">
@@ -226,12 +212,8 @@
         <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
       </div>
     </div>
-    <div class="menu-item">
-      <button onclick="navigateTo('contact.html')">CONTACT</button>
-    </div>
-    <div class="menu-item">
-      <button onclick="navigateTo('legal.html')">ABOUT</button>
-    </div>
+    <div class="menu-item"><button onclick="navigateTo('contact.html')">CONTACT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('legal.html')">ABOUT</button></div>
   </div>
 
   <script>
