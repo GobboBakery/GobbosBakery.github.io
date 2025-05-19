@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <title>OTHER EDITS - Gobbo's Bakery</title>
+  <script>
+  const current = window.location.pathname;
+  if (current.endsWith('/') && !current.endsWith('/index.html')) {
+    const clean = current.replace(/\/$/, '') + '.html';
+    window.location.replace(clean);
+  }
+</script>
+
   <style>
     /* --- Main Styles --- */
     body {
