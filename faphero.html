@@ -1,82 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>FapHero - Gobbo's Bakery</title>
+  <meta charset="UTF-8" />
+  <title>FapHero Sync Test - Gobbo's Bakery</title>
   <style>
-    body {
+    html, body {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: url('FapHeroBG') no-repeat center center fixed;
+      height: 100%;
+      background: url('FapHeroBG.jpg') no-repeat center center fixed;
       background-size: cover;
+      font-family: 'Segoe UI', sans-serif;
       color: white;
     }
 
-    header {
-      text-align: center;
-      padding: 60px 20px 10px;
-    }
-
-    header h1 {
-      font-size: 2.6em;
-      color: #9866ff;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.1em;
-      color: #ccc;
-    }
-
-    .pack-grid {
+    .wrapper {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 40px;
-      padding: 40px 20px 120px;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+      padding: 40px;
     }
 
-    .pack-card {
+    .content-box {
       background-color: rgba(20, 20, 20, 0.88);
+      padding: 40px;
       border-radius: 16px;
-      width: 320px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
-      transition: transform 0.3s ease;
-    }
-
-    .pack-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .pack-card video {
+      max-width: 540px;
       width: 100%;
-      height: auto;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      text-align: center;
+    }
+
+    .content-box h1 {
+      color: #9866ff;
+      margin-bottom: 20px;
+      font-size: 2em;
+    }
+
+    .content-box p {
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .content-box video {
+      width: 100%;
       border-radius: 12px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
 
-    .pack-title {
-      font-size: 1.2em;
-      margin-bottom: 10px;
-      color: #fff;
-    }
-
-    .download-btn {
+    .download-button {
       display: inline-block;
-      padding: 10px 20px;
-      background-color: #9866ff;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
       color: white;
       text-decoration: none;
       border-radius: 10px;
       font-weight: bold;
-      transition: background-color 0.3s;
+      font-size: 1em;
+      transition: background 0.3s ease;
     }
 
-    .download-btn:hover {
-      background-color: #b48cff;
+    .download-button:hover {
+      background: linear-gradient(135deg, #a277ff, #8852ff);
     }
 
     .back-button {
@@ -96,7 +84,7 @@
       background-color: #9866ff;
     }
 
-    /* --- Menú global --- */
+    /* Menú global */
     .menu {
       position: fixed;
       bottom: 0;
@@ -160,28 +148,17 @@
 </head>
 <body>
 
-  <header>
-    <h1>FapHero Interactive Packs</h1>
-    <p>Explore synced experiences with your favorite devices</p>
-  </header>
+  <div class="wrapper">
+    <div class="content-box">
+      <h1>FapHero Sync Test</h1>
+      <p>This interactive pack was designed to test video sync with toys compatible with <strong>ScriptPlayer</strong> or similar software. It contains a short demo video and its matching <code>.funscript</code> file.</p>
 
-  <div class="pack-grid">
-    <!-- Pack 1 -->
-    <div class="pack-card">
       <video autoplay muted loop playsinline>
         <source src="faphero-preview.mp4" type="video/mp4">
       </video>
-      <div class="pack-title">Goblin Heat Test</div>
-      <a href="faphero-test-pack.zip" download class="download-btn">⬇ Download Pack</a>
-    </div>
 
-    <!-- Pack 2 -->
-    <div class="pack-card">
-      <video autoplay muted loop playsinline>
-        <source src="future-pack-preview.mp4" type="video/mp4">
-      </video>
-      <div class="pack-title">Future Fantasy Tease</div>
-      <a href="future-pack.zip" download class="download-btn">⬇ Download Pack</a>
+      <a href="FapHero_Test_Pack.zip" download class="download-button">⬇ Download ZIP</a>
+      <p style="margin-top: 15px; font-size: 0.95em; color: #ccc;">Includes: test_video.mp4 + sync.funscript</p>
     </div>
   </div>
 
