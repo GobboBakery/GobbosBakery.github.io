@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Social Media - Gobbo's Bakery</title>
+
+  <!-- Redirección automática si acceden a /social/ en lugar de /social.html -->
+  <script>
+    if (window.location.pathname.endsWith('/')) {
+      const cleanPath = window.location.pathname.replace(/\/$/, '');
+      window.location.replace(`${cleanPath}.html`);
+    }
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -178,7 +187,6 @@
 </head>
 <body>
 
-  <!-- Video Preview Section -->
   <div class="video-preview">
     <video autoplay muted loop playsinline>
       <source src="socialmedia.mp4" type="video/mp4">
@@ -186,7 +194,6 @@
     </video>
   </div>
 
-  <!-- Logo Buttons -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="discord.png" alt="Rule34Video">
@@ -199,7 +206,7 @@
     </a>
   </div>
 
-  <!-- Replicación exacta del menú funcional -->
+  <!-- Menú funcional replicado del index -->
   <div class="menu">
     <div class="menu-item">
       <button onclick="navigateTo('index.html')">HOME</button>
@@ -227,7 +234,6 @@
     </div>
   </div>
 
-  <!-- Script de navegación -->
   <script>
     function navigateTo(url) {
       window.location.href = url;
