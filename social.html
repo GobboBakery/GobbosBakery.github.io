@@ -3,16 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Social Media - Gobbo's Bakery</title>
-
-  <!-- Redirección si entran como /social/ en vez de /social.html -->
-  <script>
-    const current = window.location.pathname;
-    if (current.endsWith('/') && !current.endsWith('/index.html')) {
-      const clean = current.replace(/\/$/, '') + '.html';
-      window.location.replace(clean);
-    }
-  </script>
-
   <style>
     body {
       margin: 0;
@@ -194,7 +184,7 @@
     <a href="https://x.com/Gobbo_lin" target="_blank"><img src="Twitter.png" alt="Twitter"></a>
   </div>
 
-  <!-- Menú funcional -->
+  <!-- Menú copiado 100% del index -->
   <div class="menu">
     <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
     <div class="menu-item">
@@ -212,10 +202,11 @@
         <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
       </div>
     </div>
-    <div class="menu-item"><button onclick="navigateTo('contact.html')">CONTACT</button></div>
-    <div class="menu-item"><button onclick="navigateTo('legal.html')">ABOUT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('legal.html')">CONTACT</button></div>
+    <div class="menu-item"><button onclick="navigateTo('about.html')">ABOUT</button></div>
   </div>
 
+  <!-- Aquí estaba el error en versiones anteriores -->
   <script>
     function navigateTo(url) {
       window.location.href = url;
