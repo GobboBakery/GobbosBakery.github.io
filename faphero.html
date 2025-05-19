@@ -7,42 +7,35 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #0b0b0b;
-      color: white;
+      background: #0b0b0b;
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
-    }
-
-    header h1 {
-      font-size: 2.6em;
-      color: #ff66cc;
-    }
-
-    header p {
-      color: #ccc;
-      margin-top: 10px;
-    }
-
-    .video-section {
+      color: white;
       display: flex;
-      justify-content: center;
-      margin: 40px 20px 20px;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
     }
 
-    .video-section video {
-      width: 90%;
-      max-width: 960px;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+    .video-preview {
+      margin-top: 100px;
+      width: 1280px;
+      max-width: 90vw;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      position: relative;
+    }
+
+    .video-preview video {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
     }
 
     .download-section {
+      margin: 30px 0 20px;
       text-align: center;
-      margin: 30px;
     }
 
     .download-btn {
@@ -62,11 +55,18 @@
 
     .instructions {
       max-width: 800px;
-      margin: 40px auto;
+      margin: 20px auto 80px;
       padding: 0 20px;
       color: #ddd;
       line-height: 1.6;
       font-size: 1em;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #777;
     }
 
     .menu {
@@ -145,15 +145,9 @@
 </head>
 <body>
 
-  <header>
-    <h1>FapHero Interactive</h1>
-    <p>Test your rhythm with our sync-enabled project!</p>
-  </header>
-
-  <div class="video-section">
-    <video controls autoplay muted loop playsinline>
+  <div class="video-preview">
+    <video autoplay muted loop playsinline controls>
       <source src="faphero-preview.mp4" type="video/mp4">
-      Your browser does not support the video tag.
     </video>
   </div>
 
@@ -167,7 +161,7 @@
     <p>2. Open the <strong>.mp4</strong> with <em>ScriptPlayer</em> or compatible software.</p>
     <p>3. Load the <strong>.funscript</strong> in the player to synchronize it with your device.</p>
     <p>4. Adjust latency if needed and enjoy your test run!</p>
-    <p>Use this to check compatibility, sync accuracy, and get a taste of what’s coming next in the FapHero Foreplay Pack. More to come soon!</p>
+    <p>This project is part of the <strong>FapHero Foreplay Pack</strong>. New tracks and interactivity are coming soon!</p>
   </div>
 
   <!-- Menú -->
