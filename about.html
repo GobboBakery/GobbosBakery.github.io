@@ -64,10 +64,6 @@
       left: auto;
     }
 
-    .about-box.hidden {
-      display: none;
-    }
-
     .about-box h1 {
       color: #9866ff;
       margin-bottom: 20px;
@@ -80,10 +76,9 @@
       margin-bottom: 15px;
     }
 
-    .nav-button {
+    .nav-button, .prev-button {
       position: fixed;
       bottom: 20px;
-      right: 20px;
       background-color: #9866ff;
       color: white;
       border: none;
@@ -94,8 +89,16 @@
       z-index: 10;
     }
 
-    .nav-button:hover {
+    .nav-button:hover, .prev-button:hover {
       background-color: #b891ff;
+    }
+
+    .nav-button {
+      right: 20px;
+    }
+
+    .prev-button {
+      right: 140px;
     }
 
     .back-button {
@@ -131,6 +134,7 @@
   </div>
 
   <button class="back-button" onclick="location.href='index.html'">⬅ Home</button>
+  <button class="prev-button" onclick="prevSlide()">◀ Previous</button>
   <button class="nav-button" onclick="nextSlide()">Next ➤</button>
 
   <script>
@@ -158,13 +162,17 @@
 
     function nextSlide() {
       current = (current + 1) % texts.length;
-      if (texts[current] === '') {
-        box.classList.add('hidden');
-      } else {
-        box.classList.remove('hidden');
-        box.innerHTML = texts[current];
-        box.className = `about-box ${current % 2 === 0 ? 'left' : 'right'}`;
-      }
+      updateSlide();
+    }
+
+    function prevSlide() {
+      current = (current - 1 + texts.length) % texts.length;
+      updateSlide();
+    }
+
+    function updateSlide() {
+      box.innerHTML = texts[current];
+      box.className = `about-box ${current % 2 === 0 ? 'left' : 'right'}`;
 
       const nextBg = backgrounds[current];
       if (showingBg1) {
