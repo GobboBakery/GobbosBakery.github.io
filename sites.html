@@ -3,6 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Gobbo's Sites</title>
+
+  <!-- Redirección automática si alguien entra como /sites/ en vez de /sites.html -->
+  <script>
+    const current = window.location.pathname;
+    if (current.endsWith('/') && !current.endsWith('/index.html')) {
+      const clean = current.replace(/\/$/, '') + '.html';
+      window.location.replace(clean);
+    }
+  </script>
+
   <style>
     body {
       margin: 0;
@@ -172,14 +182,12 @@
 </head>
 <body>
 
-  <!-- Video Preview -->
   <div class="video-preview">
     <video autoplay muted loop playsinline>
       <source src="preview-banner.mp4" type="video/mp4">
     </video>
   </div>
 
-  <!-- Logos -->
   <div class="logo-container">
     <a href="https://rule34video.com/" target="_blank">
       <img src="RULE34VIDEOLOGO.png" alt="Rule34Video">
@@ -192,7 +200,6 @@
     </a>
   </div>
 
-  <!-- Menú dinámico -->
   <div class="menu">
     <div class="menu-item"><button onclick="navigateTo('index.html')">HOME</button></div>
     <div class="menu-item">
@@ -214,7 +221,6 @@
     <div class="menu-item"><button onclick="navigateTo('legal.html')">ABOUT</button></div>
   </div>
 
-  <!-- Script del menú -->
   <script>
     function navigateTo(url) {
       window.location.href = url;
