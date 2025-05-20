@@ -174,19 +174,23 @@
     }
 
     .muffin-label {
-      font-family: 'YayHoliday', cursive;
-      font-size: 1.6em;
-      margin-top: -10px;
-      transform: rotate(-28deg);
-      background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
-      background-size: 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      -webkit-text-stroke: 1.5px black;
-      text-shadow: 0 0 8px white;
-      animation: rainbowText 4s linear infinite;
-      pointer-events: none;
-    }
+  font-family: 'YayHoliday', cursive;
+  font-size: 2.4em;
+  font-weight: bold;
+  position: absolute;
+  bottom: 85px;         
+  right: 115px;         
+  transform: rotate(-30deg);
+  background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
+  background-size: 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.8px black;
+  text-shadow: 0 0 10px white;
+  animation: rainbowText 4s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+}
 
     @keyframes rainbowText {
       0% { background-position: 0% }
