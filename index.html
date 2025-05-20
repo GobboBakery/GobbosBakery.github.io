@@ -138,59 +138,48 @@
 @font-face {
   font-family: 'YayHoliday';
   src: url('YayHoliday-G3rEy.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
 }
 
-.muffin-container {
+.muffin-wrapper {
   position: fixed;
-  bottom: -10px;
-  right: 5px;
-  width: 180px;
+  bottom: 20px;
+  right: 20px;
+  width: 140px;
+  height: auto;
   z-index: 999;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-  animation: muffinBounce 3s infinite ease-in-out;
+  transition: transform 0.3s ease;
 }
 
-.muffin-icon {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-}
-
-.muffin-container:hover .muffin-icon {
-  content: url("muffinhover.png");
+.muffin-wrapper:hover {
   transform: scale(1.1);
 }
 
-
-.muffin-label {
-  position: absolute;
-  bottom: 85px;         
-  right: 115px;         
-  transform: rotate(-30deg);
-  font-family: 'YayHoliday', cursive;
-  font-size: 2.4em;
-  font-weight: bold;
-  background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
-  background-size: 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.8px black;
-  text-shadow: 0 0 10px white;
-  animation: rainbowText 4s linear infinite;
-  pointer-events: none;
-  z-index: 1000;
+.muffin-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 10px #ff99dd) drop-shadow(0 0 5px #86f);
+  transition: filter 0.3s ease;
 }
 
+.muffin-wrapper:hover img {
+  filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 15px #ff00ff);
+}
 
-@keyframes muffinBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+.muffin-text {
+  position: absolute;
+  bottom: 80px;
+  left: -20px;
+  transform: rotate(-28deg);
+  font-family: 'YayHoliday', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  background: linear-gradient(to right, #ff5ee1, #ffc34d, #00d2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 6px rgba(255,255,255,0.8);
+  pointer-events: none;
 }
 
 
@@ -263,9 +252,9 @@
     }
   </script>
   
-<a href="latest-project.html" class="muffin-container" title="Latest Project">
-  <span class="muffin-label">NEW!</span>
-  <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
+<a href="latest-project.html" class="muffin-wrapper" title="Latest Project">
+  <span class="muffin-text">NEW!</span>
+  <img src="muffin.png" alt="Muffin Button" onmouseover="this.src='muffinhover.png'" onmouseout="this.src='muffin.png'">
 </a>
 
 </body>
