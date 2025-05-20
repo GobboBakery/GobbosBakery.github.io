@@ -135,73 +135,87 @@
       transform: translateX(-50%) translateY(0);
     }
 
-<!-- Fuentes -->
 <style>
 @font-face {
   font-family: 'YayHoliday';
   src: url('YayHoliday-G3rEy.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-/* Contenedor general del muffin y el texto */
-.muffin-wrapper {
+/* Contenedor del muffin + texto */
+.muffin-container {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 140px;
-  height: auto;
+  bottom: -10px;
+  right: 5px;
+  width: 180px;
   z-index: 999;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-decoration: none;
+  animation: muffinBounce 3s infinite ease-in-out;
 }
 
-.muffin-wrapper:hover {
-  transform: scale(1.1);
-}
-
-/* Imagen del muffin con glow */
-.muffin-wrapper img {
+/* Muffin base */
+.muffin-icon {
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
+  transition: transform 0.3s ease-in-out;
+  max-width: none;
   filter: drop-shadow(0 0 10px #ff99dd) drop-shadow(0 0 5px #86f);
-  transition: filter 0.3s ease;
 }
 
-.muffin-wrapper:hover img {
-  filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 15px #ff00ff);
+/* Hover: cambia imagen y aplica glow arcoiris */
+.muffin-container:hover .muffin-icon {
+  content: url("muffinhover.png");
+  transform: scale(1.1);
+  animation: rainbow-glow 1.5s infinite;
 }
 
-/* Texto "NEW!" arcoiris rotado sobre el muffin */
-.muffin-text {
-  position: absolute;
-  bottom: 80px;
-  left: -20px;
-  transform: rotate(-28deg);
+/* Texto "NEW!" arcoiris */
+.muffin-label {
   font-family: 'YayHoliday', cursive;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 1.6em;
+  margin-top: -10px;
+  transform: rotate(-28deg);
   background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
   background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.6px black;
-  text-shadow: 0 0 6px rgba(255,255,255,0.8);
+  -webkit-text-stroke: 1.5px black;
+  text-shadow: 0 0 8px white;
   animation: rainbowText 4s linear infinite;
   pointer-events: none;
-  z-index: 1000;
 }
 
-/* Arcoiris animado */
+/* Animaciones */
 @keyframes rainbowText {
   0% { background-position: 0% }
-  100% { background-position: 100% }
+  100% { background-position: 300% }
+}
+
+@keyframes muffinBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes rainbow-glow {
+  0%   { filter: drop-shadow(0 0 5px #ff66cc); }
+  20%  { filter: drop-shadow(0 0 5px #ffcc00); }
+  40%  { filter: drop-shadow(0 0 5px #33ff33); }
+  60%  { filter: drop-shadow(0 0 5px #00ccff); }
+  80%  { filter: drop-shadow(0 0 5px #9966ff); }
+  100% { filter: drop-shadow(0 0 5px #ff66cc); }
 }
 </style>
 
-<!-- HTML del botón -->
-<a href="latest-project.html" class="muffin-wrapper" title="Latest Project">
-  <span class="muffin-text">NEW!</span>
-  <img src="muffin.png" alt="Muffin Button" />
+<!-- HTML muffin + texto -->
+<a href="latest-project.html" class="muffin-container" title="Latest Project">
+  <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
+  <span class="muffin-label">NEW!</span>
 </a>
 
 
