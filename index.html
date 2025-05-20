@@ -137,8 +137,8 @@
 
 .muffin-float {
   position: fixed;
-  bottom: 15px;      
-  right: 15px;       
+  bottom: 25px;
+  right: 25px;
   z-index: 999;
   cursor: pointer;
   animation: muffinBounce 3s infinite ease-in-out;
@@ -146,25 +146,22 @@
 
 .muffin-icon {
   display: block;
-  width: 90px;       
+  width: 130px;      
   height: auto;
   transition: transform 0.3s ease-in-out;
-  max-width: none;  
+  max-width: none;   
 }
 
 .muffin-float:hover .muffin-icon {
   content: url("muffinhover.png");
-  transform: scale(1.08);
+  transform: scale(1.05); 
 }
 
 @keyframes muffinBounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-5px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
+
 
 
   </style>
