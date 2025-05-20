@@ -135,11 +135,14 @@
       transform: translateX(-50%) translateY(0);
     }
 
+<!-- Fuentes -->
+<style>
 @font-face {
   font-family: 'YayHoliday';
   src: url('YayHoliday-G3rEy.ttf') format('truetype');
 }
 
+/* Contenedor general del muffin y el texto */
 .muffin-wrapper {
   position: fixed;
   bottom: 20px;
@@ -155,6 +158,7 @@
   transform: scale(1.1);
 }
 
+/* Imagen del muffin con glow */
 .muffin-wrapper img {
   width: 100%;
   height: auto;
@@ -167,20 +171,38 @@
   filter: drop-shadow(0 0 10px #ff00ff) drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 15px #ff00ff);
 }
 
+/* Texto "NEW!" arcoiris rotado sobre el muffin */
 .muffin-text {
   position: absolute;
   bottom: 80px;
   left: -20px;
   transform: rotate(-28deg);
-  font-family: 'YayHoliday', sans-serif;
-  font-size: 24px;
+  font-family: 'YayHoliday', cursive;
+  font-size: 28px;
   font-weight: bold;
-  background: linear-gradient(to right, #ff5ee1, #ffc34d, #00d2ff);
+  background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1.6px black;
   text-shadow: 0 0 6px rgba(255,255,255,0.8);
+  animation: rainbowText 4s linear infinite;
   pointer-events: none;
+  z-index: 1000;
 }
+
+/* Arcoiris animado */
+@keyframes rainbowText {
+  0% { background-position: 0% }
+  100% { background-position: 100% }
+}
+</style>
+
+<!-- HTML del botón -->
+<a href="latest-project.html" class="muffin-wrapper" title="Latest Project">
+  <span class="muffin-text">NEW!</span>
+  <img src="muffin.png" alt="Muffin Button" />
+</a>
 
 
   </style>
