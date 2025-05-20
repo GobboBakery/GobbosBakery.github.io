@@ -170,27 +170,23 @@
 
 .muffin-label {
   position: absolute;
-  top: -30px;
-  right: 0;
-  transform: rotate(-20deg);
+  bottom: 90px;        
+  right: 12px;         
+  transform: rotate(-30deg);
   font-family: 'YayHoliday', cursive;
-  font-size: 2.2em;
+  font-size: 2.4em;
   font-weight: bold;
   background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
   background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 1.8px black;
-  text-shadow: 0 0 8px white;
+  text-shadow: 0 0 10px white;
   animation: rainbowText 4s linear infinite;
   pointer-events: none;
+  z-index: 1000;
 }
 
-
-@keyframes rainbowText {
-  0% { background-position: 0% }
-  100% { background-position: 300% }
-}
 
 @keyframes muffinBounce {
   0%, 100% { transform: translateY(0); }
