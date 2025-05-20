@@ -134,6 +134,33 @@
       opacity: 1;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* MUFFIN BUTTON */
+    .muffin-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      z-index: 999;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .muffin-float:hover {
+      transform: scale(1.1);
+    }
+
+    .muffin-icon {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .muffin-float:hover .muffin-icon {
+      content: url("muffin-hover.png");
+    }
   </style>
 </head>
 <body>
@@ -179,7 +206,7 @@
       <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
     </div>
   </div>
-
+  
   <div class="menu-item">
     <button onclick="navigateTo('legal.html')">CONTACT</button>
   </div>
@@ -202,6 +229,10 @@
       window.location.href = url;
     }
   </script>
+  
+  <a href="latest-project.html" class="muffin-float" title="Latest Project">
+  <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
+</a>
 
 </body>
 </html>
