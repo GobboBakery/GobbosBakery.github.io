@@ -135,39 +135,38 @@
       transform: translateX(-50%) translateY(0);
     }
 
-    .muffin-float {
+   .muffin-float {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 110px; 
-  height: 110px;
+  bottom: 40px;
+  right: 40px;
   z-index: 999;
   cursor: pointer;
-  transition: transform 0.3s ease;
-  animation: bounce 2.5s infinite ease-in-out;
-}
-
-.muffin-float:hover {
-  transform: scale(1.2);
-  animation: none; 
+  animation: muffinBounce 3s infinite ease-in-out;
 }
 
 .muffin-icon {
-  width: 100%;
-  height: auto;
   display: block;
-  transition: all 0.2s ease-in-out;
+  max-width: none;  /* Para respetar dimensiones originales */
+  height: auto;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* Cambiar imagen en hover sin distorsión */
 .muffin-float:hover .muffin-icon {
   content: url("muffinhover.png");
+  transform: scale(1.05);
 }
 
-/* Bounce Effect */
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/* Rebote sin alterar escala */
+@keyframes muffinBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
+
 
   </style>
 </head>
@@ -238,7 +237,7 @@
     }
   </script>
   
-  <a href="latest-project.html" class="muffin-float" title="Latest Project">
+<a href="latest-project.html" class="muffin-float" title="Latest Project">
   <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
 </a>
 
