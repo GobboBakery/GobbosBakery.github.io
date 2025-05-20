@@ -135,10 +135,10 @@
       transform: translateX(-50%) translateY(0);
     }
 
-   .muffin-float {
+.muffin-float {
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: 15px;      
+  right: 15px;       
   z-index: 999;
   cursor: pointer;
   animation: muffinBounce 3s infinite ease-in-out;
@@ -146,24 +146,23 @@
 
 .muffin-icon {
   display: block;
-  max-width: none;  /* Para respetar dimensiones originales */
+  width: 90px;       
   height: auto;
   transition: transform 0.3s ease-in-out;
+  max-width: none;  
 }
 
-/* Cambiar imagen en hover sin distorsión */
 .muffin-float:hover .muffin-icon {
   content: url("muffinhover.png");
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
-/* Rebote sin alterar escala */
 @keyframes muffinBounce {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
   }
 }
 
