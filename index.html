@@ -154,7 +154,17 @@
 
 .muffin-float:hover .muffin-icon {
   content: url("muffinhover.png");
-  transform: scale(1.05);
+  transform: scale(1.1);
+  animation: rainbow-glow 1.5s infinite;
+}
+
+@keyframes rainbow-glow {
+  0%   { filter: drop-shadow(0 0 5px #ff66cc); }
+  20%  { filter: drop-shadow(0 0 5px #ffcc00); }
+  40%  { filter: drop-shadow(0 0 5px #33ff33); }
+  60%  { filter: drop-shadow(0 0 5px #00ccff); }
+  80%  { filter: drop-shadow(0 0 5px #9966ff); }
+  100% { filter: drop-shadow(0 0 5px #ff66cc); }
 }
 
 @keyframes muffinBounce {
