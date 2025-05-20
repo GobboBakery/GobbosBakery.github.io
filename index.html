@@ -143,82 +143,69 @@
   font-style: normal;
 }
 
-/* Contenedor del muffin + texto */
-.muffin-container {
-  position: fixed;
-  bottom: -10px;
-  right: 5px;
-  width: 180px;
-  z-index: 999;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  text-decoration: none;
-  animation: muffinBounce 3s infinite ease-in-out;
-}
 
-/* Muffin base */
-.muffin-icon {
-  display: block;
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease-in-out;
-  max-width: none;
-  filter: drop-shadow(0 0 10px #ff99dd) drop-shadow(0 0 5px #86f);
-}
+    .muffin-container {
+      position: fixed;
+      bottom: -10px;
+      right: 5px;
+      width: 180px;
+      z-index: 999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      text-decoration: none;
+      animation: muffinBounce 3s infinite ease-in-out;
+    }
 
-/* Hover: cambia imagen y aplica glow arcoiris */
-.muffin-container:hover .muffin-icon {
-  content: url("muffinhover.png");
-  transform: scale(1.1);
-  animation: rainbow-glow 1.5s infinite;
-}
+    .muffin-icon {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.3s ease-in-out;
+      max-width: none;
+      filter: drop-shadow(0 0 10px #ff99dd) drop-shadow(0 0 5px #86f);
+    }
 
-/* Texto "NEW!" arcoiris */
-.muffin-label {
-  font-family: 'YayHoliday', cursive;
-  font-size: 1.6em;
-  margin-top: -10px;
-  transform: rotate(-28deg);
-  background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
-  background-size: 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 1.5px black;
-  text-shadow: 0 0 8px white;
-  animation: rainbowText 4s linear infinite;
-  pointer-events: none;
-}
+    .muffin-container:hover .muffin-icon {
+      content: url("muffinhover.png");
+      transform: scale(1.1);
+      animation: rainbow-glow 1.5s infinite;
+    }
 
-/* Animaciones */
-@keyframes rainbowText {
-  0% { background-position: 0% }
-  100% { background-position: 300% }
-}
+    .muffin-label {
+      font-family: 'YayHoliday', cursive;
+      font-size: 1.6em;
+      margin-top: -10px;
+      transform: rotate(-28deg);
+      background: linear-gradient(90deg, #ff00cc, #33ccff, #ffcc00, #ff00cc);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke: 1.5px black;
+      text-shadow: 0 0 8px white;
+      animation: rainbowText 4s linear infinite;
+      pointer-events: none;
+    }
 
-@keyframes muffinBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+    @keyframes rainbowText {
+      0% { background-position: 0% }
+      100% { background-position: 300% }
+    }
 
-@keyframes rainbow-glow {
-  0%   { filter: drop-shadow(0 0 5px #ff66cc); }
-  20%  { filter: drop-shadow(0 0 5px #ffcc00); }
-  40%  { filter: drop-shadow(0 0 5px #33ff33); }
-  60%  { filter: drop-shadow(0 0 5px #00ccff); }
-  80%  { filter: drop-shadow(0 0 5px #9966ff); }
-  100% { filter: drop-shadow(0 0 5px #ff66cc); }
-}
-</style>
+    @keyframes muffinBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
 
-<!-- HTML muffin + texto -->
-<a href="latest-project.html" class="muffin-container" title="Latest Project">
-  <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
-  <span class="muffin-label">NEW!</span>
-</a>
-
-
+    @keyframes rainbow-glow {
+      0%   { filter: drop-shadow(0 0 5px #ff66cc); }
+      20%  { filter: drop-shadow(0 0 5px #ffcc00); }
+      40%  { filter: drop-shadow(0 0 5px #33ff33); }
+      60%  { filter: drop-shadow(0 0 5px #00ccff); }
+      80%  { filter: drop-shadow(0 0 5px #9966ff); }
+      100% { filter: drop-shadow(0 0 5px #ff66cc); }
+    }
   </style>
 </head>
 <body>
@@ -288,10 +275,10 @@
     }
   </script>
   
-<a href="latest-project.html" class="muffin-wrapper" title="Latest Project">
-  <span class="muffin-text">NEW!</span>
-  <img src="muffin.png" alt="Muffin Button" onmouseover="this.src='muffinhover.png'" onmouseout="this.src='muffin.png'">
-</a>
+  <a href="latest-project.html" class="muffin-container" title="Latest Project">
+    <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
+    <span class="muffin-label">NEW!</span>
+  </a>
 
 </body>
 </html>
