@@ -22,45 +22,58 @@
       z-index: -1;
     }
 
-    #ageModal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background-color: #000000;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
+#ageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.9) 0%, rgba(10, 10, 10, 1) 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.6s ease-out;
+}
 
-    #ageModal h2 {
-      margin-bottom: 10px;
-      font-size: 2em;
-    }
+#ageModal h2 {
+  font-size: 2.4em;
+  margin-bottom: 10px;
+  color: #ffd700;
+  text-shadow: 0 0 10px #ff69b4;
+}
 
-    #ageModal p {
-      margin-bottom: 20px;
-      font-size: 1.2em;
-    }
+#ageModal p {
+  font-size: 1.3em;
+  margin-bottom: 30px;
+  color: #ddd;
+  text-shadow: 0 0 5px #222;
+}
 
-    #ageModal button {
-      margin: 10px;
-      padding: 10px 20px;
-      font-size: 1.2em;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
-    }
+#ageModal button {
+  margin: 10px;
+  padding: 12px 26px;
+  font-size: 1.2em;
+  background: linear-gradient(135deg, #ff69b4, #9866ff);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 0 10px #ff99dd;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
 
-    #ageModal button:hover {
-      background-color: #ff85c1;
-    }
+#ageModal button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ffccff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
 
     .menu {
       position: fixed;
