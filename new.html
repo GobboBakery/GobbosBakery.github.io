@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Test Video Background</title>
+  <title>Video Background Test</title>
   <style>
     html, body {
       margin: 0;
@@ -16,35 +16,31 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
       object-fit: cover;
       z-index: -1;
-
-      /* Debug visual */
-      border: 5px solid red;
     }
 
-    /* Texto de prueba opcional */
     .debug-text {
       position: absolute;
       top: 20px;
       left: 20px;
       color: white;
-      font-family: sans-serif;
       font-size: 1.5em;
+      font-family: sans-serif;
       z-index: 10;
     }
   </style>
 </head>
 <body>
 
-  <video autoplay muted loop playsinline id="backgroundVideo">
-    <source src="./new.mp4" type="video/mp4">
-    Your browser does not support the video tag.
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="new.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
   </video>
 
-  <div class="debug-text">Video should be playing behind this text.</div>
+  <div class="debug-text">Should be playing "new.mp4"</div>
 
 </body>
 </html>
