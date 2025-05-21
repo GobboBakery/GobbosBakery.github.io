@@ -2,23 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>New Project - Gobbo's Bakery</title>
+  <title>Gobbo's Bakery - New Project</title>
   <style>
-    /* Reset básico */
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
       height: 100%;
       overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
       background-color: black;
     }
 
-    /* Fondo de video */
     #backgroundVideo {
       position: fixed;
       top: 0;
@@ -29,7 +23,6 @@
       z-index: -1;
     }
 
-    /* Logo centrado */
     .logo-container {
       position: absolute;
       top: 50%;
@@ -43,7 +36,6 @@
       height: auto;
     }
 
-    /* Estilo del menú */
     .menu {
       position: fixed;
       bottom: 0;
@@ -70,7 +62,7 @@
       height: 30px;
     }
 
-    .menu button, .submenu button {
+    .menu button {
       background: none;
       border: none;
       color: white;
@@ -82,8 +74,7 @@
       position: relative;
     }
 
-    /* HOVER: efecto dorado resplandeciente animado */
-    .menu button:hover, .submenu button:hover {
+    .menu button:hover {
       color: #FFD700;
       text-shadow: 0 0 6px #FFD700, 0 0 12px #FFD700;
       box-shadow: 0 0 8px #FFD700;
@@ -100,64 +91,29 @@
         box-shadow: 0 0 15px #FFD700;
       }
     }
-
-    .submenu {
-      display: none;
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      margin-bottom: 20px;
-      background: rgba(0, 0, 0, 0.85);
-      padding: 10px 0;
-      border-radius: 10px;
-      min-width: 220px;
-      text-align: center;
-      z-index: 99;
-      pointer-events: auto;
-      opacity: 0;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    .submenu button {
-      display: block;
-      width: 100%;
-      padding: 8px 20px;
-      text-align: center;
-    }
-
-    .menu-item:hover .submenu,
-    .menu-item .submenu:hover {
-      display: block;
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- Video de fondo -->
+  <!-- Fondo de video -->
   <video autoplay muted loop playsinline id="backgroundVideo">
     <source src="new.webm" type="video/webm">
     Your browser does not support the video tag.
   </video>
 
-  <!-- Logo -->
+  <!-- Logo centrado -->
   <div class="logo-container">
     <img src="new.png" alt="New Project Logo">
   </div>
 
-  <!-- Menú inferior -->
+  <!-- Menú inferior con 3 botones -->
   <div class="menu">
     <div class="menu-item">
       <button onclick="navigateTo('demo.html')">WATCH DEMO</button>
     </div>
-
     <div class="menu-item">
       <button onclick="navigateTo('https://yourlink.com')">LINK</button>
     </div>
-
     <div class="menu-item">
       <button onclick="navigateTo('index.html')">HOME</button>
     </div>
