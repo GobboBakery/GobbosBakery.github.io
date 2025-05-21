@@ -74,7 +74,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Efecto dorado en texto al hacer hover */
     .menu button:hover {
       background: linear-gradient(
         120deg,
@@ -99,19 +98,18 @@
 </head>
 <body>
 
-  <!-- Fondo de video -->
-<video autoplay muted loop playsinline id="backgroundVideo">
-  <source src="new.webm" type="video/webm">
-  <source src="new.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+  <!-- 🎥 Video de fondo (usa MP4 como el index) -->
+  <video autoplay muted loop id="backgroundVideo">
+    <source src="new.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
 
-  <!-- Logo centrado -->
+  <!-- 🖼️ Logo centrado -->
   <div class="logo-container">
     <img src="new.png" alt="New Project Logo">
   </div>
 
-  <!-- Menú inferior -->
+  <!-- 📍 Menú inferior -->
   <div class="menu">
     <div class="menu-item">
       <button onclick="navigateTo('demo.html')">WATCH DEMO</button>
