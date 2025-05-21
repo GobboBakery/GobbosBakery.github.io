@@ -148,10 +148,7 @@
 
     <h2>Official Demo Trailer</h2>
 
-    <video id="demoVideo" controls autoplay loop style="width: 100%; border-radius: 10px; margin-top: 15px;">
-      <source src="DemoVideo.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+<div id="demoVideoContainer" style="width: 100%; margin-top: 15px;"></div>
   </div>
 </div>
   
@@ -223,56 +220,60 @@
   </div>
 </div>
 
-  <script>
+<script>
 document.addEventListener("DOMContentLoaded", () => {
+  // --- WATCH DEMO ---
   const openDemoBtn = document.getElementById("openDemoBtn");
   const closeDemoBtn = document.getElementById("closeDemoBtn");
   const demoModal = document.getElementById("demoModal");
-  const demoVideo = document.getElementById("demoVideo");
+  const demoContainer = document.getElementById("demoVideoContainer");
 
   openDemoBtn.addEventListener("click", () => {
     demoModal.style.display = "flex";
-    demoVideo.play(); // Autoplay si está permitido
+    demoContainer.innerHTML = `
+      <video controls autoplay loop style="width: 100%; border-radius: 10px;">
+        <source src="DemoVideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    `;
   });
 
   closeDemoBtn.addEventListener("click", () => {
     demoModal.style.display = "none";
-    demoVideo.pause();
-    demoVideo.currentTime = 0;
+    demoContainer.innerHTML = ""; // elimina el video al cerrar
   });
 
   window.addEventListener("click", (event) => {
     if (event.target === demoModal) {
       demoModal.style.display = "none";
-      demoVideo.pause();
-      demoVideo.currentTime = 0;
+      demoContainer.innerHTML = "";
     }
   });
 });
 </script>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const openBtn = document.getElementById("openModalBtn");
-    const closeBtn = document.getElementById("closeModalBtn");
-    const modal = document.getElementById("linkModal");
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // --- LINK MODAL ---
+  const openBtn = document.getElementById("openModalBtn");
+  const closeBtn = document.getElementById("closeModalBtn");
+  const modal = document.getElementById("linkModal");
 
-    openBtn.addEventListener("click", () => {
-      modal.style.display = "flex";
-    });
-
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
+  openBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
   });
-</script>
 
+  closeBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+});
+</script>
 
 </body>
 </html>
