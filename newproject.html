@@ -210,11 +210,14 @@ document.addEventListener("DOMContentLoaded", () => {
   openDemoBtn.addEventListener("click", () => {
     demoModal.style.display = "flex";
     demoContainer.innerHTML = `
-      <video controls autoplay loop style="width: 100%; border-radius: 10px;">
-        <source src="DemoVideo.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    `;
+    <video controls autoplay loop style="width: 100%; border-radius: 10px;">
+    <source src="DemoVideo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+  <p style="color: #ccc; font-size: 0.9em; margin-top: 10px;">
+    Demo is shown in 720p to reduce file size and allow upload via GitHub.
+  </p>
+`;
   });
 
   closeDemoBtn.addEventListener("click", () => {
