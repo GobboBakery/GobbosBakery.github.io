@@ -134,10 +134,9 @@
     <button onclick="navigateTo('demo.html')">WATCH DEMO</button>
   </div>
 
-  <div class="menu-item">
-    <button onclick="navigateTo('https://yourlink.com')">LINK</button>
-    </div>
-  </div>
+<div class="menu-item">
+  <button id="openModalBtn">LINK</button>
+</div>
 
   <script>
 
@@ -145,6 +144,41 @@
       window.location.href = url;
     }
   </script>
+
+  <script>
+  document.getElementById("openModalBtn").addEventListener("click", () => {
+    document.getElementById("linkModal").style.display = "block";
+  });
+
+  document.getElementById("closeModalBtn").addEventListener("click", () => {
+    document.getElementById("linkModal").style.display = "none";
+  });
+
+  // Cerrar al hacer clic fuera del modal
+  window.addEventListener("click", (event) => {
+    const modal = document.getElementById("linkModal");
+    if (event.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+</script>
+
+
+  <!-- MODAL PARA LINK -->
+<div id="linkModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999;">
+  <div class="modal-content" style="background-color: #2a2a2a; color: white; padding: 30px; border-radius: 12px; max-width: 800px; margin: 100px auto; text-align: center; position: relative;">
+    <span id="closeModalBtn" style="position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer;">&times;</span>
+
+    <h2>New Project Downloads</h2>
+    <p style="color: #ccc;">Choose your version:</p>
+
+    <div class="quality-buttons">
+      <a href="https://vaultfiles.free.nf/4k.php" target="_blank" style="background: linear-gradient(135deg, gold, orange); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">🔒 4K Premium</a>
+      <a href="https://vaultfiles.free.nf/fullhd.php" target="_blank" style="background: linear-gradient(135deg, silver, lightgray); color: black; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">🔒 FullHD Access</a>
+      <a href="https://iwara.tv/newproject" target="_blank" style="background-color: #9866ff; color: white; padding: 10px 20px; margin: 5px; border-radius: 8px; text-decoration: none; font-weight: bold;">Watch Free (1080p)</a>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
