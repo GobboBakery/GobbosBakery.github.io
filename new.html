@@ -21,6 +21,9 @@
       min-height: 100%;
       object-fit: cover;
       z-index: -1;
+
+      /* Debug visual */
+      border: 5px solid red;
     }
 
     .logo-container {
@@ -98,18 +101,18 @@
 </head>
 <body>
 
-  <!-- 🎥 Video de fondo (usa MP4 como el index) -->
-  <video autoplay muted loop id="backgroundVideo">
-    <source src="new.mp4" type="video/mp4">
+  <!-- 🎥 Video de fondo (con ruta relativa y debug visual) -->
+  <video autoplay muted loop playsinline id="backgroundVideo">
+    <source src="./new.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <!-- 🖼️ Logo centrado -->
+  <!-- 🖼️ Logo -->
   <div class="logo-container">
     <img src="new.png" alt="New Project Logo">
   </div>
 
-  <!-- 📍 Menú inferior -->
+  <!-- 📍 Menú -->
   <div class="menu">
     <div class="menu-item">
       <button onclick="navigateTo('demo.html')">WATCH DEMO</button>
