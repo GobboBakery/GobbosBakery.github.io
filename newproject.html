@@ -59,8 +59,20 @@
       font-family: inherit;
     }
 
-    .menu button:hover, .submenu button:hover {
-      color: #9866ff;
+     .menu button:hover {
+       background: linear-gradient(
+       120deg,
+       #d4af37 10%,
+       #fff8dc 30%,
+       #ffd700 50%,
+       #fff8dc 70%,
+      #d4af37 90%
+    );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineMove 4s linear infinite;
+      text-shadow: 0 0 2px rgba(255,255,255,0.3);
     }
 
     .submenu {
