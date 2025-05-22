@@ -483,23 +483,26 @@ input.addEventListener("input", () => {
   const searchTerm = input.value.toLowerCase();
   const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
- 
   if (searchTerm === "") {
+    
     items.forEach(thumb => {
       thumb.classList.remove("hidden-search");
+      thumb.classList.remove("hidden");
     });
 
+    
     updateAllItems();
     sortProjects(document.querySelector(".sort-btn.active").dataset.sort);
     showPage(1);
-    return; 
+    return;
   }
 
-  
+  // Search Fillter
   items.forEach(thumb => {
     const title = thumb.getAttribute("data-title").toLowerCase();
     const matchesSearch = title.includes(searchTerm);
     thumb.classList.toggle("hidden-search", !matchesSearch);
+    thumb.classList.remove("hidden"); 
   });
 
   updateAllItems();
