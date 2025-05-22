@@ -177,7 +177,7 @@
       z-index: 999;
       max-width: 320px;
       display: none;
-      pointer-events: auto; /* permite seleccionar texto y hacer clic */
+      pointer-events: auto; 
     }
 
     .tooltip-box a {
@@ -443,9 +443,10 @@
       items.forEach(item => gallery.appendChild(item));
     }
 
-        // Initial load
-    sortProjects("az");
-    filterProjects();
+document.addEventListener("DOMContentLoaded", () => {
+  sortProjects("az");
+  filterProjects();
+});
   </script>
 
   <!-- Tooltip repositioning script -->
