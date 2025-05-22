@@ -479,14 +479,27 @@ function showPage(page) {
   pagination.appendChild(nextBtn);
 }
 
-   input.addEventListener("input", () => {
-   filterProjects();
+input.addEventListener("input", () => {
+  const searchTerm = input.value.toLowerCase();
+  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
-  
-  if (input.value.trim() === "") {
-    updateAllItems();
+  items.forEach(thumb => {
+    const title = thumb.getAttribute("data-title").toLowerCase();
+    const matchesSearch = title.includes(searchTerm);
+    thumb.classList.toggle("hidden-search", !matchesSearch);
+  });
+
+  updateAllItems();
+
+  if (searchTerm === "") {
     sortProjects(document.querySelector(".sort-btn.active").dataset.sort);
-    showPage(1);
+  }
+
+  if (allItems.length > 0) {
+    currentPage = 1;
+    showPage(currentPage);
+  } else {
+    pagination.innerHTML = "";
   }
 });
 
@@ -498,24 +511,6 @@ function showPage(page) {
         filterProjects();
       });
     });
-
-function filterProjects() {
-  const searchTerm = input.value.toLowerCase();
-  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
-
-  items.forEach(thumb => {
-    const title = thumb.getAttribute("data-title").toLowerCase();
-    const matchesSearch = title.includes(searchTerm);
-    thumb.classList.toggle("hidden-search", !matchesSearch);
-  });
-
-  updateAllItems(); 
-  if (allItems.length > 0) {
-    showPage(1);
-  } else {
-    pagination.innerHTML = "";
-  }
-}
 
     function sortProjects(sortType) {
       const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
