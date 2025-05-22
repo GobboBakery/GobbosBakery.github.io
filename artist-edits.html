@@ -106,132 +106,102 @@
     }
 
     /* --- Gallery --- */
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-      margin-bottom: 100px;
-    }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
 
-    .thumb-wrapper {
-      position: relative;
-      text-align: center;
-    }
+.thumb-wrapper {
+  position: relative;
+  text-align: center;
+}
 
-    .thumb {
-      position: relative;
-      width: 480px;
-      height: 270px;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      background-color: #222;
-    }
+.thumb {
+  position: relative;
+  width: 480px;
+  height: 270px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  background-color: #222;
+}
 
-    .thumb img.static-thumb,
-    .thumb video.hover-preview {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-    }
+.thumb img.static-thumb,
+.thumb video.hover-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
 
-    .thumb video.hover-preview {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .thumb:hover video.hover-preview {
-      opacity: 1;
-    }
-
-    .thumb:hover img.static-thumb {
-      opacity: 0;
-    }
-
-    .label {
-      margin-top: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #ccc;
-    }
-
-    .tooltip-box {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 0.9em;
-      text-align: left;
-      line-height: 1.4;
-      white-space: pre-line;
-      z-index: 999;
-      max-width: 320px;
-      display: none;
-      pointer-events: auto; 
-    }
-
-    .tooltip-box a {
-      color: #86b7ff;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    .tooltip-top {
-      bottom: 105%;
-    }
-
-    .tooltip-bottom {
-      top: 105%;
-    }
-
-    .thumb-wrapper .tooltip-box.visible {
-      display: block;
-    }
-
-    .pagination {
-      text-align: center;
-      margin-top: 30px;
-    }
-
-    .pagination button {
-      background-color: #222;
-      border: 1px solid #444;
-      color: white;
-      margin: 0 5px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .pagination button.active {
-      background-color: #9866ff;
-      border-color: #9866ff;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .thumb-wrapper.filler {
-  visibility: hidden;
+.thumb video.hover-preview {
+  opacity: 0;
   pointer-events: none;
 }
 
-    .thumb-wrapper.filler {
-      visibility: hidden;
-      pointer-events: none;
-    }
+.thumb:hover video.hover-preview {
+  opacity: 1;
+}
+
+.thumb:hover img.static-thumb {
+  opacity: 0;
+}
+
+.label {
+  margin-top: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #ccc;
+}
+
+.tooltip-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  text-align: left;
+  line-height: 1.4;
+  white-space: pre-line;
+  z-index: 999;
+  max-width: 320px;
+  display: none;
+  pointer-events: auto;
+}
+
+.tooltip-box a {
+  color: #86b7ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.tooltip-top {
+  bottom: 105%;
+}
+
+.tooltip-bottom {
+  top: 105%;
+}
+
+.thumb-wrapper .tooltip-box.visible {
+  display: block;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
 
 .pagination button {
   background-color: #222;
@@ -241,6 +211,7 @@
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin: 0 5px;
 }
 
 .pagination button.active {
@@ -252,6 +223,15 @@
 .pagination button:disabled {
   opacity: 0.4;
   cursor: default;
+}
+
+.thumb-wrapper.filler {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.hidden {
+  display: none !important;
 }
     
   </style>
@@ -388,7 +368,6 @@
 
     const input = document.getElementById("searchInput");
     const gallery = document.getElementById("gallery");
-    const pagination = document.getElementById("pagination");
     const sortButtons = document.querySelectorAll(".sort-btn");
 
     let allItems = [];
@@ -520,6 +499,7 @@ function showPage(page) {
     }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const pagination = document.getElementById("pagination");
   sortProjects("az");
   filterProjects();
   showPage(currentPage);
