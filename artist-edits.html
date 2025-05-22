@@ -385,11 +385,12 @@
     </video>
   </div>
   <div class="label">PHONKY SLUTS COPY</div>
+  </div>
 </div>
 
-  <!-- Pagination moved inside -->
-  <div class="pagination" id="pagination"></div>
-</div> <!-- close .gallery -->
+</div> 
+
+<div class="pagination" id="pagination"></div>
 
   <!-- Script -->
   <script>
@@ -403,9 +404,11 @@
 
     let allItems = [];
 
-    function updateAllItems() {
-      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
-    }
+function updateAllItems() {
+  allItems = Array.from(gallery.querySelectorAll(".thumb-wrapper")).filter(
+    item => !item.classList.contains("hidden-search")
+  );
+}
 
 function showPage(page) {
   updateAllItems();
