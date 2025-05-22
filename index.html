@@ -88,15 +88,17 @@
   }
 }
 
-    #blackCover {
+#blackCover {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   background: black;
-  z-index: 10000; /* Por encima de todo, incluso del modal */
+  z-index: 10000;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
     .menu {
@@ -348,14 +350,17 @@
 </a>
 
   <script>
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      const cover = document.getElementById('blackCover');
-      if (cover) {
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    const cover = document.getElementById('blackCover');
+    if (cover) {
+      cover.style.opacity = '0';
+      setTimeout(() => {
         cover.style.display = 'none';
-      }
-    }, 600); // Coincide con la duración de modalFadeIn
-  });
+      }, 500);
+    }
+  }, 600); 
+});
 
   function enterSite() {
     document.getElementById("ageModal").style.display = "none";
