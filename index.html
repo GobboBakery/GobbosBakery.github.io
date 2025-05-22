@@ -353,20 +353,28 @@
   <span class="muffin-label top-layer">NEW!</span>
 </a>
 
-  <script>
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const cover = document.getElementById('blackCover');
-    if (cover) {
-      cover.style.opacity = '0';
-      setTimeout(() => {
-        cover.style.display = 'none';
-      }, 500);
+<script>
+  window.addEventListener('load', () => {
+    const ageConfirmed = localStorage.getItem('ageConfirmed');
+
+    if (ageConfirmed === 'true') {
+      document.getElementById("ageModal").style.display = "none";
     }
-  }, 600); 
-});
+
+   
+    setTimeout(() => {
+      const cover = document.getElementById('blackCover');
+      if (cover) {
+        cover.style.opacity = '0';
+        setTimeout(() => {
+          cover.style.display = 'none';
+        }, 500);
+      }
+    }, 600); 
+  });
 
   function enterSite() {
+    localStorage.setItem('ageConfirmed', 'true');
     document.getElementById("ageModal").style.display = "none";
   }
 
