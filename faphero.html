@@ -13,16 +13,17 @@
       overflow: hidden;
     }
 
-    /* 🎥 Fondo de video */
+    /* 🎥 video */
     #backgroundVideo {
-      position: fixed;
-      top: 0;
-      left: 0;
-      min-width: 100%;
-      min-height: 100%;
-      object-fit: cover;
-      z-index: -1;
-    }
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     object-fit: cover;
+     z-index: -1;
+     pointer-events: none;
+   }
 
     .wrapper {
       display: flex;
@@ -32,14 +33,15 @@
       padding: 40px;
     }
 
-    .content-box video {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-   }
+    .content-box {
+      background-color: rgba(20, 20, 20, 0.88);
+      padding: 40px;
+      border-radius: 16px;
+      max-width: 540px;
+      width: 100%;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      text-align: center;
+    }
 
     .content-box h1 {
       color: #9866ff;
