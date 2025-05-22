@@ -224,9 +224,44 @@
     }
 
     .thumb-wrapper.filler {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+    .thumb-wrapper.filler {
       visibility: hidden;
       pointer-events: none;
     }
+
+    .gallery .pagination {
+  width: 100%;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pagination button {
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination button.active {
+  background-color: #9866ff;
+  border-color: #9866ff;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
     
   </style>
 </head>
@@ -352,10 +387,9 @@
   <div class="label">PHONKY SLUTS COPY</div>
 </div>
 
-</div>
-
-<!-- Pagination -->
-<div class="pagination" id="pagination"></div>
+  <!-- Pagination moved inside -->
+  <div class="pagination" id="pagination"></div>
+</div> <!-- close .gallery -->
 
   <!-- Script -->
   <script>
@@ -378,15 +412,14 @@ function showPage(page) {
   const start = (page - 1) * itemsPerPage;
   const end = start + itemsPerPage;
 
-  // Oculta todos los thumbnails reales
   allItems.forEach((item, index) => {
     item.classList.toggle("hidden", index < start || index >= end);
   });
 
-  // Elimina fillers anteriores
+  // Elimina los fillers anteriores
   document.querySelectorAll('.thumb-wrapper.filler').forEach(el => el.remove());
 
-  // Si faltan elementos para completar la página, los agregamos como "vacíos"
+  // Agrega nuevos fillers si faltan elementos en la página
   const itemsOnPage = allItems.slice(start, end).length;
   const fillersNeeded = itemsPerPage - itemsOnPage;
 
@@ -404,25 +437,22 @@ function showPage(page) {
 }
 
     function updatePagination(activePage) {
-      const pageCount = Math.ceil(allItems.length / itemsPerPage);
-      pagination.innerHTML = "";
-
-function updatePagination(activePage) {
   const pageCount = Math.ceil(allItems.length / itemsPerPage);
   pagination.innerHTML = "";
 
-  // Botón Prev
-  if (activePage > 1) {
-    const prevBtn = document.createElement("button");
-    prevBtn.textContent = "« Prev";
-    prevBtn.addEventListener("click", () => {
-      currentPage = activePage - 1;
+  // Prev button
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "« Prev";
+  prevBtn.disabled = activePage === 1;
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
       showPage(currentPage);
-    });
-    pagination.appendChild(prevBtn);
-  }
+    }
+  });
+  pagination.appendChild(prevBtn);
 
-  // Números de página
+  // Page buttons
   for (let i = 1; i <= pageCount; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
@@ -434,16 +464,17 @@ function updatePagination(activePage) {
     pagination.appendChild(btn);
   }
 
-  // Botón Next
-  if (activePage < pageCount) {
-    const nextBtn = document.createElement("button");
-    nextBtn.textContent = "Next »";
-    nextBtn.addEventListener("click", () => {
-      currentPage = activePage + 1;
+  // Next button
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next »";
+  nextBtn.disabled = activePage === pageCount;
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < pageCount) {
+      currentPage++;
       showPage(currentPage);
-    });
-    pagination.appendChild(nextBtn);
-  }
+    }
+  });
+  pagination.appendChild(nextBtn);
 }
 
     input.addEventListener("input", () => {
