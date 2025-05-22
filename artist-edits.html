@@ -236,6 +236,10 @@
 .hidden {
   display: none !important;
 }
+
+.hidden-search {
+  display: none !important;
+}
     
   </style>
 </head>
@@ -381,6 +385,20 @@ function updateAllItems() {
       !item.classList.contains("hidden-search") &&
       !item.classList.contains("filler")
     );
+}
+
+function filterProjects() {
+  const searchTerm = input.value.toLowerCase();
+  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
+
+  items.forEach(thumb => {
+    const title = thumb.getAttribute("data-title").toLowerCase();
+    const matchesSearch = title.includes(searchTerm);
+    thumb.classList.toggle("hidden-search", !matchesSearch);
+  });
+
+  updateAllItems(); // Refresca el listado visible
+  showPage(1);
 }
 
 function showPage(page) {
