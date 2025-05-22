@@ -88,6 +88,17 @@
   }
 }
 
+    #blackCover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  z-index: 10000; /* Por encima de todo, incluso del modal */
+  pointer-events: none;
+}
+
     .menu {
       position: fixed;
       bottom: 0;
@@ -263,6 +274,8 @@
 </head>
 <body>
 
+   <div id="blackCover"></div>
+
   <div id="ageModal">
     <h2>This site contains adult content</h2>
     <p>Are you 18 years of age or older?</p>
@@ -333,6 +346,29 @@
   <span class="muffin-label glow-layer">NEW!</span>
   <span class="muffin-label top-layer">NEW!</span>
 </a>
+
+  <script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const cover = document.getElementById('blackCover');
+      if (cover) {
+        cover.style.display = 'none';
+      }
+    }, 600); // Coincide con la duración de modalFadeIn
+  });
+
+  function enterSite() {
+    document.getElementById("ageModal").style.display = "none";
+  }
+
+  function exitSite() {
+    window.location.href = "https://www.google.com/";
+  }
+
+  function navigateTo(url) {
+    window.location.href = url;
+  }
+</script>
 
 </body>
 </html>
