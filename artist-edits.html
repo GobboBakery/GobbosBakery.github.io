@@ -222,6 +222,12 @@
     .hidden {
       display: none !important;
     }
+
+    .thumb-wrapper.filler {
+      visibility: hidden;
+      pointer-events: none;
+    }
+    
   </style>
 </head>
 <body>
@@ -367,17 +373,35 @@
       allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
     }
 
-    function showPage(page) {
-      updateAllItems();
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
+function showPage(page) {
+  updateAllItems();
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
 
-      allItems.forEach((item, index) => {
-        item.classList.toggle("hidden", index < start || index >= end);
-      });
+  // Oculta todos los thumbnails reales
+  allItems.forEach((item, index) => {
+    item.classList.toggle("hidden", index < start || index >= end);
+  });
 
-      updatePagination(page);
-    }
+  // Elimina fillers anteriores
+  document.querySelectorAll('.thumb-wrapper.filler').forEach(el => el.remove());
+
+  // Si faltan elementos para completar la página, los agregamos como "vacíos"
+  const itemsOnPage = allItems.slice(start, end).length;
+  const fillersNeeded = itemsPerPage - itemsOnPage;
+
+  for (let i = 0; i < fillersNeeded; i++) {
+    const filler = document.createElement("div");
+    filler.className = "thumb-wrapper filler";
+    filler.innerHTML = `
+      <div class="thumb"></div>
+      <div class="label">&nbsp;</div>
+    `;
+    gallery.appendChild(filler);
+  }
+
+  updatePagination(page);
+}
 
     function updatePagination(activePage) {
       const pageCount = Math.ceil(allItems.length / itemsPerPage);
