@@ -378,7 +378,8 @@
   </div>
 
   
-<div class="pagination" id="pagination"></div>
+ 
+  <div class="pagination" id="pagination"></div>
 
   <!-- Script -->
   <script>
@@ -485,7 +486,7 @@ function showPage(page) {
 
     function filterProjects() {
       const searchTerm = input.value.toLowerCase();
-      const items = Array.from(gallery.children);
+      const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
       items.forEach(thumb => {
         const title = thumb.getAttribute("data-title").toLowerCase();
@@ -498,7 +499,7 @@ function showPage(page) {
     }
 
     function sortProjects(sortType) {
-      const items = Array.from(gallery.children);
+      const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
       items.sort((a, b) => {
         const titleA = a.dataset.title.toLowerCase();
