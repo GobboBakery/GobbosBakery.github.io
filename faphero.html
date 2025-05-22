@@ -8,10 +8,20 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background: url('FapHeroBG.jpg') no-repeat center center fixed;
-      background-size: cover;
       font-family: 'Segoe UI', sans-serif;
       color: white;
+      overflow: hidden;
+    }
+
+    /* 🎥 Fondo de video */
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
 
     .wrapper {
@@ -66,7 +76,6 @@
     .download-button:hover {
       background: linear-gradient(135deg, #a277ff, #8852ff);
     }
-
 
     /* Menú global */
     .menu {
@@ -132,6 +141,12 @@
 </head>
 <body>
 
+  <!-- 🎥 Video de fondo -->
+  <video id="backgroundVideo" autoplay muted loop playsinline>
+    <source src="FapHeroBG.webm" type="video/webm">
+    Your browser does not support the video tag.
+  </video>
+
   <div class="wrapper">
     <div class="content-box">
       <h1>FapHero Sync Test</h1>
@@ -145,7 +160,6 @@
       <p style="margin-top: 15px; font-size: 0.95em; color: #ccc;">Includes: test_video.mp4 + sync.funscript</p>
     </div>
   </div>
-
 
   <!-- Menú -->
   <div class="menu">
