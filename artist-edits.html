@@ -478,9 +478,16 @@ function showPage(page) {
   pagination.appendChild(nextBtn);
 }
 
-    input.addEventListener("input", () => {
-      filterProjects();
-    });
+   input.addEventListener("input", () => {
+   filterProjects();
+
+  
+  if (input.value.trim() === "") {
+    updateAllItems();
+    sortProjects(document.querySelector(".sort-btn.active").dataset.sort);
+    showPage(1);
+  }
+});
 
     sortButtons.forEach(button => {
       button.addEventListener("click", () => {
