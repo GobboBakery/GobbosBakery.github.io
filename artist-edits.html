@@ -228,6 +228,9 @@
 .thumb-wrapper.filler {
   visibility: hidden;
   pointer-events: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .hidden {
@@ -463,19 +466,23 @@ function showPage(page) {
       });
     });
 
-    function filterProjects() {
-      const searchTerm = input.value.toLowerCase();
-      const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
+function filterProjects() {
+  const searchTerm = input.value.toLowerCase();
+  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
-      items.forEach(thumb => {
-        const title = thumb.getAttribute("data-title").toLowerCase();
-        const matchesSearch = title.includes(searchTerm);
+  items.forEach(thumb => {
+    const title = thumb.getAttribute("data-title").toLowerCase();
+    const matchesSearch = title.includes(searchTerm);
+    thumb.classList.toggle("hidden-search", !matchesSearch);
+  });
 
-        thumb.classList.toggle("hidden-search", !matchesSearch);
-      });
-
-      showPage(1);
-    }
+  updateAllItems(); // Asegura que se actualice con los nuevos visibles
+  if (allItems.length > 0) {
+    showPage(1); // Mostrar la primera página de resultados si hay algo
+  } else {
+    pagination.innerHTML = ""; // Oculta botones si no hay resultados
+  }
+}
 
     function sortProjects(sortType) {
       const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
