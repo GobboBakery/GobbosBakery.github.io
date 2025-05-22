@@ -333,35 +333,26 @@
   </div>
 </div>
 
-  <script>
-    function enterSite() {
-      document.getElementById("ageModal").style.display = "none";
-    }
 
-    function exitSite() {
-      window.location.href = "https://www.google.com/";
-    }
-
-    function navigateTo(url) {
-      window.location.href = url;
-    }
-  </script>
-  
-  <a href="newproject.html" class="muffin-container">
+<a href="newproject.html" class="muffin-container">
   <img src="muffin.png" class="muffin-icon" alt="Muffin Button" />
   <span class="muffin-label glow-layer">NEW!</span>
   <span class="muffin-label top-layer">NEW!</span>
 </a>
 
+
+<img src="muffinhover.png" alt="" style="display: none;">
+
+
 <script>
   window.addEventListener('load', () => {
+    
     const ageConfirmed = localStorage.getItem('ageConfirmed');
-
     if (ageConfirmed === 'true') {
       document.getElementById("ageModal").style.display = "none";
     }
 
-   
+  
     setTimeout(() => {
       const cover = document.getElementById('blackCover');
       if (cover) {
@@ -370,10 +361,11 @@
           cover.style.display = 'none';
         }, 500);
       }
-    }, 600); 
+    }, 600);
   });
 
   function enterSite() {
+    
     localStorage.setItem('ageConfirmed', 'true');
     document.getElementById("ageModal").style.display = "none";
   }
@@ -386,8 +378,6 @@
     window.location.href = url;
   }
 </script>
-
-<img src="muffinhover.png" alt="" style="display: none;">
 
 </body>
 </html>
