@@ -397,8 +397,13 @@ function filterProjects() {
     thumb.classList.toggle("hidden-search", !matchesSearch);
   });
 
-  updateAllItems(); // Refresca el listado visible
-  showPage(1);
+  updateAllItems(); 
+  updatePagination(1); 
+  if (allItems.length > 0) {
+    showPage(1);
+  } else {
+    pagination.innerHTML = "";
+  }
 }
 
 function showPage(page) {
