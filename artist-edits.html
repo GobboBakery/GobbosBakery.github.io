@@ -407,17 +407,44 @@ function showPage(page) {
       const pageCount = Math.ceil(allItems.length / itemsPerPage);
       pagination.innerHTML = "";
 
-      for (let i = 1; i <= pageCount; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.classList.toggle("active", i === activePage);
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          showPage(currentPage);
-        });
-        pagination.appendChild(btn);
-      }
-    }
+function updatePagination(activePage) {
+  const pageCount = Math.ceil(allItems.length / itemsPerPage);
+  pagination.innerHTML = "";
+
+  // Botón Prev
+  if (activePage > 1) {
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "« Prev";
+    prevBtn.addEventListener("click", () => {
+      currentPage = activePage - 1;
+      showPage(currentPage);
+    });
+    pagination.appendChild(prevBtn);
+  }
+
+  // Números de página
+  for (let i = 1; i <= pageCount; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.classList.toggle("active", i === activePage);
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      showPage(currentPage);
+    });
+    pagination.appendChild(btn);
+  }
+
+  // Botón Next
+  if (activePage < pageCount) {
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next »";
+    nextBtn.addEventListener("click", () => {
+      currentPage = activePage + 1;
+      showPage(currentPage);
+    });
+    pagination.appendChild(nextBtn);
+  }
+}
 
     input.addEventListener("input", () => {
       filterProjects();
