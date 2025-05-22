@@ -491,8 +491,8 @@ input.addEventListener("input", () => {
     });
 
     
-    updateAllItems();
     sortProjects(document.querySelector(".sort-btn.active").dataset.sort);
+    updateAllItems();
     showPage(1);
     return;
   }
@@ -546,10 +546,9 @@ input.addEventListener("input", () => {
     }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const pagination = document.getElementById("pagination");
   sortProjects("az");
-  filterProjects();
-  showPage(currentPage);
+  updateAllItems();
+  showPage(1);
 });
   </script>
 
