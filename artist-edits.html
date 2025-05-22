@@ -416,6 +416,8 @@ function showPage(page) {
     item.classList.toggle("hidden", index < start || index >= end);
   });
 
+  gallery.scrollIntoView({ behavior: 'smooth' });
+
   // Elimina los fillers anteriores
   document.querySelectorAll('.thumb-wrapper.filler').forEach(el => el.remove());
 
