@@ -64,6 +64,8 @@
       background: #111;
       padding: 20px;
       border-radius: 15px;
+      background-size: cover;
+      background-position: center;
     }
 
     .modal img {
@@ -71,10 +73,12 @@
       height: auto;
       border-radius: 15px;
       margin-right: 20px;
+      z-index: 1;
     }
 
     .info {
       flex-grow: 1;
+      z-index: 1;
     }
 
     .info h2 {
@@ -89,6 +93,7 @@
       font-size: 2em;
       cursor: pointer;
       color: white;
+      z-index: 2;
     }
 
     .pagination {
@@ -117,10 +122,10 @@
 
 <div class="grid" id="characterGrid">
   <div class="character" onclick="openModal('Sombra')">
-    <img src="HerName/Girls/sombra_thumb.jpg" alt="Sombra">
+    <img src="HerName/Icon/sombra_thumb.png" alt="Sombra">
   </div>
   <div class="character" onclick="openModal('SquirrelGirl')">
-    <img src="HerName/Girls/squirrel_thumb.jpg" alt="Squirrel Girl">
+    <img src="HerName/Icon/squirrel_thumb.png" alt="Squirrel Girl">
   </div>
 </div>
 
@@ -144,7 +149,8 @@
       powers: 'Hacking, invisibility',
       goodAt: 'Oral, doggy style, teasing control',
       flavor: 'Dark chocolate concha with chili sugar',
-      img: 'HerName/Girls/sombra.png'
+      img: 'HerName/Girls/sombra.png',
+      background: 'HerName/BackgroundG/sombra_bg.jpg'
     },
     'SquirrelGirl': {
       name: 'Squirrel Girl',
@@ -154,13 +160,16 @@
       powers: 'Control over squirrels, agility',
       goodAt: 'Cowgirl, wild riding, surprise attacks',
       flavor: 'Nut pie with crispy crust and chocolate chips',
-      img: 'HerName/Girls/squirrel.png'
+      img: 'HerName/Girls/squirrel.png',
+      background: 'HerName/BackgroundG/squirrel_bg.jpg'
     }
   };
 
   function openModal(key) {
     const char = characters[key];
-    document.getElementById('modalContent').innerHTML = `
+    const modalContent = document.getElementById('modalContent');
+    modalContent.style.backgroundImage = `url(${char.background})`;
+    modalContent.innerHTML = `
       <img src="${char.img}" alt="${char.name}">
       <div class="info">
         <h2>${char.name}</h2>
