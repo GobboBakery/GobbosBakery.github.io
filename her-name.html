@@ -2,330 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>HER NAME? PROJECT - Gallery</title>
+  <title>Her Name? - Character Select</title>
   <style>
     body {
       margin: 0;
-      padding: 40px 20px;
-      background-color: #111;
-      color: white;
+      background: linear-gradient(145deg, #7f00ff, #e100ff);
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    .controls {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .controls input[type="text"] {
-      padding: 10px 20px;
-      font-size: 1.1em;
-      border-radius: 12px;
-      border: none;
-      width: 300px;
-      outline: none;
-      margin-bottom: 15px;
-    }
-
-    .sort-buttons {
-      margin-top: 15px;
-    }
-
-    .sort-buttons button {
-      margin: 5px;
-      padding: 8px 16px;
-      background-color: #222;
-      border: 1px solid #444;
-      border-radius: 8px;
       color: white;
-      cursor: pointer;
-      transition: all 0.2s;
+      overflow-x: hidden;
     }
 
-    .sort-buttons button.active {
-      background-color: #9866ff;
-      border-color: #9866ff;
-    }
-
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-    }
-
-    .thumb-wrapper {
-      position: relative;
+    h1 {
       text-align: center;
+      font-size: 3em;
+      margin: 30px 0 20px;
+      text-shadow: 2px 2px 4px black;
     }
 
-    .thumb {
-      position: relative;
-      width: 480px;
-      height: 270px;
-      border-radius: 12px;
-      overflow: hidden;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .character {
+      background: black;
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      background-color: #222;
+      transition: transform 0.3s;
+      overflow: hidden;
     }
 
-    .thumb img.static-thumb,
-    .thumb video.hover-preview {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .character:hover {
+      transform: scale(1.05);
+    }
+
+    .character img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: opacity 0.3s ease;
     }
 
-    .thumb video.hover-preview {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .thumb:hover video.hover-preview {
-      opacity: 1;
-    }
-
-    .thumb:hover img.static-thumb {
-      opacity: 0;
-    }
-
-    .label {
-      margin-top: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #ccc;
-    }
-
-    .thumb-wrapper[data-title^="test"] .label {
+    .modal {
       display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
     }
 
-    .tooltip-box {
+    .modal-content {
+      display: flex;
+      max-width: 900px;
+      background: #111;
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .modal img {
+      width: 350px;
+      height: auto;
+      border-radius: 15px;
+      margin-right: 20px;
+    }
+
+    .info {
+      flex-grow: 1;
+    }
+
+    .info h2 {
+      margin-top: 0;
+      font-size: 2em;
+    }
+
+    .close {
       position: absolute;
-      bottom: 105%;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.85);
+      top: 20px;
+      right: 30px;
+      font-size: 2em;
+      cursor: pointer;
       color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 0.9em;
-      text-align: left;
-      line-height: 1.4;
-      white-space: pre-line;
-      display: none;
-      z-index: 999;
-      max-width: 320px;
-    }
-
-    .thumb-wrapper:hover .tooltip-box {
-      display: block;
     }
 
     .pagination {
       text-align: center;
-      margin-top: 30px;
+      margin: 20px;
     }
 
     .pagination button {
-      background-color: #222;
-      border: 1px solid #444;
+      background: #222;
       color: white;
+      border: none;
+      padding: 10px 20px;
       margin: 0 5px;
-      padding: 8px 14px;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: background-color 0.2s;
     }
 
-    .pagination button.active {
-      background-color: #9866ff;
-      border-color: #9866ff;
-    }
-
-    .hidden {
-      display: none !important;
+    .pagination button:hover {
+      background: #444;
     }
   </style>
 </head>
 <body>
 
-  <div class="controls">
-    <input type="text" id="searchInput" placeholder="Search characters...">
+<h1>Choose Your Dessert</h1>
 
-    <div class="sort-buttons">
-      <button class="sort-btn active" data-sort="az">A → Z</button>
-      <button class="sort-btn" data-sort="za">Z → A</button>
-      <button class="sort-btn" data-sort="newest">Newest</button>
-      <button class="sort-btn" data-sort="oldest">Oldest</button>
-    </div>
+<div class="grid" id="characterGrid">
+  <div class="character" onclick="openModal('Sombra')">
+    <img src="HerName/Girls/sombra_thumb.jpg" alt="Sombra">
   </div>
-
-  <div class="gallery" id="gallery">
-
-    <!-- Project: Sombra -->
-    <div class="thumb-wrapper" data-title="sombra" data-date="2024-11-05">
-      <div class="thumb">
-        <img src="SOMBRA.jpg" class="static-thumb" alt="Sombra">
-        <video class="hover-preview" muted autoplay loop playsinline>
-          <source src="SOMBRA.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="label">SOMBRA</div>
-      <div class="tooltip-box">
-Real Name: Olivia Colomar
-Origin: Dorado, Mexico
-Affiliations: Los Muertos, Talon
-
-Abilities:
-• Hack: Disables enemy abilities and health packs.
-• Invisibility: Turns invisible and moves faster.
-• Translocator: Teleports to a beacon.
-• EMP: Disables enemy barriers and tech.
-
-Personality:
-Cunning and manipulative, obsessed with secrets and control.
-
-“In my world, there are no secrets.” – Sombra
-      </div>
-    </div>
-
-    <!-- Project: Squirrel Girl -->
-    <div class="thumb-wrapper" data-title="squirrel girl" data-date="2024-10-01">
-      <div class="thumb">
-        <img src="SQUIRRELGIRL.jpg" class="static-thumb" alt="Squirrel Girl">
-        <video class="hover-preview" muted autoplay loop playsinline>
-          <source src="SQUIRRELGIRL.webm" type="video/webm">
-        </video>
-      </div>
-      <div class="label">SQUIRREL GIRL</div>
-      <div class="tooltip-box">
-Real Name: Doreen Allene Green
-Affiliations: Great Lakes Avengers, Avengers, U.S.Avengers
-
-Abilities:
-• Communicates with squirrels
-• Super strength and agility
-• Prehensile tail for balance and combat
-• Sharp claws and night vision
-
-Notable Feats:
-Has defeated Doctor Doom, Thanos, and more—often humorously.
-
-“I’m unbeatable!” – Squirrel Girl
-      </div>
-    </div>
-
-    <!-- Dummy thumbnails -->
-    <div class="thumb-wrapper" data-title="test 1" data-date="2024-01-01"><div class="thumb"></div><div class="label">TEST 1</div></div>
-    <div class="thumb-wrapper" data-title="test 2" data-date="2024-01-02"><div class="thumb"></div><div class="label">TEST 2</div></div>
-    <div class="thumb-wrapper" data-title="test 3" data-date="2024-01-03"><div class="thumb"></div><div class="label">TEST 3</div></div>
-    <div class="thumb-wrapper" data-title="test 4" data-date="2024-01-04"><div class="thumb"></div><div class="label">TEST 4</div></div>
-
+  <div class="character" onclick="openModal('SquirrelGirl')">
+    <img src="HerName/Girls/squirrel_thumb.jpg" alt="Squirrel Girl">
   </div>
+</div>
 
-  <div class="pagination" id="pagination"></div>
+<div class="pagination">
+  <button onclick="prevPage()">&laquo; Prev</button>
+  <button onclick="nextPage()">Next &raquo;</button>
+</div>
 
-  <script>
-    const itemsPerPage = 6;
-    let currentPage = 1;
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <div class="modal-content" id="modalContent"></div>
+</div>
 
-    const input = document.getElementById("searchInput");
-    const gallery = document.getElementById("gallery");
-    const pagination = document.getElementById("pagination");
-    const sortButtons = document.querySelectorAll(".sort-btn");
-
-    let allItems = [];
-
-    function updateAllItems() {
-      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
+<script>
+  const characters = {
+    'Sombra': {
+      name: 'Sombra',
+      age: '30',
+      origin: 'Mexico',
+      personality: 'Clever, manipulative, stealthy',
+      powers: 'Hacking, invisibility',
+      goodAt: 'Oral, doggy style, teasing control',
+      flavor: 'Dark chocolate concha with chili sugar',
+      img: 'HerName/Girls/sombra.png'
+    },
+    'SquirrelGirl': {
+      name: 'Squirrel Girl',
+      age: '20',
+      origin: 'USA',
+      personality: 'Hyperactive, cute, confident',
+      powers: 'Control over squirrels, agility',
+      goodAt: 'Cowgirl, wild riding, surprise attacks',
+      flavor: 'Nut pie with crispy crust and chocolate chips',
+      img: 'HerName/Girls/squirrel.png'
     }
+  };
 
-    function showPage(page) {
-      updateAllItems();
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
+  function openModal(key) {
+    const char = characters[key];
+    document.getElementById('modalContent').innerHTML = `
+      <img src="${char.img}" alt="${char.name}">
+      <div class="info">
+        <h2>${char.name}</h2>
+        <p><strong>Age:</strong> ${char.age}</p>
+        <p><strong>Origin:</strong> ${char.origin}</p>
+        <p><strong>Personality:</strong> ${char.personality}</p>
+        <p><strong>Powers:</strong> ${char.powers}</p>
+        <p><strong>Good at:</strong> ${char.goodAt}</p>
+        <p><strong>Flavor:</strong> ${char.flavor}</p>
+      </div>
+    `;
+    document.getElementById('modal').style.display = 'flex';
+  }
 
-      allItems.forEach((item, index) => {
-        item.classList.toggle("hidden", index < start || index >= end);
-      });
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
 
-      updatePagination(page);
-    }
+  function prevPage() {
+    alert('Pagination logic pending');
+  }
 
-    function updatePagination(activePage) {
-      const pageCount = Math.ceil(allItems.length / itemsPerPage);
-      pagination.innerHTML = "";
-
-      for (let i = 1; i <= pageCount; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.classList.toggle("active", i === activePage);
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          showPage(currentPage);
-        });
-        pagination.appendChild(btn);
-      }
-    }
-
-    input.addEventListener("input", () => {
-      filterProjects();
-    });
-
-    sortButtons.forEach(button => {
-      button.addEventListener("click", () => {
-        document.querySelector(".sort-btn.active").classList.remove("active");
-        button.classList.add("active");
-        sortProjects(button.dataset.sort);
-        filterProjects();
-      });
-    });
-
-    function filterProjects() {
-      const searchTerm = input.value.toLowerCase();
-      const items = Array.from(gallery.children);
-
-      items.forEach(thumb => {
-        const title = thumb.getAttribute("data-title").toLowerCase();
-        const matchesSearch = title.includes(searchTerm);
-
-        thumb.classList.toggle("hidden-search", !matchesSearch);
-      });
-
-      showPage(1);
-    }
-
-    function sortProjects(sortType) {
-      const items = Array.from(gallery.children);
-
-      items.sort((a, b) => {
-        const titleA = a.dataset.title.toLowerCase();
-        const titleB = b.dataset.title.toLowerCase();
-        const dateA = new Date(a.dataset.date);
-        const dateB = new Date(b.dataset.date);
-
-        switch (sortType) {
-          case "az": return titleA.localeCompare(titleB);
-          case "za": return titleB.localeCompare(titleA);
-          case "newest": return dateB - dateA;
-          case "oldest": return dateA - dateB;
-          default: return 0;
-        }
-      });
-
-      items.forEach(item => gallery.appendChild(item));
-    }
-
-    // Initial load
-    sortProjects("az");
-    filterProjects();
-  </script>
+  function nextPage() {
+    alert('Pagination logic pending');
+  }
+</script>
 
 </body>
 </html>
