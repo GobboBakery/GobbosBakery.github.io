@@ -177,6 +177,14 @@
       background: linear-gradient(135deg, #a277ff, #8852ff);
    }
 
+    .download-row {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+   }
+
   </style>
 </head>
 <body>
@@ -197,32 +205,29 @@
   <button onclick="nextPage()">Next &raquo;</button>
 </div>
 
-  <div class="character-view" id="characterView">
+<div class="character-view" id="characterView">
   <button class="back-button" onclick="closeCharacter()">← Back</button>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
-    <div class="character-info" id="charInfo">
-    <div class="preview-video" id="charVideo"></div>
+    <div class="character-info">
+      <h2 id="charName"></h2>
+      <p><strong>Age:</strong> <span id="charAge"></span></p>
+      <p><strong>Origin:</strong> <span id="charOrigin"></span></p>
+      <p><strong>Personality:</strong> <span id="charPersonality"></span></p>
+      <p><strong>Powers:</strong> <span id="charPowers"></span></p>
+      <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
+      <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
 
-  <div id="charText">
-    <h2 id="charName"></h2>
-    <p><strong>Age:</strong> <span id="charAge"></span></p>
-    <p><strong>Origin:</strong> <span id="charOrigin"></span></p>
-    <p><strong>Personality:</strong> <span id="charPersonality"></span></p>
-    <p><strong>Powers:</strong> <span id="charPowers"></span></p>
-    <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
-    <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
-  </div>
+      <div class="preview-video" id="charVideo"></div>
 
-  <div style="margin-top: 25px;">
-    <a href="#" class="download-button">⬇ Download 4K</a><br><br>
-    <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ Download FullHD</a><br><br>
-    <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free 1080p</a>
+      <div class="download-row">
+        <a href="#" class="download-button">⬇ 4K</a>
+        <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
+        <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
+      </div>
     </div>
-   </div>
   </div>
 </div>
-
 
 <script>
   const characters = {
