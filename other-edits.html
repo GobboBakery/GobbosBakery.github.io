@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OTHER EDITS - Gobbo's Bakery</title>
-  <script>
+  <title>ARTIST EDITS - Gobbo's Bakery</title>
+    <script>
   const current = window.location.pathname;
   if (current.endsWith('/') && !current.endsWith('/index.html')) {
     const clean = current.replace(/\/$/, '') + '.html';
     window.location.replace(clean);
   }
 </script>
-
   <style>
     /* --- Main Styles --- */
     body {
@@ -22,57 +21,78 @@
     }
 
     /* --- Navigation Menu --- */
-    nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #000;
-      border-top: 2px solid #444;
-      display: flex;
-      justify-content: center;
-      z-index: 999;
-    }
+.menu {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  z-index: 10;
+}
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      padding: 0;
-      margin: 0;
-    }
+.menu-item {
+  position: relative;
+  margin: 0 20px;
+}
 
-    nav li {
-      position: relative;
-    }
+.menu-item::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 100%;
+  height: 30px;
+}
 
-    nav a {
-      display: block;
-      padding: 15px 25px;
-      text-decoration: none;
-      color: white;
-      transition: background-color 0.3s;
-    }
+.menu button, .submenu button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+  font-family: inherit;
+}
 
-    nav a:hover {
-      background-color: #9866ff;
-    }
+.menu button:hover, .submenu button:hover {
+  color: #9866ff;
+}
 
-    /* Submenu */
-    .submenu {
-      display: none;
-      position: absolute;
-      bottom: 50px;
-      left: 0;
-      background-color: #000;
-      border: 1px solid #444;
-    }
+.submenu {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  margin-bottom: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  padding: 10px 0;
+  border-radius: 10px;
+  min-width: 220px;
+  text-align: center;
+  z-index: 99;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
 
-    nav li:hover .submenu {
-      display: block;
-    }
+.submenu button {
+  display: block;
+  width: 100%;
+  padding: 8px 20px;
+  text-align: center;
+}
 
-    .submenu li a {
-      white-space: nowrap;
-    }
+.menu-item:hover .submenu,
+.menu-item .submenu:hover {
+  display: block;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
     /* --- Controls --- */
     .controls {
@@ -107,143 +127,194 @@
     }
 
     /* --- Gallery --- */
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      padding: 20px;
-      margin-bottom: 100px;
-    }
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
 
-    .thumb-wrapper {
-      position: relative;
-      text-align: center;
-    }
+.thumb-wrapper {
+  position: relative;
+  text-align: center;
+}
 
-    .thumb {
-      position: relative;
-      width: 480px;
-      height: 270px;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(0,0,0,0.6);
-      background-color: #222;
-    }
+.thumb {
+  position: relative;
+  width: 480px;
+  height: 270px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  background-color: #222;
+}
 
-    .thumb img.static-thumb,
-    .thumb video.hover-preview {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
-    }
+.thumb img.static-thumb,
+.thumb video.hover-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease;
+}
 
-    .thumb video.hover-preview {
-      opacity: 0;
-      pointer-events: none;
-    }
+.thumb video.hover-preview {
+  opacity: 0;
+  pointer-events: none;
+}
 
-    .thumb:hover video.hover-preview {
-      opacity: 1;
-    }
+.thumb:hover video.hover-preview {
+  opacity: 1;
+}
 
-    .thumb:hover img.static-thumb {
-      opacity: 0;
-    }
+.thumb:hover img.static-thumb {
+  opacity: 0;
+}
 
-    .label {
-      margin-top: 10px;
-      font-size: 1.1em;
-      font-weight: bold;
-      color: #ccc;
-    }
+.label {
+  margin-top: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #ccc;
+}
 
-    .tooltip-box {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 0.9em;
-      text-align: left;
-      line-height: 1.4;
-      white-space: pre-line;
-      z-index: 999;
-      max-width: 320px;
-      display: none;
-      pointer-events: auto; /* permite seleccionar texto y hacer clic */
-    }
+.tooltip-box {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  text-align: left;
+  line-height: 1.4;
+  white-space: pre-line;
+  z-index: 999;
+  max-width: 320px;
+  display: none;
+  pointer-events: auto;
+}
 
-    .tooltip-box a {
-      color: #86b7ff;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+.tooltip-box a {
+  color: #86b7ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
-    .tooltip-top {
-      bottom: 105%;
-    }
+.tooltip-top {
+  bottom: 105%;
+}
 
-    .tooltip-bottom {
-      top: 105%;
-    }
+.tooltip-bottom {
+  top: 105%;
+}
 
-    .thumb-wrapper .tooltip-box.visible {
-      display: block;
-    }
+.thumb-wrapper .tooltip-box.visible {
+  display: block;
+}
 
-    .pagination {
-      text-align: center;
-      margin-top: 30px;
-    }
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 100px;
+}
 
-    .pagination button {
-      background-color: #222;
-      border: 1px solid #444;
-      color: white;
-      margin: 0 5px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
+.pagination button {
+  background-color: #222;
+  border: 1px solid #444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 0 5px;
+}
 
-    .pagination button.active {
-      background-color: #9866ff;
-      border-color: #9866ff;
-    }
+.pagination button.active {
+  background-color: #9866ff;
+  border-color: #9866ff;
+  font-weight: bold;
+}
 
-    .hidden {
-      display: none !important;
-    }
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.thumb-wrapper.filler {
+  visibility: hidden;
+  pointer-events: none;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.hidden-search {
+  display: none !important;
+}
+    
   </style>
 </head>
 <body>
 
-<!-- Navigation Menu -->
-<nav>
-  <ul>
-    <li><a href="index.html">HOME</a></li>
-    <li>
-      <a href="#">GALLERY</a>
-      <ul class="submenu">
-        <li><a href="her-name-project.html">HER NAME? PROJECT</a></li>
-        <li><a href="artist-edits.html">ARTIST EDITS</a></li>
-        <li><a href="other-edits.html">OTHER EDITS</a></li>
-      </ul>
-    </li>
-    <li><a href="sites.html">SITES</a></li>
-    <li><a href="legal.html">CONTACT</a></li>
-    <li><a href="about.html">ABOUT</a></li>
-  </ul>
-</nav>
+  <!-- Navigation Menu -->
+<div class="menu">
+  <div class="menu-item">
+    <button onclick="navigateTo('index.html')">HOME</button>
+  </div>
+
+  <div class="menu-item">
+    <button>GALLERY</button>
+    <div class="submenu">
+      <button onclick="navigateTo('her-name.html')">HER NAME? PROJECT</button>
+      <button onclick="navigateTo('artist-edits.html')">ARTIST EDITS</button>
+      <button onclick="navigateTo('other-edits.html')">OTHER EDITS</button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button onclick="navigateTo('sound-vault.html')">SOUND VAULT</button>
+  </div>
+
+  <div class="menu-item">
+    <button onclick="navigateTo('faphero.html')">FAPHERO</button>
+  </div>
+
+  <div class="menu-item">
+    <button>LINKS</button>
+    <div class="submenu">
+      <button onclick="navigateTo('sites.html')">SITES</button>
+      <button onclick="navigateTo('social.html')">SOCIAL MEDIA</button>
+    </div>
+  </div>
+
+  <div class="menu-item">
+    <button onclick="navigateTo('contact.html')">CONTACT</button>
+  </div>
+
+  <div class="menu-item">
+    <button onclick="navigateTo('about.html')">ABOUT</button>
+  </div>
+
+  <div class="menu-item">
+    <button onclick="navigateTo('legal.html')">LEGAL</button>
+  </div>
+</div>
+
+<script>
+  function navigateTo(url) {
+    window.location.href = url;
+  }
+</script>
 
   <!-- Controls -->
   <div class="controls">
@@ -258,7 +329,6 @@
 
 <!-- Gallery -->
 <div class="gallery" id="gallery">
-  <!-- tus thumb-wrapper aquí -->
 
   <!-- Edit: ANNIVERSARY -->
   <div class="thumb-wrapper" data-title="anniversary" data-date="2024-06-01">
@@ -293,7 +363,7 @@
     <div class="label">THREE IS A CROWD</div>
   </div>
 
-  <!-- Miniatura vacía 1 -->
+  <!-- NO THUMBNAIL 1 -->
   <div class="thumb-wrapper inactive">
     <div class="thumb">
       <div style="width: 480px; height: 270px; background-color: #333; border-radius: 12px;"></div>
@@ -301,7 +371,7 @@
     <div class="label" style="color: #555;">Coming Soon...</div>
   </div>
 
-  <!-- Miniatura vacía 2 -->
+  <!-- NO THUMBNAIL 2 -->
   <div class="thumb-wrapper inactive">
     <div class="thumb">
       <div style="width: 480px; height: 270px; background-color: #333; border-radius: 12px;"></div>
@@ -309,7 +379,7 @@
     <div class="label" style="color: #555;">Coming Soon...</div>
   </div>
 
-  <!-- Miniatura vacía 3 -->
+  <!-- NO THUMBNAIL 3 -->
   <div class="thumb-wrapper inactive">
     <div class="thumb">
       <div style="width: 480px; height: 270px; background-color: #333; border-radius: 12px;"></div>
@@ -318,9 +388,8 @@
   </div>
 
 </div>
-
-<!-- Pagination -->
-<div class="pagination" id="pagination"></div>
+  
+  <div class="pagination" id="pagination"></div>
 
   <!-- Script -->
   <script>
@@ -329,46 +398,146 @@
 
     const input = document.getElementById("searchInput");
     const gallery = document.getElementById("gallery");
-    const pagination = document.getElementById("pagination");
     const sortButtons = document.querySelectorAll(".sort-btn");
 
     let allItems = [];
 
-    function updateAllItems() {
-      allItems = Array.from(gallery.children).filter(item => !item.classList.contains("hidden-search"));
-    }
+function updateAllItems() {
+  allItems = Array.from(gallery.querySelectorAll(".thumb-wrapper"))
+    .filter(item =>
+      !item.classList.contains("hidden-search") &&
+      !item.classList.contains("filler")
+    );
+}
 
-    function showPage(page) {
-      updateAllItems();
-      const start = (page - 1) * itemsPerPage;
-      const end = start + itemsPerPage;
+function filterProjects() {
+  const searchTerm = input.value.toLowerCase();
+  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
 
-      allItems.forEach((item, index) => {
-        item.classList.toggle("hidden", index < start || index >= end);
-      });
+  items.forEach(thumb => {
+    const title = thumb.getAttribute("data-title").toLowerCase();
+    const matchesSearch = title.includes(searchTerm);
+    thumb.classList.toggle("hidden-search", !matchesSearch);
+  });
 
-      updatePagination(page);
-    }
+  updateAllItems();
+  currentPage = 1;
+
+  if (allItems.length > 0) {
+    showPage(1);
+  } else {
+    pagination.innerHTML = "";
+  }
+}
+
+function showPage(page) {
+  updateAllItems();
+  const start = (page - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  allItems.forEach((item, index) => {
+    item.classList.toggle("hidden", index < start || index >= end);
+  });
+
+  gallery.scrollIntoView({ behavior: 'smooth' });
+
+  
+  document.querySelectorAll('.thumb-wrapper.filler').forEach(el => el.remove());
+
+  
+  const itemsOnPage = allItems.slice(start, end).length;
+  const fillersNeeded = itemsPerPage - itemsOnPage;
+
+  for (let i = 0; i < fillersNeeded; i++) {
+    const filler = document.createElement("div");
+    filler.className = "thumb-wrapper filler";
+    filler.innerHTML = `
+      <div class="thumb"></div>
+      <div class="label">&nbsp;</div>
+    `;
+    gallery.appendChild(filler);
+  }
+
+  updatePagination(page);
+}
 
     function updatePagination(activePage) {
-      const pageCount = Math.ceil(allItems.length / itemsPerPage);
-      pagination.innerHTML = "";
+  const pageCount = Math.ceil(allItems.length / itemsPerPage);
+  pagination.innerHTML = "";
 
-      for (let i = 1; i <= pageCount; i++) {
-        const btn = document.createElement("button");
-        btn.textContent = i;
-        btn.classList.toggle("active", i === activePage);
-        btn.addEventListener("click", () => {
-          currentPage = i;
-          showPage(currentPage);
-        });
-        pagination.appendChild(btn);
-      }
+  // Prev button
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "« Prev";
+  prevBtn.disabled = activePage === 1;
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      showPage(currentPage);
     }
+  });
+  pagination.appendChild(prevBtn);
 
-    input.addEventListener("input", () => {
-      filterProjects();
+  // Page buttons
+  for (let i = 1; i <= pageCount; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.classList.toggle("active", i === activePage);
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      showPage(currentPage);
     });
+    pagination.appendChild(btn);
+  }
+
+  // Next button
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next »";
+  nextBtn.disabled = activePage === pageCount;
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < pageCount) {
+      currentPage++;
+      showPage(currentPage);
+    }
+  });
+  pagination.appendChild(nextBtn);
+}
+
+input.addEventListener("input", () => {
+  const searchTerm = input.value.toLowerCase();
+  const items = Array.from(gallery.querySelectorAll(".thumb-wrapper"));
+
+  if (searchTerm === "") {
+    // Reset
+    items.forEach(thumb => {
+      thumb.classList.remove("hidden-search");
+      thumb.classList.remove("hidden");
+    });
+
+    // 
+    sortProjects(document.querySelector(".sort-btn.active").dataset.sort);
+    updateAllItems();
+    showPage(1);
+    return;
+  }
+
+  //
+  items.forEach(thumb => {
+    const title = thumb.getAttribute("data-title").toLowerCase();
+    const matchesSearch = title.includes(searchTerm);
+    thumb.classList.toggle("hidden-search", !matchesSearch);
+    thumb.classList.remove("hidden"); // <- importante
+  });
+
+  // 🔄
+  updateAllItems();
+
+  if (allItems.length > 0) {
+    currentPage = 1;
+    showPage(currentPage);
+  } else {
+    pagination.innerHTML = "";
+  }
+});
 
     sortButtons.forEach(button => {
       button.addEventListener("click", () => {
@@ -379,44 +548,33 @@
       });
     });
 
-    function filterProjects() {
-      const searchTerm = input.value.toLowerCase();
-      const items = Array.from(gallery.children);
+function sortProjects(sortType) {
+  const visibleItems = Array.from(gallery.querySelectorAll(".thumb-wrapper:not(.hidden-search):not(.filler)"));
 
-      items.forEach(thumb => {
-        const title = thumb.getAttribute("data-title").toLowerCase();
-        const matchesSearch = title.includes(searchTerm);
+  visibleItems.sort((a, b) => {
+    const titleA = a.dataset.title.toLowerCase();
+    const titleB = b.dataset.title.toLowerCase();
+    const dateA = new Date(a.dataset.date);
+    const dateB = new Date(b.dataset.date);
 
-        thumb.classList.toggle("hidden-search", !matchesSearch);
-      });
-
-      showPage(1);
+    switch (sortType) {
+      case "az": return titleA.localeCompare(titleB);
+      case "za": return titleB.localeCompare(titleA);
+      case "newest": return dateB - dateA;
+      case "oldest": return dateA - dateB;
+      default: return 0;
     }
+  });
 
-    function sortProjects(sortType) {
-      const items = Array.from(gallery.children);
+  visibleItems.forEach(item => gallery.appendChild(item));
+} 
 
-      items.sort((a, b) => {
-        const titleA = a.dataset.title.toLowerCase();
-        const titleB = b.dataset.title.toLowerCase();
-        const dateA = new Date(a.dataset.date);
-        const dateB = new Date(b.dataset.date);
+document.addEventListener("DOMContentLoaded", () => {
+  sortProjects("az");
+  updateAllItems();
+  showPage(1);
+});
 
-        switch (sortType) {
-          case "az": return titleA.localeCompare(titleB);
-          case "za": return titleB.localeCompare(titleA);
-          case "newest": return dateB - dateA;
-          case "oldest": return dateA - dateB;
-          default: return 0;
-        }
-      });
-
-      items.forEach(item => gallery.appendChild(item));
-    }
-
-        // Initial load
-    sortProjects("az");
-    filterProjects();
   </script>
 
   <!-- Tooltip repositioning script -->
@@ -451,7 +609,7 @@
       <h2 id="modalTitle">Video Title</h2>
     </div>
 
-    <!-- 🔧 Vista previa del video (formato .mp4 con sonido) -->
+    
     <div id="modalPreview" style="margin: 20px 0; display: none;">
       <video id="modalVideo" controls autoplay loop style="width: 100%; max-width: 800px; border-radius: 12px;">
         <source id="modalVideoSrc" src="" type="video/mp4">
@@ -459,7 +617,7 @@
       </video>
     </div>
 
-    <!-- 🔧 Información personalizada del artista y canción -->
+    <!-- 🔧 INFO ARTIST & SONG -->
     <div id="modalInfo" style="margin-bottom: 20px; font-size: 1em; display: none;">
       <p id="infoText" style="color: #ccc;"></p>
     </div>
@@ -541,9 +699,7 @@ const videoData = {
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
-  if (thumb.classList.contains('inactive')) return;
-
-  thumb.addEventListener('click', () => {
+    thumb.addEventListener('click', () => {
       const id = thumb.getAttribute("data-title");
       const data = videoData[id];
       const modal = document.getElementById("artistModal");
