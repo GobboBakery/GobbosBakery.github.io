@@ -260,15 +260,15 @@
     const vid = document.getElementById('charVideo');
 
     view.style.backgroundImage = `url(${char.background})`;
-    info.innerHTML = `
-      <h2>${char.name}</h2>
-      <p><strong>Age:</strong> ${char.age}</p>
-      <p><strong>Origin:</strong> ${char.origin}</p>
-      <p><strong>Personality:</strong> ${char.personality}</p>
-      <p><strong>Powers:</strong> ${char.powers}</p>
-      <p><strong>Good at:</strong> ${char.goodAt}</p>
-      <p><strong>Flavor:</strong> ${char.flavor}</p>
-    `;
+
+    document.getElementById('charName').textContent = char.name;
+    document.getElementById('charAge').textContent = char.age;
+    document.getElementById('charOrigin').textContent = char.origin;
+    document.getElementById('charPersonality').textContent = char.personality;
+    document.getElementById('charPowers').textContent = char.powers;
+    document.getElementById('charGoodAt').textContent = char.goodAt;
+    document.getElementById('charFlavor').textContent = char.flavor;
+
     vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
     img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
