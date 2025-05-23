@@ -48,72 +48,65 @@
       object-fit: cover;
     }
 
-    .modal {
+    .character-view {
       display: none;
       position: fixed;
       top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-    }
-
-    .modal-content {
-      display: flex;
-      max-width: 900px;
-      background: #111;
-      padding: 20px;
-      border-radius: 15px;
+      width: 100vw; height: 100vh;
       background-size: cover;
       background-position: center;
+      z-index: 10000;
+      padding: 60px;
+      box-sizing: border-box;
     }
 
-    .modal img {
-      width: 350px;
-      height: auto;
-      border-radius: 15px;
-      margin-right: 20px;
-      z-index: 1;
+    .character-info {
+      background: rgba(0, 0, 0, 0.85);
+      border-radius: 20px;
+      padding: 30px;
+      width: 40%;
+      float: left;
+      font-size: 1.1em;
     }
 
-    .info {
-      flex-grow: 1;
-      z-index: 1;
-    }
-
-    .info h2 {
+    .character-info h2 {
+      font-size: 2.2em;
       margin-top: 0;
-      font-size: 2em;
     }
 
-    .close {
+    .character-image {
+      width: 50%;
+      float: right;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: slideIn 1s ease forwards;
+      transform: translateX(100%);
+    }
+
+    .character-image img {
+      max-height: 80vh;
+      max-width: 100%;
+    }
+
+    @keyframes slideIn {
+      to {
+        transform: translateX(0);
+      }
+    }
+
+    .back-button {
       position: absolute;
       top: 20px;
-      right: 30px;
-      font-size: 2em;
-      cursor: pointer;
-      color: white;
-      z-index: 2;
-    }
-
-    .pagination {
-      text-align: center;
-      margin: 20px;
-    }
-
-    .pagination button {
-      background: #222;
+      left: 20px;
+      background: #ff6600;
       color: white;
       border: none;
-      padding: 10px 20px;
-      margin: 0 5px;
-      border-radius: 10px;
+      padding: 12px 20px;
+      font-size: 1em;
+      border-radius: 8px;
       cursor: pointer;
-    }
-
-    .pagination button:hover {
-      background: #444;
+      z-index: 10001;
     }
   </style>
 </head>
@@ -122,22 +115,18 @@
 <h1>Choose Your Dessert</h1>
 
 <div class="grid" id="characterGrid">
-  <div class="character" onclick="openModal('Sombra')">
+  <div class="character" onclick="openCharacter('Sombra')">
     <img src="HerName/Icon/sombra_thumb.png" alt="Sombra">
   </div>
-  <div class="character" onclick="openModal('SquirrelGirl')">
+  <div class="character" onclick="openCharacter('SquirrelGirl')">
     <img src="HerName/Icon/squirrel_thumb.png" alt="Squirrel Girl">
   </div>
 </div>
 
-<div class="pagination">
-  <button onclick="prevPage()">&laquo; Prev</button>
-  <button onclick="nextPage()">Next &raquo;</button>
-</div>
-
-<div class="modal" id="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <div class="modal-content" id="modalContent"></div>
+<div class="character-view" id="characterView">
+  <button class="back-button" onclick="closeCharacter()">← Back</button>
+  <div class="character-info" id="charInfo"></div>
+  <div class="character-image" id="charImage"></div>
 </div>
 
 <script>
@@ -166,35 +155,33 @@
     }
   };
 
-  function openModal(key) {
+  function openCharacter(key) {
     const char = characters[key];
-    const modalContent = document.getElementById('modalContent');
-    modalContent.style.backgroundImage = `url(${char.background})`;
-    modalContent.innerHTML = `
-      <img src="${char.img}" alt="${char.name}">
-      <div class="info">
-        <h2>${char.name}</h2>
-        <p><strong>Age:</strong> ${char.age}</p>
-        <p><strong>Origin:</strong> ${char.origin}</p>
-        <p><strong>Personality:</strong> ${char.personality}</p>
-        <p><strong>Powers:</strong> ${char.powers}</p>
-        <p><strong>Good at:</strong> ${char.goodAt}</p>
-        <p><strong>Flavor:</strong> ${char.flavor}</p>
-      </div>
+    const view = document.getElementById('characterView');
+    const info = document.getElementById('charInfo');
+    const img = document.getElementById('charImage');
+
+    view.style.backgroundImage = `url(${char.background})`;
+    info.innerHTML = `
+      <h2>${char.name}</h2>
+      <p><strong>Age:</strong> ${char.age}</p>
+      <p><strong>Origin:</strong> ${char.origin}</p>
+      <p><strong>Personality:</strong> ${char.personality}</p>
+      <p><strong>Powers:</strong> ${char.powers}</p>
+      <p><strong>Good at:</strong> ${char.goodAt}</p>
+      <p><strong>Flavor:</strong> ${char.flavor}</p>
     `;
-    document.getElementById('modal').style.display = 'flex';
+    img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+    document.getElementById('characterGrid').style.display = 'none';
+    document.querySelector('h1').style.display = 'none';
+    view.style.display = 'block';
   }
 
-  function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-  }
-
-  function prevPage() {
-    alert('Pagination logic pending');
-  }
-
-  function nextPage() {
-    alert('Pagination logic pending');
+  function closeCharacter() {
+    document.getElementById('characterGrid').style.display = 'grid';
+    document.querySelector('h1').style.display = 'block';
+    document.getElementById('characterView').style.display = 'none';
   }
 </script>
 
