@@ -101,6 +101,27 @@
      border-radius: 4px;
     }
 
+    #charDescriptionBox {
+     background-color: rgba(255, 255, 255, 0.05); 
+     border: 1px solid #9866ff; 
+     border-radius: 12px;
+     padding: 20px;
+     margin-bottom: 20px;
+     font-style: italic;
+     text-align: left;
+     max-height: 200px;
+     overflow-y: auto;
+     box-shadow: 0 0 10px rgba(152, 102, 255, 0.2);
+    }
+
+    #charDescriptionBox::-webkit-scrollbar {
+     width: 6px;
+    }
+    #charDescriptionBox::-webkit-scrollbar-thumb {
+      background: #9866ff;
+      border-radius: 4px;
+    }
+
     .preview-video {
       width: 100%;
       border-radius: 12px;
@@ -227,8 +248,11 @@
       <p><strong>Powers:</strong> <span id="charPowers"></span></p>
       <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
       <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
-      <p id="charDescription" style="margin-bottom: 20px; font-style: italic;"></p>
+      <div id="charDescriptionBox">
+      <p id="charDescription" style="margin: 0;"></p>
+      </div>
 
+      
       <div class="preview-video" id="charVideo"></div>
 
       <div class="download-row">
