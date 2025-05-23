@@ -12,65 +12,82 @@
       color: white;
     }
 
-    .legal-wrapper {
-      display: flex;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px;
-    }
+.legal-wrapper {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+}
 
-    .legal-nav {
-      width: 250px;
-      margin-right: 40px;
-      position: sticky;
-      top: 40px;
-      align-self: flex-start;
-    }
+.legal-nav {
+  width: 250px;
+  margin-right: 40px;
+  position: sticky;
+  top: 40px;
+  align-self: flex-start;
+}
 
-    .legal-nav ul {
-      list-style: none;
-      padding: 0;
-    }
+.legal-nav ul {
+  list-style: none;
+  padding: 0;
+}
 
-    .legal-nav li {
-      margin-bottom: 15px;
-    }
+.legal-nav li {
+  margin-bottom: 15px;
+}
 
-    .legal-nav a {
-      color: #9866ff;
-      text-decoration: none;
-      font-weight: bold;
-    }
+.legal-nav a {
+  color: #9866ff;
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    .legal-nav a:hover {
-      text-decoration: underline;
-    }
+.legal-nav a:hover {
+  text-decoration: underline;
+}
 
-    .legal-content {
-      flex: 1;
-    }
+.legal-content {
+  flex: 1;
+}
 
-    .legal-section {
-      background-color: rgba(20, 20, 20, 0.85);
-      padding: 40px;
-      border-radius: 16px;
-      margin-bottom: 40px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-    }
+.legal-section {
+  background-color: rgba(20, 20, 20, 0.85);
+  padding: 40px;
+  border-radius: 16px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+}
 
-    .legal-title {
-      font-size: 1.8em;
-      color: #9866ff;
-      margin-bottom: 20px;
-    }
+.legal-title {
+  font-size: 1.8em;
+  color: #9866ff;
+  margin-bottom: 20px;
+}
 
-    .legal-section ul {
-      padding-left: 20px;
-    }
+.legal-section ul {
+  padding-left: 20px;
+}
 
-    .legal-section ul li {
-      margin-bottom: 10px;
-    }
+.legal-section ul li {
+  margin-bottom: 10px;
+}
+
+.back-button {
+  display: block;
+  margin: 0 auto 40px auto;
+  background: #9866ff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  text-align: center;
+}
+
+.back-button:hover {
+  background: #a77cff;
+}
   </style>
 </head>
 <body>
@@ -81,6 +98,7 @@
         <li><a href="#privacy-policy">Privacy Policy</a></li>
         <li><a href="#dmca-policy">DMCA Policy</a></li>
         <li><a href="#compliance-2257">2257 Statement</a></li>
+        <li><a href="#music-license">Royalty-Free Music</a></li>
       </ul>
     </nav>
 
@@ -162,6 +180,19 @@
         <p>Valid reports will be reviewed and, if applicable, content will be removed within 48 hours.</p>
         <p><em>Last updated: 2025/05/22</em></p>
       </section>
+      <section id="music-license" class="legal-section">
+        <h2 class="legal-title">Royalty-Free Music License</h2>
+       <p>All original music tracks produced by Gobbo's Bakery using Suno.ai are released as <strong>royalty-free</strong> for both personal and commercial use.</p>
+       <p>You may download and use these tracks in your own creative projects, including videos, games, streams, and other media, under the following condition:</p>
+       <ul>
+    <li><strong>Attribution is required</strong>: Please credit "Gobbo's Bakery" as the creator, and when possible, link back to <code>gobbobakery.github.io</code>.</li>
+  </ul>
+  <p>This applies to all published audio made available through this website or its associated platforms.</p>
+</section>
+      <section class="legal-section" style="text-align:center; font-size: 0.9em; color: #aaa;">
+  <p>© 2025 Gobbo's Bakery. All rights reserved. This site is operated under Fair Use principles and U.S. compliance regulations.</p>
+</section>
+<button class="back-button" onclick="location.href='index.html'">⬅ Back to Homepage</button>
     </div>
   </div>
 </body>
