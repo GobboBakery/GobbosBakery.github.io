@@ -217,6 +217,7 @@
       <p><strong>Powers:</strong> <span id="charPowers"></span></p>
       <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
       <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
+      <p id="charDescription" style="margin-bottom: 20px; font-style: italic;"></p>
 
       <div class="preview-video" id="charVideo"></div>
 
@@ -282,6 +283,7 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
     document.getElementById('charPowers').textContent = char.powers;
     document.getElementById('charGoodAt').textContent = char.goodAt;
     document.getElementById('charFlavor').textContent = char.flavor;
+    document.getElementById('charDescription').textContent = char.description;
 
     vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
     img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
