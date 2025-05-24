@@ -48,17 +48,30 @@
       object-fit: cover;
     }
 
-    .character-view {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      overflow-y: auto;
-      z-index: 10000;
-      padding: 40px 20px 20px;
-      box-sizing: border-box;
-    }
+.character-view::-webkit-scrollbar {
+  width: 12px;
+}
+
+.character-view::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.character-view::-webkit-scrollbar-thumb {
+  background-color: #bbbbbb; 
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.character-view::-webkit-scrollbar-thumb:hover {
+  background-color: #e0e0e0;
+}
+
+
+.character-view {
+  scrollbar-width: thin;
+  scrollbar-color: #bbbbbb #2a2a2a;
+}
 
     .character-content {
       display: flex;
