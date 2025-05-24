@@ -313,8 +313,6 @@
 </div>
 
 <script>
-const selectSound = new Audio('Sound/select.mp3');
-selectSound.volume = 0.6;
 const characters = {
 'Sombra': {
   name: 'Olivia Colomar – Sombra',
@@ -354,36 +352,37 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
 };
 
 
-  function openCharacter(key) {
-    const char = characters[key];
-    const view = document.getElementById('characterView');
-    selectSound.currentTime = 0;
-    selectSound.play();
-    const info = document.getElementById('charInfo');
-    const img = document.getElementById('charImage');
-    const vid = document.getElementById('charVideo');
+function openCharacter(key) {
+  const char = characters[key];
+  const selectSound = new Audio('Sound/select.mp3');
+  selectSound.volume = 0.6;
+  selectSound.currentTime = 0;
+  selectSound.play();
 
-    view.style.backgroundImage = `url(${char.background})`;
-    document.getElementById('backButton').style.background = char.accent || '#ff6600';
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
 
-    document.getElementById('charName').textContent = char.name;
-    document.getElementById('charAge').textContent = char.age;
-    document.getElementById('charOrigin').textContent = char.origin;
-    document.getElementById('charPersonality').textContent = char.personality;
-    document.getElementById('charPowers').textContent = char.powers;
-    document.getElementById('charGoodAt').textContent = char.goodAt;
-    document.getElementById('charFlavor').textContent = char.flavor;
-    document.getElementById('charDescription').textContent = char.description;
+  view.style.backgroundImage = `url(${char.background})`;
+  document.getElementById('backButton').style.background = char.accent || '#ff6600';
 
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
 
-    vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
-    img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-    document.getElementById('characterGrid').style.display = 'none';
-    document.querySelector('h1').style.display = 'none';
-    document.querySelector('.pagination').style.display = 'none';
-    view.style.display = 'block';
-  }
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  view.style.display = 'block';
+}
 
   function closeCharacter() {
     document.getElementById('characterGrid').style.display = 'grid';
