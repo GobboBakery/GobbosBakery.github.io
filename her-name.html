@@ -98,19 +98,20 @@
     }
 
    .character-info::-webkit-scrollbar {
-    width: 10px; 
+    width: 10px;
    }
 
    .character-info::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(50, 50, 50, 0.6); 
     border-radius: 8px;
    }
 
    .character-info::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #9866ff 0%, #7a42ff 100%);
-    border-radius: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.4); 
+     background-color: #cccccc; 
+     border-radius: 8px;
+     border: 2px solid rgba(0, 0, 0, 0.2); 
    }
+
 
    .character-info::-webkit-scrollbar-thumb:hover {
      background: linear-gradient(180deg, #a277ff 0%, #8852ff 100%);
@@ -256,27 +257,29 @@
   <button class="back-button" onclick="closeCharacter()">← Back</button>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
-    <div class="character-info">
-      <h2 id="charName"></h2>
-      <p><strong>Age:</strong> <span id="charAge"></span></p>
-      <p><strong>Origin:</strong> <span id="charOrigin"></span></p>
-      <p><strong>Personality:</strong> <span id="charPersonality"></span></p>
-      <p><strong>Powers:</strong> <span id="charPowers"></span></p>
-      <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
-      <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
-      <div id="charDescriptionBox">
-      <p id="charDescription" style="margin: 0;"></p>
-      </div>
+<div class="character-info">
+  <h2 id="charName"></h2>
+  <p><strong>Age:</strong> <span id="charAge"></span></p>
+  <p><strong>Origin:</strong> <span id="charOrigin"></span></p>
+  <p><strong>Personality:</strong> <span id="charPersonality"></span></p>
+  <p><strong>Powers:</strong> <span id="charPowers"></span></p>
+  <p><strong>Good at:</strong> <span id="charGoodAt"></span></p>
+  <p><strong>Flavor:</strong> <span id="charFlavor"></span></p>
 
-      
-      <div class="preview-video" id="charVideo"></div>
+  <div style="text-align: center; color: #aaa; font-size: 1.2em; margin-bottom: 5px;">▲</div>
+  <div id="charDescriptionBox">
+    <p id="charDescription" style="margin: 0;"></p>
+  </div>
+  <div style="text-align: center; color: #aaa; font-size: 1.2em; margin-top: 5px;">▼</div>
 
-      <div class="download-row">
-        <a href="#" class="download-button">⬇ 4K</a>
-        <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
-        <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
-      </div>
+  <div class="preview-video" id="charVideo"></div>
+
+  <div class="download-row">
+    <a href="#" class="download-button">⬇ 4K</a>
+    <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
+    <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
     </div>
+   </div>
   </div>
 </div>
 
