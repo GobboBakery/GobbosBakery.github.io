@@ -316,19 +316,11 @@
     Start Experience
   </button>
 
-  <!-- Don't Show This Again -->
-  <button onclick="rememberAndSkip()" style="
-    padding: 14px 44px;
-    font-size: 1em;
-    background: #333;
-    color: #ccc;
-    border: 1px solid #666;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
-  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    Don’t show this again
-  </button>
+<!-- CHECKBOX -->
+<label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
+  <input type="checkbox" id="skipIntroCheckbox" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
+  Don’t show this intro again
+</label>
 
   <!-- WARNING -->
   <div id="noteText" style="
@@ -416,13 +408,18 @@ if (localStorage.getItem('skipIntroForever') === 'true') {
 }
 
 function startExperience() {
-  gameMenu.style.display = 'none';
-  introScreen.style.display = 'flex';
-  introVideo.currentTime = 0;
-  introVideo.volume = 0.8;
-  introVideo.play();
-  introVideo.addEventListener('ended', showMainContent);
-  setTimeout(showMainContent, 15000); // fallback
+  if (document.getElementById('skipIntroCheckbox').checked) {
+    localStorage.setItem('skipIntroForever', 'true');
+    document.getElementById('noteText').style.display = 'block';
+    setTimeout(() => showMainContent(), 2500);
+  } else {
+    document.getElementById('gameMenu').style.display = 'none';
+    introVideo.currentTime = 0;
+    introVideo.volume = 0.8;
+    introVideo.play();
+    introVideo.addEventListener('ended', showMainContent);
+    setTimeout(showMainContent, 15000);
+  }
 }
 
 function rememberAndSkip() {
