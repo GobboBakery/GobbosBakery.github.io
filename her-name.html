@@ -275,11 +275,24 @@
   width: 100vw; height: 100vh;
   background: black;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 99999;
 ">
-  <video id="introVideo" src="HerName/Intro/intro.mp4" autoplay muted></video>
+  <video id="introVideo" src="HerName/Intro/intro.mp4"></video>
+  <button id="playIntroBtn" style="
+    margin-top: 20px;
+    padding: 14px 28px;
+    font-size: 1.2em;
+    border: none;
+    background: linear-gradient(135deg, #9866ff, #7a42ff);
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+  ">
+    ▶ Start Experience
+  </button>
 </div>
 
   <div id="mainContent" style="display: none;">
@@ -336,15 +349,17 @@ selectSound.preload = 'auto';
 const introVideo = document.getElementById('introVideo');
 const introScreen = document.getElementById('introScreen');
 const mainContent = document.getElementById('mainContent');
+const playIntroBtn = document.getElementById('playIntroBtn');
 
-function showMainContent() {
-  introScreen.style.display = 'none';
-  mainContent.style.display = 'block';
-}
+playIntroBtn.addEventListener('click', () => {
+  introVideo.volume = 0.8;
+  introVideo.play();
+  playIntroBtn.style.display = 'none';
+});
 
 introVideo.addEventListener('ended', showMainContent);
 
-setTimeout(showMainContent, 8000);
+setTimeout(showMainContent, 15000);
   
 const characters = {
 'Sombra': {
