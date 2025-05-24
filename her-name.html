@@ -99,8 +99,6 @@
       margin-top: 0;
     }
 
-
-
     .character-info {
       background-color: rgba(20, 20, 20, 0.88);
       padding: 40px;
@@ -268,27 +266,26 @@
 </head>
 <body>
 
-  <!-- INTRO SCREEN -->
+<!-- INTRO SCREEN (video overlay, initially hidden) -->
 <div id="introScreen" style="
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
   background: black;
-  display: flex;
-  flex-direction: column;
+  display: none;
   align-items: center;
   justify-content: center;
   z-index: 99999;
 ">
   <video id="introVideo"
-  src="HerName/Intro/intro.mp4"
-  playsinline
-  preload="auto"
-  style="max-width: 100%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 30px #9866ff;">
+    src="HerName/Intro/intro.mp4"
+    playsinline
+    preload="auto"
+    style="width: 100vw; height: 100vh; object-fit: cover;">
   </video>
 </div>
 
-  <!-- MENU -->
+<!-- GAME MENU (shown first unless skipIntroForever) -->
 <div id="gameMenu" style="
   position: fixed;
   top: 0; left: 0;
@@ -368,21 +365,23 @@
 
 const introVideo = document.getElementById('introVideo');
 const introScreen = document.getElementById('introScreen');
+const gameMenu = document.getElementById('gameMenu');
 const mainContent = document.getElementById('mainContent');
 
 if (localStorage.getItem('skipIntroForever') === 'true') {
   showMainContent();
 } else {
-  document.getElementById('gameMenu').style.display = 'flex';
+  gameMenu.style.display = 'flex';
 }
 
 function startExperience() {
-  document.getElementById('gameMenu').style.display = 'none';
+  gameMenu.style.display = 'none';
+  introScreen.style.display = 'flex';
   introVideo.currentTime = 0;
   introVideo.volume = 0.8;
   introVideo.play();
   introVideo.addEventListener('ended', showMainContent);
-  setTimeout(showMainContent, 15000);
+  setTimeout(showMainContent, 15000); // fallback
 }
 
 function rememberAndSkip() {
@@ -392,12 +391,11 @@ function rememberAndSkip() {
 }
 
 function showMainContent() {
-  introScreen.style.display = 'none';
-  mainContent.style.display = 'block';
-  if (!introVideo.paused) {
-    introVideo.pause();
-  }
+  introVideo.pause();
   introVideo.currentTime = 0;
+  introScreen.style.display = 'none';
+  gameMenu.style.display = 'none';
+  mainContent.style.display = 'block';
 }
 
 function goBack() {
