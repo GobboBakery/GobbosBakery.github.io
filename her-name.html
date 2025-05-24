@@ -313,6 +313,8 @@
 </div>
 
 <script>
+const selectSound = new Audio('Sound/select.mp3');
+selectSound.volume = 0.6;
 const characters = {
 'Sombra': {
   name: 'Olivia Colomar – Sombra',
@@ -355,6 +357,8 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
   function openCharacter(key) {
     const char = characters[key];
     const view = document.getElementById('characterView');
+    selectSound.currentTime = 0;
+    selectSound.play();
     const info = document.getElementById('charInfo');
     const img = document.getElementById('charImage');
     const vid = document.getElementById('charVideo');
