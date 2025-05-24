@@ -280,19 +280,43 @@
   justify-content: center;
   z-index: 99999;
 ">
-  <video id="introVideo" src="HerName/Intro/intro.mp4"></video>
-  <button id="playIntroBtn" style="
-    margin-top: 20px;
-    padding: 14px 28px;
-    font-size: 1.2em;
-    border: none;
-    background: linear-gradient(135deg, #9866ff, #7a42ff);
-    color: white;
-    border-radius: 12px;
-    cursor: pointer;
-  ">
-    ▶ Start Experience
+  <video id="introVideo"
+  src="HerName/Intro/intro.mp4"
+  playsinline
+  preload="auto"
+  style="max-width: 100%; max-height: 90vh; border-radius: 12px; box-shadow: 0 0 30px #9866ff;">
+  </video>
+</div>
+
+  <!-- MENU -->
+<div id="gameMenu" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: black;
+  color: white;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  z-index: 99998;
+  text-align: center;
+  padding: 20px;
+">
+  <h1 style="font-size: 2.6em; color: #9866ff;">Her Name? Project</h1>
+  <p style="max-width: 700px;">
+    Welcome! This intro ensures all visual and audio elements load correctly for a smooth experience.
+  </p>
+  <button onclick="startExperience()" style="padding: 14px 32px; font-size: 1.2em;">🎬 Start Experience</button>
+  <button onclick="rememberAndSkip()" style="padding: 12px 28px; font-size: 1em; background: #444; color: white; border: none; border-radius: 8px;">
+    🧠 Don't show this again
   </button>
+  <div id="noteText" style="display: none; font-size: 0.9em; max-width: 600px; color: #bbbbbb;">
+    The page might take longer to load resources.
+  </div>
+  <button onclick="goBack()" style="padding: 10px 20px; font-size: 1em; background: #222; color: white; border-radius: 8px;">🔙 Back</button>
 </div>
 
   <div id="mainContent" style="display: none;">
@@ -342,31 +366,49 @@
 
 <script>
 
+const introVideo = document.getElementById('introVideo');
+const introScreen = document.getElementById('introScreen');
+const mainContent = document.getElementById('mainContent');
+
+if (localStorage.getItem('skipIntroForever') === 'true') {
+  showMainContent();
+} else {
+  document.getElementById('gameMenu').style.display = 'flex';
+}
+
+function startExperience() {
+  document.getElementById('gameMenu').style.display = 'none';
+  introVideo.currentTime = 0;
+  introVideo.volume = 0.8;
+  introVideo.play();
+  introVideo.addEventListener('ended', showMainContent);
+  setTimeout(showMainContent, 15000);
+}
+
+function rememberAndSkip() {
+  localStorage.setItem('skipIntroForever', 'true');
+  document.getElementById('noteText').style.display = 'block';
+  setTimeout(() => showMainContent(), 2500);
+}
+
+function showMainContent() {
+  introScreen.style.display = 'none';
+  mainContent.style.display = 'block';
+  if (!introVideo.paused) {
+    introVideo.pause();
+  }
+  introVideo.currentTime = 0;
+}
+
+function goBack() {
+  window.location.href = 'index.html';
+}
+
 const selectSound = new Audio('HerName/Sound/select.mp3');
 selectSound.volume = 0.6;
 selectSound.preload = 'auto';
 
-const introVideo = document.getElementById('introVideo');
-const introScreen = document.getElementById('introScreen');
-const mainContent = document.getElementById('mainContent');
-const playIntroBtn = document.getElementById('playIntroBtn');
-
-playIntroBtn.addEventListener('click', () => {
-  introVideo.volume = 0.8;
-  introVideo.play();
-  playIntroBtn.style.display = 'none';
-});
-
 introVideo.addEventListener('ended', showMainContent);
-
-setTimeout(showMainContent, 15000);
-
-  function showMainContent() {
-  introScreen.style.display = 'none';
-  mainContent.style.display = 'block';
-  introVideo.pause();
-  introVideo.currentTime = 0;
-}
   
 const characters = {
 'Sombra': {
