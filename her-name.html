@@ -117,26 +117,26 @@
      background: linear-gradient(180deg, #a277ff 0%, #8852ff 100%);
    }
 
-    #charDescriptionBox {
-     background-color: rgba(255, 255, 255, 0.05); 
-     border: 1px solid #9866ff; 
-     border-radius: 12px;
-     padding: 20px;
-     margin-bottom: 20px;
-     font-style: italic;
-     text-align: left;
-     max-height: 200px;
-     overflow-y: auto;
-     box-shadow: 0 0 10px rgba(152, 102, 255, 0.2);
-    }
+#charDescriptionBox::-webkit-scrollbar {
+  width: 12px;
+}
 
-    #charDescriptionBox::-webkit-scrollbar {
-     width: 6px;
-    }
-    #charDescriptionBox::-webkit-scrollbar-thumb {
-      background: #9866ff;
-      border-radius: 4px;
-    }
+#charDescriptionBox::-webkit-scrollbar-track {
+  background: #2a2a2a; 
+  border-radius: 6px;
+}
+
+#charDescriptionBox::-webkit-scrollbar-thumb {
+  background-color: #bbbbbb; 
+  border-radius: 6px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+#charDescriptionBox::-webkit-scrollbar-thumb:hover {
+  background-color: #e0e0e0;
+}
+
 
     .preview-video {
       width: 100%;
