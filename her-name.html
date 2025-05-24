@@ -285,7 +285,7 @@
 </div>
 
 <div class="character-view" id="characterView">
-  <button class="back-button" onclick="closeCharacter()">← Back</button>
+  <button class="back-button" id="backButton" onclick="closeCharacter()">← Back</button>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
 <div class="character-info">
@@ -331,7 +331,9 @@ You didn’t invite her. You were never meant to resist her.
 Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar a una verdadera Latina deliciosa.`,
   img: 'HerName/Girls/sombra.png',
   background: 'HerName/BackgroundG/sombra_bg.jpg',
-  video: 'HerName/Preview/sombra_preview.mp4'
+  video: 'HerName/Preview/sombra_preview.mp4',
+  // Button Color
+  accent: '#ff44aa',
 },
   'SquirrelGirl': {
     name: 'Doreen Green – Squirrel Girl',
@@ -344,7 +346,8 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
     description: `Doreen Green is sunshine wrapped in fuzz—with a tail that knows how to play. She’s not just quirky, she’s explosively cute, the type to leap into your lap mid-sentence. Her stamina’s outrageous, her giggles infectious, and her rhythm? Wild. Unexpected. Addictive. One bite and you'll be squeaking for more.`,
     img: 'HerName/Girls/squirrel.png',
     background: 'HerName/BackgroundG/squirrel_bg.jpg',
-    video: 'HerName/Preview/squirrel_preview.mp4'
+    video: 'HerName/Preview/squirrel_preview.mp4',
+    accent: '#ff8800', 
   }
 };
 
@@ -357,6 +360,7 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
     const vid = document.getElementById('charVideo');
 
     view.style.backgroundImage = `url(${char.background})`;
+    document.getElementById('backButton').style.background = char.accent || '#ff6600';
 
     document.getElementById('charName').textContent = char.name;
     document.getElementById('charAge').textContent = char.age;
@@ -366,6 +370,7 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
     document.getElementById('charGoodAt').textContent = char.goodAt;
     document.getElementById('charFlavor').textContent = char.flavor;
     document.getElementById('charDescription').textContent = char.description;
+
 
     vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
     img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
