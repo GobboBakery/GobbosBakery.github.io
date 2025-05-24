@@ -285,7 +285,7 @@
   </video>
 </div>
 
-<!-- GAME MENU (shown first unless skipIntroForever) -->
+<!-- MENU -->
 <div id="gameMenu" style="
   position: fixed;
   top: 0; left: 0;
@@ -296,24 +296,65 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 24px;
   font-family: 'Segoe UI', sans-serif;
   z-index: 99998;
   text-align: center;
-  padding: 20px;
 ">
-  <h1 style="font-size: 2.6em; color: #9866ff;">Her Name? Project</h1>
-  <p style="max-width: 700px;">
-    Welcome! This intro ensures all visual and audio elements load correctly for a smooth experience.
-  </p>
-  <button onclick="startExperience()" style="padding: 14px 32px; font-size: 1.2em;">🎬 Start Experience</button>
-  <button onclick="rememberAndSkip()" style="padding: 12px 28px; font-size: 1em; background: #444; color: white; border: none; border-radius: 8px;">
-    🧠 Don't show this again
+  
+  <!-- START -->
+  <button onclick="startExperience()" style="
+    padding: 16px 48px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #9866ff, #7a42ff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    Start Experience
   </button>
-  <div id="noteText" style="display: none; font-size: 0.9em; max-width: 600px; color: #bbbbbb;">
+
+  <!-- Don't Show This Again -->
+  <button onclick="rememberAndSkip()" style="
+    padding: 14px 44px;
+    font-size: 1em;
+    background: #333;
+    color: #ccc;
+    border: 1px solid #666;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    Don’t show this again
+  </button>
+
+  <!-- WARNING -->
+  <div id="noteText" style="
+    display: none;
+    font-size: 0.9em;
+    color: #999;
+    margin-top: -10px;
+  ">
     The page might take longer to load resources.
   </div>
-  <button onclick="goBack()" style="padding: 10px 20px; font-size: 1em; background: #222; color: white; border-radius: 8px;">🔙 Back</button>
+
+  <!-- BACK  -->
+  <button onclick="goBack()" style="
+    padding: 12px 32px;
+    font-size: 1em;
+    background: #111;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    Back
+  </button>
+
 </div>
 
   <div id="mainContent" style="display: none;">
