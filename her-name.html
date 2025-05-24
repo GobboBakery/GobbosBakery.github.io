@@ -360,6 +360,13 @@ playIntroBtn.addEventListener('click', () => {
 introVideo.addEventListener('ended', showMainContent);
 
 setTimeout(showMainContent, 15000);
+
+  function showMainContent() {
+  introScreen.style.display = 'none';
+  mainContent.style.display = 'block';
+  introVideo.pause();
+  introVideo.currentTime = 0;
+}
   
 const characters = {
 'Sombra': {
