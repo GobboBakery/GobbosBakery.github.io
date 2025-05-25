@@ -963,6 +963,11 @@ function closeCharacter() {
   document.body.classList.remove('no-scroll'); // Permite que la página se desplace nuevamente
 }
 
+function goBack() {
+  // En lugar de redirigir, simplemente llamamos a closeCharacter()
+  closeCharacter(); // Esto cerrará la vista detallada y mostrará la grilla de personajes
+}
+
 
 function prevCharacter() {
   currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
