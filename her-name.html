@@ -733,9 +733,9 @@ fetch('characters.json')
     }
   });
 
+// Preload assets for characters
 function preloadCharacterAssets() {
   Object.values(characterData).forEach(char => {
-    
     const img = new Image();
     img.src = char.img;
 
@@ -753,17 +753,22 @@ function preloadCharacterAssets() {
 let currentPage = 1;
 const charactersPerPage = 16;
 
+// Generate character grid with pagination
 function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
-
   
+  if (!grid) {
+    console.error('Grid element not found!');
+    return;
+  }
+
+  // Handle grid sliding animations
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
-  
   setTimeout(() => {
     grid.classList.remove('slide-out-left', 'slide-out-right');
     grid.innerHTML = '';
@@ -775,6 +780,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
+    // Create character cards
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -787,6 +793,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
+    // Add placeholders if not enough characters to fill the grid
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -795,7 +802,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    
+    // Animate sliding in/out of the grid
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
@@ -806,7 +813,7 @@ function generateCharacterGrid(direction = null) {
       grid.classList.remove('slide-in-left', 'slide-in-right');
     }, 400);
 
-    
+    // Animate each card
     const visibleCards = grid.querySelectorAll('.character');
     visibleCards.forEach((card, index) => {
       setTimeout(() => {
@@ -819,19 +826,111 @@ function generateCharacterGrid(direction = null) {
   }, 250);
 }
 
-const visibleCards = grid.querySelectorAll('.character');
-visibleCards.forEach((card, index) => {
-  setTimeout(() => {
-    card.classList.add('animated-entry');
-    card.style.animationDelay = `${index * 80}ms`;
-  }, 100);
-});
+// Open the selected character details
+function openCharacter(key) {
+  const char = characterData[key];
+  currentCharacterIndex = characterKeys.indexOf(key); 
+  selectSound.currentTime = 0;
+  selectSound.play();
 
-  
-function updatePaginationButtons() {
-  
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
+
+  // Check for valid elements
+  if (!view || !img || !vid) {
+    console.error('Character view or media elements not found!');
+    return;
+  }
+
+  // Set background and character info
+  view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex';
+
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  // Set the navigation buttons' styles
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  // Set character details
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
+
+  document.getElementById('charName').style.color = char.accent;
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+  // Set the media content
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+  // Hide the grid and show character view
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.arrow.left').style.display = 'none';
+  document.querySelector('.arrow.right').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll');
+
+  view.style.display = 'block';
 }
 
+// Close character details and return to grid
+function closeCharacter() {
+  const characterGrid = document.getElementById('characterGrid');
+  const characterView = document.getElementById('characterView');
+
+  if (!characterGrid || !characterView) {
+    console.error('Character grid or view not found!');
+    return;
+  }
+
+  // Restore grid and related elements
+  characterGrid.style.display = 'grid';
+  document.querySelector('.arrow.left').style.display = 'inline-block';
+  document.querySelector('.arrow.right').style.display = 'inline-block';
+  document.querySelector('h1').style.display = 'block';
+  document.querySelector('.pagination').style.display = 'block';
+
+  // Hide character view and restore scrolling
+  characterView.style.display = 'none';
+  document.body.classList.remove('no-scroll');
+}
+
+// Pagination controls
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    generateCharacterGrid();
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    generateCharacterGrid();
+  }
+}
+
+function updatePaginationButtons() {
+  // Optional: Add logic to update pagination buttons, e.g., disabling them on the first/last page
+}
+
+// Start the experience
 function startExperience() {
   if (document.getElementById('skipIntroCheckbox').checked) {
     localStorage.setItem('skipIntroForever', 'true');
@@ -853,18 +952,6 @@ function startExperience() {
   }
 }
 
-function toggleWarning() {
-  const warning = document.getElementById('loadWarning');
-  const checkbox = document.getElementById('skipIntroCheckbox');
-  warning.style.display = checkbox.checked ? 'block' : 'none';
-}
-
-function rememberAndSkip() {
-  localStorage.setItem('skipIntroForever', 'true');
-  document.getElementById('noteText').style.display = 'block';
-  setTimeout(() => showMainContent(), 2500);
-}
-
 function showMainContent() {
   introVideo.pause();
   introVideo.currentTime = 0;
@@ -872,123 +959,15 @@ function showMainContent() {
   gameMenu.style.display = 'none';
 
   mainContent.style.display = 'block';
-
   generateCharacterGrid();
   updatePaginationButtons();
-
   document.querySelector('.pagination').style.display = 'block';
-
-  const visibleCards = document.querySelectorAll('#characterGrid .character');
-  visibleCards.forEach((card, index) => {
-    setTimeout(() => {
-      card.classList.add('animated-entry');
-      card.style.animationDelay = `${index * 80}ms`;
-    }, 100);
-  });
 }
 
 function goBack() {
-  console.log("Going back...");
   closeCharacter();
 }
 
-function openCharacter(key) {
-  const char = characterData[key];
-  currentCharacterIndex = characterKeys.indexOf(key); 
-  selectSound.currentTime = 0;
-  selectSound.play();
-
-  const view = document.getElementById('characterView');
-  const img = document.getElementById('charImage');
-  const vid = document.getElementById('charVideo');
-
-  // Set the background for the character view
-  view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex'; // Ensure the character view is displayed
-
-  // Set the navigation buttons
-  const backBtn = document.getElementById('backButton');
-  const nextBtn = document.getElementById('nextButton');
-  const prevBtn = document.getElementById('prevButton');
-
-  backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-  nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-  prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-
-  // Set character details
-  document.getElementById('charName').textContent = char.name;
-  document.getElementById('charAge').textContent = char.age;
-  document.getElementById('charOrigin').textContent = char.origin;
-  document.getElementById('charPersonality').textContent = char.personality;
-  document.getElementById('charPowers').textContent = char.powers;
-  document.getElementById('charGoodAt').textContent = char.goodAt;
-  document.getElementById('charFlavor').textContent = char.flavor;
-  document.getElementById('charDescription').textContent = char.description;
-
-  // Set the accent color for text and borders
-  document.getElementById('charName').style.color = char.accent;
-  const descBox = document.getElementById('charDescriptionBox');
-  descBox.style.border = `1px solid ${char.accent}`;
-  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
-
-  // Set the character media (image and video)
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
-  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
-
-  // Hide the grid and other navigation elements
-  document.getElementById('characterGrid').style.display = 'none'; // Esconde la grilla
-  document.querySelector('.arrow.left').style.display = 'none'; // Esconde las flechas de navegación
-  document.querySelector('.arrow.right').style.display = 'none'; // Esconde las flechas de navegación
-  document.querySelector('h1').style.display = 'none'; // Esconde el título
-  document.querySelector('.pagination').style.display = 'none'; // Esconde la paginación
-  document.body.classList.add('no-scroll'); // Desactiva el scroll
-
-  // Show the character view
-  view.style.display = 'block';
-}
-
-
-
-function closeCharacter() {
-  // Restaurar la visibilidad de la grilla y los elementos relacionados
-  document.getElementById('characterGrid').style.display = 'grid'; // Muestra la grilla de personajes
-  document.querySelector('.arrow.left').style.display = 'inline-block'; // Muestra las flechas de navegación
-  document.querySelector('.arrow.right').style.display = 'inline-block'; // Muestra las flechas de navegación
-  document.querySelector('h1').style.display = 'block'; // Muestra el título
-  document.querySelector('.pagination').style.display = 'block'; // Muestra la paginación
-
-  // Ocultar la vista detallada del personaje
-  document.getElementById('characterView').style.display = 'none'; // Esconde la vista detallada del personaje
-
-  // Restaurar el scroll de la página
-  document.body.classList.remove('no-scroll'); // Habilitar el scroll de la página
-}
-
-
-function prevCharacter() {
-  currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
-  openCharacter(characterKeys[currentCharacterIndex]);
-}
-
-function nextCharacter() {
-  currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
-  openCharacter(characterKeys[currentCharacterIndex]);
-}
-
-      function prevPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    generateCharacterGrid();
-  }
-}
-
-function nextPage() {
-  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-  if (currentPage < totalPages) {
-    currentPage++;
-    generateCharacterGrid();
-  }
-}
 
 </script>
 
