@@ -1,6 +1,7 @@
 {
   "Sombra": {
     "name": "Olivia Colomar – Sombra",
+    "icon": "HerName/Icon/sombra_thumb.png",
     "age": "30",
     "origin": "Dorado, Mexico",
     "personality": "Clever, manipulative, seductive",
@@ -15,6 +16,7 @@
   },
   "SquirrelGirl": {
     "name": "Doreen Green – Squirrel Girl",
+    "icon": "HerName/Icon/squirrel_thumb.png",
     "age": "20",
     "origin": "New York City, USA",
     "personality": "Perky, playful, overconfident",
