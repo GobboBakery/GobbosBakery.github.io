@@ -329,6 +329,9 @@
      background: linear-gradient(135deg, #9866ff, #7a42ff);
    }
 
+    body.no-scroll {
+     overflow: hidden !important;
+   }
 
   </style>
 </head>
@@ -641,6 +644,7 @@ function openCharacter(key) {
   document.getElementById('charName').style.color = char.accent;
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll');
   view.style.display = 'block';
 }
 
@@ -649,6 +653,7 @@ function openCharacter(key) {
     document.querySelector('h1').style.display = 'block';
     document.querySelector('.pagination').style.display = 'block';
     document.getElementById('characterView').style.display = 'none';
+    document.body.classList.remove('no-scroll');
   }
 
   function prevCharacter() {
