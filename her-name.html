@@ -949,20 +949,19 @@ function openCharacter(key) {
 
 
 function closeCharacter() {
+  // Mostrar de nuevo la grilla de personajes
+  document.getElementById('characterGrid').style.display = 'grid'; // Asegura que la grilla de personajes se muestre
+  document.querySelector('.arrow.left').style.display = 'inline-block'; // Asegura que las flechas de navegación se muestren
+  document.querySelector('.arrow.right').style.display = 'inline-block'; // Asegura que las flechas de navegación se muestren
+  document.querySelector('h1').style.display = 'block'; // Asegura que el título se muestre
+  document.querySelector('.pagination').style.display = 'block'; // Asegura que la paginación se muestre
 
-  document.getElementById('characterGrid').style.display = 'grid'; 
-  document.querySelector('.arrow.left').style.display = 'inline-block';
-  document.querySelector('.arrow.right').style.display = 'inline-block'; 
-  document.querySelector('h1').style.display = 'block'; 
-  document.querySelector('.pagination').style.display = 'block'; 
+  // Ocultar la vista detallada del personaje
+  document.getElementById('characterView').style.display = 'none'; // Esconde la vista detallada del personaje
 
-  
-  document.getElementById('characterView').style.display = 'none'; 
-
-
-  document.body.classList.remove('no-scroll'); 
+  // Restaurar la capacidad de desplazamiento
+  document.body.classList.remove('no-scroll'); // Permite que la página se desplace nuevamente
 }
-
 
 
 function prevCharacter() {
