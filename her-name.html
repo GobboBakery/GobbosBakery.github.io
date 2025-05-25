@@ -144,6 +144,22 @@
      background: linear-gradient(180deg, #a277ff 0%, #8852ff 100%);
    }
 
+   .character-info .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+   }
+
+   .character-info .traits p {
+    flex: 1 1 45%;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 4px 0;
+    text-align: left;
+   }
+
    #charDescriptionBox {
     background-color: rgba(255, 255, 255, 0.05); 
     border: 1px solid #9866ff; 
@@ -421,16 +437,19 @@
     <div class="character-media" id="charImage"></div>
 <div class="character-info">
   <h2 id="charName"></h2>
-      <p><strong>📅 Age:</strong> <span id="charAge"></span></p>
-      <p><strong>🌍 Origin:</strong> <span id="charOrigin"></span></p>
-      <p><strong>🎭 Personality:</strong> <span id="charPersonality"></span></p>
-      <p><strong>⚡ Powers:</strong> <span id="charPowers"></span></p>
-      <p><strong>💋 Good at:</strong> <span id="charGoodAt"></span></p>
-      <p><strong>🍽️ Flavor:</strong> <span id="charFlavor"></span></p>
 
-<div id="charDescriptionBox">
-  <p id="charDescription" style="margin: 0;"></p>
-</div>
+  <div class="traits">
+    <p><strong>📅 Age:</strong> <span id="charAge"></span></p>
+    <p><strong>🌍 Origin:</strong> <span id="charOrigin"></span></p>
+    <p><strong>🎭 Personality:</strong> <span id="charPersonality"></span></p>
+    <p><strong>⚡ Powers:</strong> <span id="charPowers"></span></p>
+    <p><strong>💋 Good at:</strong> <span id="charGoodAt"></span></p>
+    <p><strong>🍽️ Flavor:</strong> <span id="charFlavor"></span></p>
+  </div>
+
+  <div id="charDescriptionBox">
+    <p id="charDescription" style="margin: 0;"></p>
+  </div>
 
   <div class="preview-video" id="charVideo"></div>
 
