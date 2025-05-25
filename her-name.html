@@ -776,7 +776,9 @@ function showMainContent() {
 
   mainContent.style.display = 'block';
 
-  generateCharacterGrid();
+  generateCharacterGrid(); 
+
+  document.querySelector('.pagination').style.display = 'block'; 
 
   const visibleCards = document.querySelectorAll('#characterGrid .character');
   visibleCards.forEach((card, index) => {
@@ -785,9 +787,6 @@ function showMainContent() {
       card.style.animationDelay = `${index * 80}ms`;
     }, 100);
   });
-}
-
-  mainContent.style.display = 'block';
 }
 
 function goBack() {
