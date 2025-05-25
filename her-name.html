@@ -680,14 +680,6 @@ function generateCharacterGrid() {
   const grid = document.getElementById('characterGrid');
   grid.innerHTML = '';
 
-  const start = (currentPage - 1) * charactersPerPage;
-  const end = start + charactersPerPage;
-  const visibleCharacters = characterKeys.slice(start, end);
-
-  function generateCharacterGrid() {
-  const grid = document.getElementById('characterGrid');
-  grid.innerHTML = '';
-
   const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
   if (currentPage > totalPages) currentPage = totalPages;
 
