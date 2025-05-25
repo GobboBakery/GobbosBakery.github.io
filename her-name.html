@@ -839,16 +839,29 @@ function startExperience() {
   } else {
     gameMenu.style.display = 'none';
     introScreen.style.display = 'flex';
-    introScreen.style.zIndex = '99999';
     introVideo.style.display = 'block';
     void introScreen.offsetWidth;
 
     introVideo.currentTime = 0;
     introVideo.volume = 0.8;
-    introVideo.play();
 
-    introVideo.addEventListener('ended', showMainContent);
-    setTimeout(showMainContent, 15000);
+    let hasShown = false;
+
+    const safeShowMainContent = () => {
+      if (hasShown) return;
+      hasShown = true;
+      showMainContent();
+    };
+
+    introVideo.play()
+      .then(() => {
+        introVideo.addEventListener('ended', safeShowMainContent);
+        setTimeout(safeShowMainContent, 8000); 
+      })
+      .catch(() => {
+        console.warn("⚠️ Intro video autoplay failed. Skipping to main content.");
+        safeShowMainContent();
+      });
   }
 }
 
