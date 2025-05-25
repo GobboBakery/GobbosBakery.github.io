@@ -434,12 +434,7 @@
 <h1>Choose Your Dessert</h1>
 
 <div class="grid" id="characterGrid">
-  <div class="character" onclick="openCharacter('Sombra')">
-    <img src="HerName/Icon/sombra_thumb.png" alt="Sombra">
-  </div>
-  <div class="character" onclick="openCharacter('SquirrelGirl')">
-    <img src="HerName/Icon/squirrel_thumb.png" alt="Squirrel Girl">
-  </div>
+  <!-- Dynamic content will be inserted here -->
 </div>
 
 <div class="pagination">
@@ -483,51 +478,36 @@
 </div>
 
 <script>
-
-  const characters = {
-'Sombra': {
-  name: 'Olivia Colomar – Sombra',
-  age: '30',
-  origin: 'Dorado, Mexico',
-  personality: 'Clever, manipulative, seductive',
-  powers: 'Advanced hacking, invisibility, EMP disruption',
-  goodAt: 'Control play, doggy style, oral domination',
-  flavor: 'Dark chocolate concha dusted with chili sugar',
-  description: `Don’t mistake her for a ghost—she’s very real, and dangerously hot. Sombra doesn’t need keys—she’s already inside. From the shadows of Dorado to the firewalls of the world’s most secure systems, Olivia Colomar moves like a whisper and hits like a blackout. She’s elegance encrypted, danger in high heels, and seduction coded in every move.
-
-Her voice? Silk wrapped in static. Her touch? Like being hacked—sudden, deep, and irreversible. She doesn’t knock; she enters, disables your defenses, and leaves you moaning in binary.
-
-You didn’t invite her. You were never meant to resist her.
-
-Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar a una verdadera Latina deliciosa.`,
-  img: 'HerName/Girls/sombra.png',
-  background: 'HerName/BackgroundG/sombra_bg.jpg',
-  video: 'HerName/Preview/sombra_preview.mp4',
-  // Button Color
-  accent: '#ff44aa',
-},
-  'SquirrelGirl': {
-    name: 'Doreen Green – Squirrel Girl',
-    age: '20',
-    origin: 'New York City, USA',
-    personality: 'Perky, playful, overconfident',
-    powers: 'Squirrel communication, prehensile tail, acrobatic strength',
-    goodAt: 'Cowgirl domination, chaotic riding, surprise cuddlepounces',
-    flavor: 'Honey-glazed nut pie with caramelized crust and choco-chip explosions',
-    description: `Doreen Green is sunshine wrapped in fuzz—with a tail that knows how to play. She’s not just quirky, she’s explosively cute, the type to leap into your lap mid-sentence. Her stamina’s outrageous, her giggles infectious, and her rhythm? Wild. Unexpected. Addictive. One bite and you'll be squeaking for more.`,
-    img: 'HerName/Girls/squirrel.png',
-    background: 'HerName/BackgroundG/squirrel_bg.jpg',
-    video: 'HerName/Preview/squirrel_preview.mp4',
-    accent: '#ff8800', 
-  }
-};
-
-const characterKeys = Object.keys(characters); 
+let characterData = {};
+let characterKeys = [];
 let currentCharacterIndex = 0;
 
-  function preloadCharacterAssets() {
-  Object.values(characters).forEach(char => {
-    
+const introVideo = document.getElementById('introVideo');
+const introScreen = document.getElementById('introScreen');
+const gameMenu = document.getElementById('gameMenu');
+const mainContent = document.getElementById('mainContent');
+
+const selectSound = new Audio('HerName/Sound/select.mp3');
+selectSound.volume = 0.6;
+selectSound.preload = 'auto';
+
+fetch('characters.json')
+  .then(res => res.json())
+  .then(data => {
+    characterData = data;
+    characterKeys = Object.keys(data);
+    generateCharacterGrid();
+    preloadCharacterAssets();
+
+    if (localStorage.getItem('skipIntroForever') === 'true') {
+      showMainContent();
+    } else {
+      gameMenu.style.display = 'flex';
+    }
+  });
+
+function preloadCharacterAssets() {
+  Object.values(characterData).forEach(char => {
     const img = new Image();
     img.src = char.img;
 
@@ -542,15 +522,17 @@ let currentCharacterIndex = 0;
   });
 }
 
-const introVideo = document.getElementById('introVideo');
-const introScreen = document.getElementById('introScreen');
-const gameMenu = document.getElementById('gameMenu');
-const mainContent = document.getElementById('mainContent');
-
-if (localStorage.getItem('skipIntroForever') === 'true') {
-  showMainContent();
-} else {
-  gameMenu.style.display = 'flex';
+function generateCharacterGrid() {
+  const grid = document.getElementById('characterGrid');
+  grid.innerHTML = '';
+  characterKeys.forEach(key => {
+    const char = characterData[key];
+    const card = document.createElement('div');
+    card.className = 'character';
+    card.onclick = () => openCharacter(key);
+    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+    grid.appendChild(card);
+  });
 }
 
 function startExperience() {
@@ -559,8 +541,6 @@ function startExperience() {
     document.getElementById('noteText').style.display = 'block';
     setTimeout(() => showMainContent(), 2500);
   } else {
-    preloadCharacterAssets(); 
-
     gameMenu.style.display = 'none';
     introScreen.style.display = 'flex';
     introScreen.style.zIndex = '99999';
@@ -576,16 +556,16 @@ function startExperience() {
   }
 }
 
+function toggleWarning() {
+  const warning = document.getElementById('loadWarning');
+  const checkbox = document.getElementById('skipIntroCheckbox');
+  warning.style.display = checkbox.checked ? 'block' : 'none';
+}
+
 function rememberAndSkip() {
   localStorage.setItem('skipIntroForever', 'true');
   document.getElementById('noteText').style.display = 'block';
   setTimeout(() => showMainContent(), 2500);
-}
-
-  function toggleWarning() {
-  const warning = document.getElementById('loadWarning');
-  const checkbox = document.getElementById('skipIntroCheckbox');
-  warning.style.display = checkbox.checked ? 'block' : 'none';
 }
 
 function showMainContent() {
@@ -600,14 +580,8 @@ function goBack() {
   window.location.href = 'index.html';
 }
 
-const selectSound = new Audio('HerName/Sound/select.mp3');
-selectSound.volume = 0.6;
-selectSound.preload = 'auto';
-
-introVideo.addEventListener('ended', showMainContent);
-  
 function openCharacter(key) {
-  const char = characters[key];
+  const char = characterData[key];
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -617,14 +591,14 @@ function openCharacter(key) {
   const vid = document.getElementById('charVideo');
 
   view.style.backgroundImage = `url(${char.background})`;
+
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
 
-   backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-   nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-   prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-
+  backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+  nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
 
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
@@ -635,52 +609,46 @@ function openCharacter(key) {
   document.getElementById('charFlavor').textContent = char.flavor;
   document.getElementById('charDescription').textContent = char.description;
 
-  
   document.getElementById('charName').style.color = char.accent;
-
   const descBox = document.getElementById('charDescriptionBox');
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
-
 
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   document.getElementById('characterGrid').style.display = 'none';
-  document.getElementById('charName').style.color = char.accent;
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
   document.body.classList.add('no-scroll');
   view.style.display = 'block';
 }
 
-  function closeCharacter() {
-    document.getElementById('characterGrid').style.display = 'grid';
-    document.querySelector('h1').style.display = 'block';
-    document.querySelector('.pagination').style.display = 'block';
-    document.getElementById('characterView').style.display = 'none';
-    document.body.classList.remove('no-scroll');
-  }
-
-  function prevCharacter() {
-  currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
-  const prevKey = characterKeys[currentCharacterIndex];
-  openCharacter(prevKey);
+function closeCharacter() {
+  document.getElementById('characterGrid').style.display = 'grid';
+  document.querySelector('h1').style.display = 'block';
+  document.querySelector('.pagination').style.display = 'block';
+  document.getElementById('characterView').style.display = 'none';
+  document.body.classList.remove('no-scroll');
 }
 
-  function nextCharacter() {
+function prevCharacter() {
+  currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
+  openCharacter(characterKeys[currentCharacterIndex]);
+}
+
+function nextCharacter() {
   currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
-  const nextKey = characterKeys[currentCharacterIndex];
-  openCharacter(nextKey);
-  }
+  openCharacter(characterKeys[currentCharacterIndex]);
+}
 
-  function prevPage() {
-    alert("Pagination logic pending");
-  }
+function prevPage() {
+  alert("Pagination logic pending");
+}
 
-  function nextPage() {
-    alert("Pagination logic pending");
-  }
+function nextPage() {
+  alert("Pagination logic pending");
+}
 </script>
 
 </body>
