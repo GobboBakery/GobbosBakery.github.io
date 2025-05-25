@@ -684,17 +684,24 @@ function generateCharacterGrid() {
   const end = start + charactersPerPage;
   const visibleCharacters = characterKeys.slice(start, end);
 
-  visibleCharacters.forEach((key, index) => {
-    const char = characterData[key];
-    const card = document.createElement('div');
-    card.className = 'character';
-    card.style.setProperty('--accent-color', char.accent);
-    card.onclick = () => openCharacter(key);
-    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-    if (char.isNew) card.classList.add('new');
-    card.dataset.index = index;
-    grid.appendChild(card);
-  });
+  characterKeys.forEach((key, index) => {
+  const char = characterData[key];
+  const isVisible = index >= (currentPage - 1) * charactersPerPage && index < currentPage * charactersPerPage;
+
+  const card = document.createElement('div');
+  card.className = 'character';
+  card.style.setProperty('--accent-color', char.accent);
+  card.onclick = () => openCharacter(key);
+  card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+  if (char.isNew) card.classList.add('new');
+  card.dataset.index = index;
+
+  if (!isVisible) {
+    card.style.display = 'none';
+  }
+
+  grid.appendChild(card);
+});
 
   const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
   for (let i = 0; i < placeholdersToAdd; i++) {
