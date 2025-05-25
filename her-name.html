@@ -682,51 +682,32 @@ fetch('characters.json')
   .then(data => {
     characterData = data;
     characterKeys = Object.keys(data);
-    preloadCharacterAssets().then(() => {
-      generateCharacterGrid();
-      if (localStorage.getItem('skipIntroForever') === 'true') {
-        showMainContent();
-      } else {
-        gameMenu.style.display = 'flex';
-      }
-    });
-  })
-  .catch(err => {
-    console.error("❌ Error loading characters.json:", err);
-    alert("Error loading character data. Please check the JSON file.");
+    generateCharacterGrid();
+    preloadCharacterAssets();
+
+    if (localStorage.getItem('skipIntroForever') === 'true') {
+      showMainContent();
+    } else {
+      gameMenu.style.display = 'flex';
+    }
   });
 
 function preloadCharacterAssets() {
-  const loadImage = (src) => new Promise(resolve => {
-    const img = new Image();
-    img.onload = resolve;
-    img.onerror = resolve;
-    img.src = src;
-  });
-
-  const promises = [];
-
   Object.values(characterData).forEach(char => {
-    promises.push(loadImage(char.icon));
-    promises.push(loadImage(char.img));
-    promises.push(loadImage(char.background));
-
-    const video = document.createElement('video');
-    video.src = char.video;
-    video.preload = 'auto';
-    video.style.display = 'none';
-    document.body.appendChild(video);
     
+    const img = new Image();
+    img.src = char.img;
+
+    const bg = new Image();
+    bg.src = char.background;
+
+    const hiddenVideo = document.createElement('video');
+    hiddenVideo.src = char.video;
+    hiddenVideo.preload = 'auto';
+    hiddenVideo.style.display = 'none';
+    document.body.appendChild(hiddenVideo);
   });
-
-  return Promise.all(promises);
 }
-
-
-  
-  return Promise.all(promises);
-}
-
 
 let currentPage = 1;
 const charactersPerPage = 24;
@@ -759,7 +740,7 @@ function generateCharacterGrid(direction = null) {
       card.className = 'character';
       card.style.setProperty('--accent-color', char.accent);
       card.onclick = () => openCharacter(key);
-      card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+      card.innerHTML = <img src="${char.icon}" alt="${key}">;
       if (char.isNew) card.classList.add('new');
       card.dataset.index = index;
       grid.appendChild(card);
@@ -839,29 +820,16 @@ function startExperience() {
   } else {
     gameMenu.style.display = 'none';
     introScreen.style.display = 'flex';
+    introScreen.style.zIndex = '99999';
     introVideo.style.display = 'block';
     void introScreen.offsetWidth;
 
     introVideo.currentTime = 0;
     introVideo.volume = 0.8;
+    introVideo.play();
 
-    let hasShown = false;
-
-    const safeShowMainContent = () => {
-      if (hasShown) return;
-      hasShown = true;
-      showMainContent();
-    };
-
-    introVideo.play()
-      .then(() => {
-        introVideo.addEventListener('ended', safeShowMainContent);
-        setTimeout(safeShowMainContent, 8000); 
-      })
-      .catch(() => {
-        console.warn("⚠️ Intro video autoplay failed. Skipping to main content.");
-        safeShowMainContent();
-      });
+    introVideo.addEventListener('ended', showMainContent);
+    setTimeout(showMainContent, 15000);
   }
 }
 
@@ -894,7 +862,7 @@ function showMainContent() {
   visibleCards.forEach((card, index) => {
     setTimeout(() => {
       card.classList.add('animated-entry');
-      card.style.animationDelay = `${index * 80}ms`;
+      card.style.animationDelay = ${index * 80}ms;
     }, 100);
   });
 }
@@ -913,15 +881,15 @@ function openCharacter(key) {
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
 
-  view.style.backgroundImage = `url(${char.background})`;
+  view.style.backgroundImage = url(${char.background});
 
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
 
-  backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-  nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-  prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  backBtn.style.background = linear-gradient(135deg, ${char.accent}, #222);
+  nextBtn.style.background = linear-gradient(135deg, ${char.accent}, #444);
+  prevBtn.style.background = linear-gradient(135deg, ${char.accent}, #444);
 
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
@@ -934,11 +902,11 @@ function openCharacter(key) {
 
   document.getElementById('charName').style.color = char.accent;
   const descBox = document.getElementById('charDescriptionBox');
-  descBox.style.border = `1px solid ${char.accent}`;
-  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+  descBox.style.border = 1px solid ${char.accent};
+  descBox.style.boxShadow = 0 0 10px ${char.accent}66;
 
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
-  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+  vid.innerHTML = <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>;
+  img.innerHTML = <img src="${char.img}" alt="${char.name}">;
 
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
