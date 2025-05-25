@@ -400,6 +400,23 @@
 
 <script>
 
+  function preloadCharacterAssets() {
+  Object.values(characters).forEach(char => {
+    
+    const img = new Image();
+    img.src = char.img;
+
+    const bg = new Image();
+    bg.src = char.background;
+
+    const video = document.createElement('link');
+    video.rel = 'preload';
+    video.as = 'video';
+    video.href = char.video;
+    document.head.appendChild(video);
+  });
+}
+
 const introVideo = document.getElementById('introVideo');
 const introScreen = document.getElementById('introScreen');
 const gameMenu = document.getElementById('gameMenu');
@@ -417,13 +434,13 @@ function startExperience() {
     document.getElementById('noteText').style.display = 'block';
     setTimeout(() => showMainContent(), 2500);
   } else {
+    preloadCharacterAssets(); 
+
     gameMenu.style.display = 'none';
-    
     introScreen.style.display = 'flex';
     introScreen.style.zIndex = '99999';
-    introVideo.style.display = 'block'; 
-
-    void introScreen.offsetWidth; 
+    introVideo.style.display = 'block';
+    void introScreen.offsetWidth;
 
     introVideo.currentTime = 0;
     introVideo.volume = 0.8;
