@@ -30,12 +30,15 @@
     }
 
     .character {
+      position: relative;
       background: black;
       aspect-ratio: 1 / 1;
       border-radius: 10px;
       cursor: pointer;
-      transition: transform 0.3s;
       overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.5); 
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+      border: 2px solid transparent;
     }
 
     .character:hover {
@@ -43,10 +46,44 @@
     }
 
     .character img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1.05);
+   }
+
+    .character::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+  pointer-events: none;
+  transform: rotate(25deg);
+  z-index: 2;
+}
+
+    .character:hover {
+  transform: scale(1.07);
+  box-shadow: 0 0 20px var(--accent-color, #9866ff);
+  border-color: var(--accent-color, #9866ff);
+}
+
+    .character:hover img {
+  animation: subtleGlow 2.5s ease-in-out infinite;
+}
+
+    @keyframes subtleGlow {
+  0%, 100% {
+    filter: brightness(1.1) drop-shadow(0 0 4px var(--accent-color, #9866ff));
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 12px var(--accent-color, #9866ff));
+  }
+}
 
     .character-view {
      position: fixed;
@@ -530,6 +567,7 @@ function generateCharacterGrid() {
     const char = characterData[key];
     const card = document.createElement('div');
     card.className = 'character';
+    card.style.setProperty('--accent-color', char.accent); 
     card.onclick = () => openCharacter(key);
     card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
     grid.appendChild(card);
