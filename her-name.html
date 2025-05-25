@@ -318,9 +318,13 @@
 
 <!-- CHECKBOX -->
 <label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
-  <input type="checkbox" id="skipIntroCheckbox" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
-  Don’t show this intro again
+  <input type="checkbox" id="skipIntroCheckbox" onchange="toggleWarning()" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
+  Don’t show this again
 </label>
+  <p id="loadWarning" style="display: none; color: #ffcc00; font-size: 0.95em; margin-top: 5px;">
+  The page might take longer to load resources.
+</p>
+
 
   <!-- WARNING -->
   <div id="noteText" style="
@@ -426,6 +430,12 @@ function rememberAndSkip() {
   localStorage.setItem('skipIntroForever', 'true');
   document.getElementById('noteText').style.display = 'block';
   setTimeout(() => showMainContent(), 2500);
+}
+
+  function toggleWarning() {
+  const warning = document.getElementById('loadWarning');
+  const checkbox = document.getElementById('skipIntroCheckbox');
+  warning.style.display = checkbox.checked ? 'block' : 'none';
 }
 
 function showMainContent() {
