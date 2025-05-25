@@ -682,32 +682,49 @@ fetch('characters.json')
   .then(data => {
     characterData = data;
     characterKeys = Object.keys(data);
-    generateCharacterGrid();
-    preloadCharacterAssets();
 
-    if (localStorage.getItem('skipIntroForever') === 'true') {
-      showMainContent();
-    } else {
-      gameMenu.style.display = 'flex';
-    }
+    preloadCharacterAssets().then(() => {
+      generateCharacterGrid();
+
+      if (localStorage.getItem('skipIntroForever') === 'true') {
+        showMainContent();
+      } else {
+        gameMenu.style.display = 'flex';
+      }
+    });
   });
 
 function preloadCharacterAssets() {
+  const promises = [];
+
   Object.values(characterData).forEach(char => {
-    
+    // Preload icon
+    const icon = new Image();
+    icon.src = char.icon;
+    promises.push(new Promise(resolve => icon.onload = resolve));
+
+    // Preload full image
     const img = new Image();
     img.src = char.img;
+    promises.push(new Promise(resolve => img.onload = resolve));
 
+    // Preload background
     const bg = new Image();
     bg.src = char.background;
+    promises.push(new Promise(resolve => bg.onload = resolve));
 
+    // Preload video
     const hiddenVideo = document.createElement('video');
     hiddenVideo.src = char.video;
     hiddenVideo.preload = 'auto';
     hiddenVideo.style.display = 'none';
     document.body.appendChild(hiddenVideo);
   });
+
+  
+  return Promise.all(promises);
 }
+
 
 let currentPage = 1;
 const charactersPerPage = 24;
