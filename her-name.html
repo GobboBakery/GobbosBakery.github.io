@@ -294,9 +294,14 @@
       background: linear-gradient(135deg, #ff6600, #ff3300);
    }
 
+    .btn-nav.prev {
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
+   }
+
    .btn-nav.next {
      background: linear-gradient(135deg, #9866ff, #7a42ff);
    }
+
 
   </style>
 </head>
@@ -409,7 +414,8 @@
 <div class="character-view" id="characterView">
   <div class="character-nav-buttons">
   <button class="btn-nav back" id="backButton" onclick="closeCharacter()">← Back</button>
-<button class="btn-nav next" id="nextButton" onclick="nextCharacter()">Next Girl ➡</button>
+  <button class="btn-nav prev" id="prevButton" onclick="prevCharacter()">← Previous Girl</button>
+  <button class="btn-nav next" id="nextButton" onclick="nextCharacter()">Next Girl ➡</button>
 </div>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
@@ -574,9 +580,11 @@ function openCharacter(key) {
   view.style.backgroundImage = `url(${char.background})`;
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
 
-  backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222222)`;
-  nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444444)`;
+   backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+   nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+   prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
 
 
   document.getElementById('charName').textContent = char.name;
@@ -603,6 +611,12 @@ function openCharacter(key) {
     document.querySelector('.pagination').style.display = 'block';
     document.getElementById('characterView').style.display = 'none';
   }
+
+  function prevCharacter() {
+  currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
+  const prevKey = characterKeys[currentCharacterIndex];
+  openCharacter(prevKey);
+}
 
   function nextCharacter() {
   currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
