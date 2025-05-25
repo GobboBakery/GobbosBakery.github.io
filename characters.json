@@ -1,0 +1,30 @@
+{
+  "Sombra": {
+    "name": "Olivia Colomar – Sombra",
+    "age": "30",
+    "origin": "Dorado, Mexico",
+    "personality": "Clever, manipulative, seductive",
+    "powers": "Advanced hacking, invisibility, EMP disruption",
+    "goodAt": "Control play, doggy style, oral domination",
+    "flavor": "Dark chocolate concha dusted with chili sugar",
+    "description": "Don’t mistake her for a ghost—she’s very real, and dangerously hot. Sombra doesn’t need keys—she’s already inside. From the shadows of Dorado to the firewalls of the world’s most secure systems, Olivia Colomar moves like a whisper and hits like a blackout. She’s elegance encrypted, danger in high heels, and seduction coded in every move.\n\nHer voice? Silk wrapped in static. Her touch? Like being hacked—sudden, deep, and irreversible. She doesn’t knock; she enters, disables your defenses, and leaves you moaning in binary.\n\nYou didn’t invite her. You were never meant to resist her.\n\nNi un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar a una verdadera Latina deliciosa.",
+    "img": "HerName/Girls/sombra.png",
+    "background": "HerName/BackgroundG/sombra_bg.jpg",
+    "video": "HerName/Preview/sombra_preview.mp4",
+    "accent": "#ff44aa"
+  },
+  "SquirrelGirl": {
+    "name": "Doreen Green – Squirrel Girl",
+    "age": "20",
+    "origin": "New York City, USA",
+    "personality": "Perky, playful, overconfident",
+    "powers": "Squirrel communication, prehensile tail, acrobatic strength",
+    "goodAt": "Cowgirl domination, chaotic riding, surprise cuddlepounces",
+    "flavor": "Honey-glazed nut pie with caramelized crust and choco-chip explosions",
+    "description": "Doreen Green is sunshine wrapped in fuzz—with a tail that knows how to play. She’s not just quirky, she’s explosively cute, the type to leap into your lap mid-sentence. Her stamina’s outrageous, her giggles infectious, and her rhythm? Wild. Unexpected. Addictive. One bite and you'll be squeaking for more.",
+    "img": "HerName/Girls/squirrel.png",
+    "background": "HerName/BackgroundG/squirrel_bg.jpg",
+    "video": "HerName/Preview/squirrel_preview.mp4",
+    "accent": "#ff8800"
+  }
+}
