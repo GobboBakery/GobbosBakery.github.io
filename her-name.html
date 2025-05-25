@@ -679,11 +679,18 @@ function preloadCharacterAssets() {
   });
 }
 
+let currentPage = 1;
+const charactersPerPage = 24;
+
 function generateCharacterGrid() {
   const grid = document.getElementById('characterGrid');
   grid.innerHTML = '';
 
-  characterKeys.forEach((key, index) => {
+  const start = (currentPage - 1) * charactersPerPage;
+  const end = start + charactersPerPage;
+  const visibleCharacters = characterKeys.slice(start, end);
+
+  visibleCharacters.forEach((key, index) => {
     const char = characterData[key];
     const card = document.createElement('div');
     card.className = 'character';
@@ -691,19 +698,47 @@ function generateCharacterGrid() {
     card.onclick = () => openCharacter(key);
     card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
     if (char.isNew) card.classList.add('new');
-
     card.dataset.index = index;
     grid.appendChild(card);
   });
 
-  // PLACEHOLDERS
-  const placeholdersToAdd = 21;
+  const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
   for (let i = 0; i < placeholdersToAdd; i++) {
     const placeholder = document.createElement('div');
     placeholder.className = 'character placeholder';
     placeholder.textContent = 'Coming Soon';
     grid.appendChild(placeholder);
   }
+
+  updatePaginationButtons();
+}
+
+  function updatePaginationButtons() {
+  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+  const buttons = document.querySelector('.pagination');
+  buttons.innerHTML = '';
+
+  if (totalPages <= 1) return; // no need for pagination
+
+  const prevBtn = document.createElement('button');
+  prevBtn.textContent = '« Prev';
+  prevBtn.onclick = () => {
+    if (currentPage > 1) {
+      currentPage--;
+      generateCharacterGrid();
+    }
+  };
+  buttons.appendChild(prevBtn);
+
+  const nextBtn = document.createElement('button');
+  nextBtn.textContent = 'Next »';
+  nextBtn.onclick = () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+      generateCharacterGrid();
+    }
+  };
+  buttons.appendChild(nextBtn);
 }
 
 function startExperience() {
@@ -819,41 +854,6 @@ function prevCharacter() {
 function nextCharacter() {
   currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
   openCharacter(characterKeys[currentCharacterIndex]);
-}
-
-function prevPage() {
-  alert("Pagination logic pending");
-}
-
-function nextPage() {
-  alert("Pagination logic pending");
-}
-
-  function generateCharacterGrid() {
-  const grid = document.getElementById('characterGrid');
-  grid.innerHTML = '';
-
-  characterKeys.forEach(key => {
-    const char = characterData[key];
-    const card = document.createElement('div');
-    card.className = 'character';
-    card.style.setProperty('--accent-color', char.accent);
-    card.onclick = () => openCharacter(key);
-    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-    if (char.isNew) {
-      card.classList.add('new');
-    }
-    grid.appendChild(card);
-  });
-
-    //GIRLS GRID PLACEHOLDER
-  const placeholdersToAdd = 22; // Quantity
-  for (let i = 0; i < placeholdersToAdd; i++) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'character placeholder';
-    placeholder.textContent = 'Coming Soon';
-    grid.appendChild(placeholder);
-  }
 }
 
 </script>
