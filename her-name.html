@@ -911,7 +911,7 @@ function openCharacter(key) {
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.grid-navigation').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
   document.body.classList.add('no-scroll');
@@ -919,7 +919,7 @@ function openCharacter(key) {
 }
 
 function closeCharacter() {
-  document.getElementById('characterGrid').style.display = 'grid';
+  document.querySelector('.grid-navigation').style.display = 'flex';
   document.querySelector('h1').style.display = 'block';
   document.querySelector('.pagination').style.display = 'block';
   document.getElementById('characterView').style.display = 'none';
