@@ -390,6 +390,37 @@
   font-weight: bold;
 }
 
+    .grid.slide-out-left {
+  animation: slideOutLeft 0.4s forwards;
+}
+.grid.slide-in-right {
+  animation: slideInRight 0.4s forwards;
+}
+.grid.slide-out-right {
+  animation: slideOutRight 0.4s forwards;
+}
+.grid.slide-in-left {
+  animation: slideInLeft 0.4s forwards;
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-80px); opacity: 0; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(80px); opacity: 0; }
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
     .download-button {
       display: inline-block;
       padding: 12px 24px;
@@ -681,39 +712,63 @@ function preloadCharacterAssets() {
 let currentPage = 1;
 const charactersPerPage = 24;
 
-function generateCharacterGrid() {
+function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
-  grid.innerHTML = '';
 
-  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-  if (currentPage > totalPages) currentPage = totalPages;
-
-  const start = (currentPage - 1) * charactersPerPage;
-  const end = start + charactersPerPage;
-  const visibleCharacters = characterKeys.slice(start, end);
-
-  visibleCharacters.forEach((key, index) => {
-    const char = characterData[key];
-    const card = document.createElement('div');
-    card.className = 'character';
-    card.style.setProperty('--accent-color', char.accent);
-    card.onclick = () => openCharacter(key);
-    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-    if (char.isNew) card.classList.add('new');
-    card.dataset.index = index;
-    grid.appendChild(card);
-  });
-
-  const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
-  for (let i = 0; i < placeholdersToAdd; i++) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'character placeholder';
-    placeholder.textContent = 'Coming Soon';
-    grid.appendChild(placeholder);
+  // Aplica slide-out animación
+  if (direction === 'next') {
+    grid.classList.add('slide-out-left');
+  } else if (direction === 'prev') {
+    grid.classList.add('slide-out-right');
   }
 
-  updatePaginationButtons();
+  // Esperá la salida antes de limpiar y mostrar nuevos
+  setTimeout(() => {
+    grid.classList.remove('slide-out-left', 'slide-out-right');
+    grid.innerHTML = '';
+
+    const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * charactersPerPage;
+    const end = start + charactersPerPage;
+    const visibleCharacters = characterKeys.slice(start, end);
+
+    visibleCharacters.forEach((key, index) => {
+      const char = characterData[key];
+      const card = document.createElement('div');
+      card.className = 'character';
+      card.style.setProperty('--accent-color', char.accent);
+      card.onclick = () => openCharacter(key);
+      card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+      if (char.isNew) card.classList.add('new');
+      card.dataset.index = index;
+      grid.appendChild(card);
+    });
+
+    const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
+    for (let i = 0; i < placeholdersToAdd; i++) {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'character placeholder';
+      placeholder.textContent = 'Coming Soon';
+      grid.appendChild(placeholder);
+    }
+
+    // Slide-in animación después del contenido nuevo
+    if (direction === 'next') {
+      grid.classList.add('slide-in-right');
+    } else if (direction === 'prev') {
+      grid.classList.add('slide-in-left');
+    }
+
+    setTimeout(() => {
+      grid.classList.remove('slide-in-left', 'slide-in-right');
+    }, 400);
+
+    updatePaginationButtons();
+  }, 250); 
 }
+
 
   function updatePaginationButtons() {
   const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
@@ -727,9 +782,9 @@ function generateCharacterGrid() {
   prevBtn.textContent = '« Prev';
   prevBtn.disabled = currentPage === 1;
   prevBtn.onclick = () => {
-    currentPage--;
-    generateCharacterGrid();
-  };
+  currentPage--;
+  generateCharacterGrid('prev');
+};
   buttons.appendChild(prevBtn);
 
   // Page Numbers
@@ -738,9 +793,11 @@ function generateCharacterGrid() {
     pageBtn.textContent = i;
     if (i === currentPage) pageBtn.classList.add('active');
     pageBtn.onclick = () => {
-      currentPage = i;
-      generateCharacterGrid();
-    };
+  const newPage = i;
+  const dir = newPage > currentPage ? 'next' : 'prev';
+  currentPage = newPage;
+  generateCharacterGrid(dir);
+};
     buttons.appendChild(pageBtn);
   }
 
@@ -749,9 +806,9 @@ function generateCharacterGrid() {
   nextBtn.textContent = 'Next »';
   nextBtn.disabled = currentPage === totalPages;
   nextBtn.onclick = () => {
-    currentPage++;
-    generateCharacterGrid();
-  };
+  currentPage++;
+  generateCharacterGrid('next');
+};
   buttons.appendChild(nextBtn);
 }
 
