@@ -418,10 +418,17 @@ function startExperience() {
     setTimeout(() => showMainContent(), 2500);
   } else {
     gameMenu.style.display = 'none';
+    
     introScreen.style.display = 'flex';
+    introScreen.style.zIndex = '99999';
+    introVideo.style.display = 'block'; 
+
+    void introScreen.offsetWidth; 
+
     introVideo.currentTime = 0;
     introVideo.volume = 0.8;
     introVideo.play();
+
     introVideo.addEventListener('ended', showMainContent);
     setTimeout(showMainContent, 15000);
   }
