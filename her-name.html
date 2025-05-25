@@ -508,17 +508,18 @@ fetch('characters.json')
 
 function preloadCharacterAssets() {
   Object.values(characterData).forEach(char => {
+    
     const img = new Image();
     img.src = char.img;
 
     const bg = new Image();
     bg.src = char.background;
 
-    const video = document.createElement('link');
-    video.rel = 'preload';
-    video.as = 'video';
-    video.href = char.video;
-    document.head.appendChild(video);
+    const hiddenVideo = document.createElement('video');
+    hiddenVideo.src = char.video;
+    hiddenVideo.preload = 'auto';
+    hiddenVideo.style.display = 'none';
+    document.body.appendChild(hiddenVideo);
   });
 }
 
@@ -614,7 +615,7 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   document.getElementById('characterGrid').style.display = 'none';
