@@ -21,19 +21,22 @@
     }
 
     .grid-container {
-  max-width: 1480px;
-  margin: 0 auto;
-  padding: 0 40px;
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
   box-sizing: border-box;
+  padding: 0 20px;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, 160px);
-  grid-auto-rows: 160px;
+  grid-template-columns: repeat(4, 160px);
+  grid-auto-rows: 160px;                  
   gap: 28px;
   justify-content: center;
-  align-content: center; 
+  align-content: center;
 }
 
 
@@ -711,7 +714,7 @@ function preloadCharacterAssets() {
 }
 
 let currentPage = 1;
-const charactersPerPage = 15;
+const charactersPerPage = 16;
 
 function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
