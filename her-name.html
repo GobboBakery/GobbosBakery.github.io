@@ -948,15 +948,20 @@ function openCharacter(key) {
 
 
 function closeCharacter() {
-  generateCharacterGrid(); 
-  document.querySelector('.grid-navigation').style.display = 'flex';
+
+  document.getElementById('characterGrid').style.display = 'grid';
   document.querySelector('.arrow.left').style.display = 'inline-block';
   document.querySelector('.arrow.right').style.display = 'inline-block';
   document.querySelector('h1').style.display = 'block';
   document.querySelector('.pagination').style.display = 'block';
+
+  
   document.getElementById('characterView').style.display = 'none';
+
+  
   document.body.classList.remove('no-scroll');
 }
+
 
 function prevCharacter() {
   currentCharacterIndex = (currentCharacterIndex - 1 + characterKeys.length) % characterKeys.length;
