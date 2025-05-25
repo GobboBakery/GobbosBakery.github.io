@@ -756,14 +756,14 @@ const charactersPerPage = 16;
 function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
 
-  // Aplica slide-out animación
+  
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
-  // Esperá la salida antes de limpiar y mostrar nuevos
+  
   setTimeout(() => {
     grid.classList.remove('slide-out-left', 'slide-out-right');
     grid.innerHTML = '';
@@ -795,7 +795,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Slide-in animación después del contenido nuevo
+    
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
@@ -806,11 +806,28 @@ function generateCharacterGrid(direction = null) {
       grid.classList.remove('slide-in-left', 'slide-in-right');
     }, 400);
 
+    
+    const visibleCards = grid.querySelectorAll('.character');
+    visibleCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animated-entry');
+        card.style.animationDelay = `${index * 80}ms`;
+      }, 100);
+    });
+
     updatePaginationButtons();
-  }, 250); 
+  }, 250);
 }
 
+const visibleCards = grid.querySelectorAll('.character');
+visibleCards.forEach((card, index) => {
+  setTimeout(() => {
+    card.classList.add('animated-entry');
+    card.style.animationDelay = `${index * 80}ms`;
+  }, 100);
+});
 
+  
 function updatePaginationButtons() {
   
 }
@@ -921,7 +938,8 @@ function openCharacter(key) {
 }
 
 function closeCharacter() {
-  document.getElementById('characterGrid').style.display = 'grid';
+  generateCharacterGrid(); 
+  document.querySelector('.grid-navigation').style.display = 'flex';
   document.querySelector('.arrow.left').style.display = 'inline-block';
   document.querySelector('.arrow.right').style.display = 'inline-block';
   document.querySelector('h1').style.display = 'block';
