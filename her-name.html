@@ -572,7 +572,12 @@ function openCharacter(key) {
   const vid = document.getElementById('charVideo');
 
   view.style.backgroundImage = `url(${char.background})`;
-  document.getElementById('backButton').style.background = char.accent || '#ff6600';
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+
+  backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222222)`;
+  nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444444)`;
+
 
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
