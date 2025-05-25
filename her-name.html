@@ -901,8 +901,11 @@ function openCharacter(key) {
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
 
+  // Set the background for the character view
   view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex'; // Ensure the character view is displayed
 
+  // Set the navigation buttons
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
@@ -911,6 +914,7 @@ function openCharacter(key) {
   nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
   prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
 
+  // Set character details
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -920,22 +924,28 @@ function openCharacter(key) {
   document.getElementById('charFlavor').textContent = char.flavor;
   document.getElementById('charDescription').textContent = char.description;
 
+  // Set the accent color for text and borders
   document.getElementById('charName').style.color = char.accent;
   const descBox = document.getElementById('charDescriptionBox');
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
+  // Set the character media (image and video)
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
+  // Hide the grid and other navigation elements
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('.arrow.left').style.display = 'none';
   document.querySelector('.arrow.right').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll');
+  document.body.classList.add('no-scroll'); 
+
+  // Show the character view
   view.style.display = 'block';
 }
+
 
 function closeCharacter() {
   generateCharacterGrid(); 
