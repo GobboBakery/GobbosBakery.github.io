@@ -589,10 +589,6 @@
     </div>
   </div>
 
-  <div class="pagination">...</div>
-</div>
-
-
 <div class="pagination">
   <button onclick="prevPage()">&laquo; Prev</button>
   <button onclick="nextPage()">Next &raquo;</button>
@@ -854,6 +850,21 @@ function prevCharacter() {
 function nextCharacter() {
   currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
   openCharacter(characterKeys[currentCharacterIndex]);
+}
+
+      function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    generateCharacterGrid();
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    generateCharacterGrid();
+  }
 }
 
 </script>
