@@ -589,10 +589,8 @@
     </div>
   </div>
 
-<div class="pagination">
-  <button onclick="prevPage()">&laquo; Prev</button>
-  <button onclick="nextPage()">Next &raquo;</button>
-</div>
+<div class="pagination" id="pagination"></div>
+
 
 <div class="character-view" id="characterView">
   <div class="character-nav-buttons">
@@ -711,7 +709,7 @@ function generateCharacterGrid() {
 
   function updatePaginationButtons() {
   const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-  const buttons = document.querySelector('.pagination');
+  const buttons = document.getElementById('pagination');
   buttons.innerHTML = '';
 
   if (totalPages <= 1) return; // no need for pagination
