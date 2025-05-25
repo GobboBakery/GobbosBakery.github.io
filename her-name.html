@@ -29,6 +29,21 @@
      margin: auto;
     }
 
+    @keyframes fadePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.character.animated-entry {
+  animation: fadePopIn 0.6s ease forwards;
+}
+
     @media (max-width: 768px) {
      .grid {
      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
@@ -622,18 +637,23 @@ function preloadCharacterAssets() {
 function generateCharacterGrid() {
   const grid = document.getElementById('characterGrid');
   grid.innerHTML = '';
-  characterKeys.forEach(key => {
-    const char = characterData[key];
-    const card = document.createElement('div');
-    card.className = 'character';
-    card.style.setProperty('--accent-color', char.accent); 
-    card.onclick = () => openCharacter(key);
-    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-    if (char.isNew) {
-  card.classList.add('new');
-}
-    grid.appendChild(card);
-  });
+  characterKeys.forEach((key, index) => {
+  const char = characterData[key];
+  const card = document.createElement('div');
+  card.className = 'character';
+  card.style.setProperty('--accent-color', char.accent);
+  card.onclick = () => openCharacter(key);
+  card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+
+  if (char.isNew) card.classList.add('new');
+
+  // GRID ANIMATION
+  card.classList.add('animated-entry');
+  card.style.animationDelay = `${index * 100}ms`;
+
+  grid.appendChild(card);
+});
+
 }
 
 function startExperience() {
