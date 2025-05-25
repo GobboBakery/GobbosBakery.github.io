@@ -684,10 +684,8 @@ function generateCharacterGrid() {
   const end = start + charactersPerPage;
   const visibleCharacters = characterKeys.slice(start, end);
 
-  characterKeys.forEach((key, index) => {
+  visibleCharacters.forEach((key, index) => {
   const char = characterData[key];
-  const isVisible = index >= (currentPage - 1) * charactersPerPage && index < currentPage * charactersPerPage;
-
   const card = document.createElement('div');
   card.className = 'character';
   card.style.setProperty('--accent-color', char.accent);
@@ -695,11 +693,6 @@ function generateCharacterGrid() {
   card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
   if (char.isNew) card.classList.add('new');
   card.dataset.index = index;
-
-  if (!isVisible) {
-    card.style.display = 'none';
-  }
-
   grid.appendChild(card);
 });
 
@@ -780,13 +773,19 @@ function showMainContent() {
   introVideo.currentTime = 0;
   introScreen.style.display = 'none';
   gameMenu.style.display = 'none';
-  const allCards = document.querySelectorAll('.character');
-allCards.forEach((card, index) => {
-  setTimeout(() => {
-    card.classList.add('animated-entry');
-    card.style.animationDelay = `${index * 80}ms`;
-  }, 100); 
-});
+
+  mainContent.style.display = 'block';
+
+  generateCharacterGrid();
+
+  const visibleCards = document.querySelectorAll('#characterGrid .character');
+  visibleCards.forEach((card, index) => {
+    setTimeout(() => {
+      card.classList.add('animated-entry');
+      card.style.animationDelay = `${index * 80}ms`;
+    }, 100);
+  });
+}
 
   mainContent.style.display = 'block';
 }
