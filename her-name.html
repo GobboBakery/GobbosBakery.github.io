@@ -596,10 +596,19 @@ function openCharacter(key) {
   document.getElementById('charFlavor').textContent = char.flavor;
   document.getElementById('charDescription').textContent = char.description;
 
+  
+  document.getElementById('charName').style.color = char.accent;
+
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   document.getElementById('characterGrid').style.display = 'none';
+  document.getElementById('charName').style.color = char.accent;
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
   view.style.display = 'block';
