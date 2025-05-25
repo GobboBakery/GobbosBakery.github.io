@@ -527,6 +527,46 @@
   }
 }
 
+    .grid-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 140px);
+  gap: 40px;
+  position: relative;
+}
+
+.arrow {
+  font-size: 3rem;
+  color: white;
+  background: linear-gradient(135deg, #9866ff, #7a42ff);
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s, background 0.3s;
+  z-index: 10;
+}
+
+.arrow:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #a277ff, #8852ff);
+}
+
+.arrow.left {
+  order: 0;
+}
+
+.arrow.right {
+  order: 2;
+}
+
+.grid {
+  order: 1;
+}
+
 
   </style>
 </head>
@@ -623,14 +663,11 @@
   <h1>Choose Your Dessert</h1>
 
   
-  <div class="grid-container">
-    <div class="grid" id="characterGrid">
-      
-    </div>
-  </div>
-
-<div class="pagination" id="pagination"></div>
-
+<div class="grid-navigation">
+  <button class="arrow left" onclick="prevPage()">❮</button>
+  <div class="grid" id="characterGrid"></div>
+  <button class="arrow right" onclick="nextPage()">❯</button>
+</div>
 
 <div class="character-view" id="characterView">
   <div class="character-nav-buttons">
@@ -774,46 +811,8 @@ function generateCharacterGrid(direction = null) {
 }
 
 
-  function updatePaginationButtons() {
-  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-  const buttons = document.getElementById('pagination');
-  buttons.innerHTML = '';
-
-  if (totalPages <= 1) return;
-
-  // Prev
-  const prevBtn = document.createElement('button');
-  prevBtn.textContent = '« Prev';
-  prevBtn.disabled = currentPage === 1;
-  prevBtn.onclick = () => {
-  currentPage--;
-  generateCharacterGrid('prev');
-};
-  buttons.appendChild(prevBtn);
-
-  // Page Numbers
-  for (let i = 1; i <= totalPages; i++) {
-    const pageBtn = document.createElement('button');
-    pageBtn.textContent = i;
-    if (i === currentPage) pageBtn.classList.add('active');
-    pageBtn.onclick = () => {
-  const newPage = i;
-  const dir = newPage > currentPage ? 'next' : 'prev';
-  currentPage = newPage;
-  generateCharacterGrid(dir);
-};
-    buttons.appendChild(pageBtn);
-  }
-
-  // Next
-  const nextBtn = document.createElement('button');
-  nextBtn.textContent = 'Next »';
-  nextBtn.disabled = currentPage === totalPages;
-  nextBtn.onclick = () => {
-  currentPage++;
-  generateCharacterGrid('next');
-};
-  buttons.appendChild(nextBtn);
+function updatePaginationButtons() {
+  
 }
 
 function startExperience() {
