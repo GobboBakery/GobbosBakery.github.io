@@ -374,7 +374,10 @@
 </div>
 
 <div class="character-view" id="characterView">
+  <div style="position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 10001;">
   <button class="back-button" id="backButton" onclick="closeCharacter()">← Back</button>
+  <button class="back-button" id="nextButton" onclick="nextCharacter()" style="background: #9866ff;">Next Girl ➡</button>
+</div>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
 <div class="character-info">
@@ -522,9 +525,12 @@ Ni un cortafuegos te salva de esta morra. Ándale, que estás a punto de probar 
   }
 };
 
+const characterKeys = Object.keys(characters); 
+let currentCharacterIndex = 0;
   
 function openCharacter(key) {
   const char = characters[key];
+  currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
 
@@ -558,6 +564,12 @@ function openCharacter(key) {
     document.querySelector('h1').style.display = 'block';
     document.querySelector('.pagination').style.display = 'block';
     document.getElementById('characterView').style.display = 'none';
+  }
+
+  function nextCharacter() {
+  currentCharacterIndex = (currentCharacterIndex + 1) % characterKeys.length;
+  const nextKey = characterKeys[currentCharacterIndex];
+  openCharacter(nextKey);
   }
 
   function prevPage() {
