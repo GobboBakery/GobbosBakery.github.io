@@ -935,32 +935,34 @@ function openCharacter(key) {
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   // Hide the grid and other navigation elements
-  document.getElementById('characterGrid').style.display = 'none';
-  document.querySelector('.arrow.left').style.display = 'none';
-  document.querySelector('.arrow.right').style.display = 'none';
-  document.querySelector('h1').style.display = 'none';
-  document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll'); 
+  document.getElementById('characterGrid').style.display = 'none'; // Esconde la grilla
+  document.querySelector('.arrow.left').style.display = 'none'; // Esconde las flechas de navegación
+  document.querySelector('.arrow.right').style.display = 'none'; // Esconde las flechas de navegación
+  document.querySelector('h1').style.display = 'none'; // Esconde el título
+  document.querySelector('.pagination').style.display = 'none'; // Esconde la paginación
+  document.body.classList.add('no-scroll'); // Desactiva el scroll
 
   // Show the character view
   view.style.display = 'block';
 }
 
 
+
 function closeCharacter() {
 
-  document.getElementById('characterGrid').style.display = 'grid';
+  document.getElementById('characterGrid').style.display = 'grid'; 
   document.querySelector('.arrow.left').style.display = 'inline-block';
-  document.querySelector('.arrow.right').style.display = 'inline-block';
-  document.querySelector('h1').style.display = 'block';
-  document.querySelector('.pagination').style.display = 'block';
+  document.querySelector('.arrow.right').style.display = 'inline-block'; 
+  document.querySelector('h1').style.display = 'block'; 
+  document.querySelector('.pagination').style.display = 'block'; 
 
   
-  document.getElementById('characterView').style.display = 'none';
+  document.getElementById('characterView').style.display = 'none'; 
 
-  
-  document.body.classList.remove('no-scroll');
+
+  document.body.classList.remove('no-scroll'); 
 }
+
 
 
 function prevCharacter() {
