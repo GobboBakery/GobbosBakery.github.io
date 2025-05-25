@@ -265,6 +265,39 @@
       flex-wrap: wrap;
    }
 
+    .character-nav-buttons {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 10001;
+   }
+
+   .btn-nav {
+      padding: 12px 20px;
+      font-size: 0.95em;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+   }
+
+   .btn-nav:hover {
+      transform: scale(1.05);
+   }
+
+   .btn-nav.back {
+      background: linear-gradient(135deg, #ff6600, #ff3300);
+   }
+
+   .btn-nav.next {
+     background: linear-gradient(135deg, #9866ff, #7a42ff);
+   }
+
   </style>
 </head>
 <body>
@@ -374,9 +407,9 @@
 </div>
 
 <div class="character-view" id="characterView">
-  <div style="position: absolute; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 10001;">
-  <button class="back-button" id="backButton" onclick="closeCharacter()">← Back</button>
-  <button class="back-button" id="nextButton" onclick="nextCharacter()" style="background: #9866ff;">Next Girl ➡</button>
+  <div class="character-nav-buttons">
+  <button class="btn-nav back" onclick="closeCharacter()">← Back</button>
+  <button class="btn-nav next" onclick="nextCharacter()">Next Girl ➡</button>
 </div>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
