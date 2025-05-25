@@ -21,13 +21,13 @@
     }
 
     .grid {
-     display: grid;
-     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-     gap: 20px;
-     padding: 20px;
-     max-width: 1300px;
-     margin: auto;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  max-width: 75vw; 
+  margin: auto;
+}
 
     @keyframes fadePopIn {
   0% {
@@ -637,23 +637,28 @@ function preloadCharacterAssets() {
 function generateCharacterGrid() {
   const grid = document.getElementById('characterGrid');
   grid.innerHTML = '';
+
   characterKeys.forEach((key, index) => {
-  const char = characterData[key];
-  const card = document.createElement('div');
-  card.className = 'character';
-  card.style.setProperty('--accent-color', char.accent);
-  card.onclick = () => openCharacter(key);
-  card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+    const char = characterData[key];
+    const card = document.createElement('div');
+    card.className = 'character';
+    card.style.setProperty('--accent-color', char.accent);
+    card.onclick = () => openCharacter(key);
+    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+    if (char.isNew) card.classList.add('new');
 
-  if (char.isNew) card.classList.add('new');
+    card.dataset.index = index;
+    grid.appendChild(card);
+  });
 
-  // GRID ANIMATION
-  card.classList.add('animated-entry');
-  card.style.animationDelay = `${index * 100}ms`;
-
-  grid.appendChild(card);
-});
-
+  // PLACEHOLDERS
+  const placeholdersToAdd = 21;
+  for (let i = 0; i < placeholdersToAdd; i++) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'character placeholder';
+    placeholder.textContent = 'Coming Soon';
+    grid.appendChild(placeholder);
+  }
 }
 
 function startExperience() {
@@ -694,6 +699,14 @@ function showMainContent() {
   introVideo.currentTime = 0;
   introScreen.style.display = 'none';
   gameMenu.style.display = 'none';
+  const allCards = document.querySelectorAll('.character');
+allCards.forEach((card, index) => {
+  setTimeout(() => {
+    card.classList.add('animated-entry');
+    card.style.animationDelay = `${index * 80}ms`;
+  }, 100); 
+});
+
   mainContent.style.display = 'block';
 }
 
