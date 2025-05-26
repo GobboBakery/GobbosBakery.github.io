@@ -971,6 +971,80 @@ function goBack() {
   generateCharacterGrid();  
 }
 
+  // Navegar al personaje anterior
+function prevCharacter() {
+  if (currentCharacterIndex > 0) {
+    currentCharacterIndex--;  // Decrementar el índice
+    const prevCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(prevCharacterKey); // Mostrar el personaje anterior
+  }
+}
+
+// Navegar al siguiente personaje
+function nextCharacter() {
+  if (currentCharacterIndex < characterKeys.length - 1) {
+    currentCharacterIndex++;  // Incrementar el índice
+    const nextCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(nextCharacterKey); // Mostrar el siguiente personaje
+  }
+}
+
+// Función para abrir el personaje seleccionado
+function openCharacter(key) {
+  const char = characterData[key];
+  currentCharacterIndex = characterKeys.indexOf(key); 
+  selectSound.currentTime = 0;
+  selectSound.play();
+
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
+
+  if (!view || !img || !vid) {
+    console.error('Character view or media elements not found!');
+    return;
+  }
+
+  view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex';
+
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
+
+  document.getElementById('charName').style.color = char.accent;
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.arrow.left').style.display = 'none';
+  document.querySelector('.arrow.right').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll');
+
+  view.style.display = 'block';
+}
+
 </script>
 
 </body>
