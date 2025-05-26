@@ -768,11 +768,42 @@ function preloadCharacterAssets() {
   });
 }
 
-let currentPage = 1;
-const charactersPerPage = 16;
+// Espera a que el video de intro termine antes de mostrar el contenido
+introVideo.addEventListener('ended', function() {
+    showMainContent();            // Muestra el contenido principal
+    generateCharacterGrid();      // Genera la cuadrícula de personajes después de la intro
+    enableHoverFunctionality();   // Habilita las interacciones de hover después de la intro
+});
 
-// Generate character grid with pagination
-function generateCharacterGrid(direction = null) {
+// Mostrar contenido principal después de la intro
+function showMainContent() {
+  introVideo.pause();
+  introVideo.currentTime = 0;
+  introScreen.style.display = 'none';   // Ocultar la pantalla de intro
+  gameMenu.style.display = 'none';      // Ocultar el menú de juego
+
+  mainContent.style.display = 'block';  // Mostrar el contenido principal
+  generateCharacterGrid();             // Genera la cuadrícula de personajes
+  updatePaginationButtons();           // Asegúrate de que la paginación esté actualizada
+  document.querySelector('.pagination').style.display = 'block';
+}
+
+// Habilitar las interacciones de hover después de que la página y la intro se hayan cargado
+function enableHoverFunctionality() {
+    const characters = document.querySelectorAll('.character');
+    characters.forEach(char => {
+        char.addEventListener('mouseover', function() {
+            char.style.transform = 'scale(1.1)';
+        });
+
+        char.addEventListener('mouseout', function() {
+            char.style.transform = 'scale(1)';
+        });
+    });
+}
+
+// Función para cargar y mostrar la cuadrícula de personajes
+function generateCharacterGrid() {
   const grid = document.getElementById('characterGrid');
   
   if (!grid) {
@@ -780,74 +811,58 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Handle grid sliding animations
-  if (direction === 'next') {
-    grid.classList.add('slide-out-left');
-  } else if (direction === 'prev') {
-    grid.classList.add('slide-out-right');
+  grid.innerHTML = ''; // Limpiar la cuadrícula antes de agregar nuevos elementos
+
+  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+  if (currentPage > totalPages) currentPage = totalPages;
+
+  const start = (currentPage - 1) * charactersPerPage;
+  const end = start + charactersPerPage;
+  const visibleCharacters = characterKeys.slice(start, end);
+
+  // Crear tarjetas para cada personaje visible
+  visibleCharacters.forEach((key, index) => {
+    const char = characterData[key];
+    const card = document.createElement('div');
+    card.className = 'character';
+    card.style.setProperty('--accent-color', char.accent);
+    card.onclick = () => openCharacter(key);
+    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+    if (char.isNew) card.classList.add('new');
+    card.dataset.index = index;
+    grid.appendChild(card);
+  });
+
+  // Si no hay suficientes personajes, agregar marcadores de "Coming Soon"
+  const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
+  for (let i = 0; i < placeholdersToAdd; i++) {
+    const placeholder = document.createElement('div');
+    placeholder.className = 'character placeholder';
+    placeholder.textContent = 'Coming Soon';
+    grid.appendChild(placeholder);
   }
 
+  // Animar el deslizamiento de la cuadrícula
+  const direction = (currentPage > 1) ? 'next' : 'prev'; // Simplemente para identificar la dirección
+  grid.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
+
   setTimeout(() => {
-    grid.classList.remove('slide-out-left', 'slide-out-right');
-    grid.innerHTML = '';
+    grid.classList.remove('slide-in-left', 'slide-in-right');
+  }, 400);
 
-    const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-    if (currentPage > totalPages) currentPage = totalPages;
-
-    const start = (currentPage - 1) * charactersPerPage;
-    const end = start + charactersPerPage;
-    const visibleCharacters = characterKeys.slice(start, end);
-
-    // Create character cards
-    visibleCharacters.forEach((key, index) => {
-      const char = characterData[key];
-      const card = document.createElement('div');
-      card.className = 'character';
-      card.style.setProperty('--accent-color', char.accent);
-      card.onclick = () => openCharacter(key);
-      card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-      if (char.isNew) card.classList.add('new');
-      card.dataset.index = index;
-      grid.appendChild(card);
-    });
-
-    // Add placeholders if not enough characters to fill the grid
-    const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
-    for (let i = 0; i < placeholdersToAdd; i++) {
-      const placeholder = document.createElement('div');
-      placeholder.className = 'character placeholder';
-      placeholder.textContent = 'Coming Soon';
-      grid.appendChild(placeholder);
-    }
-
-    // Animate sliding in/out of the grid
-    if (direction === 'next') {
-      grid.classList.add('slide-in-right');
-    } else if (direction === 'prev') {
-      grid.classList.add('slide-in-left');
-    }
-
+  // Animar las tarjetas de los personajes
+  const visibleCards = grid.querySelectorAll('.character');
+  visibleCards.forEach((card, index) => {
     setTimeout(() => {
-      grid.classList.remove('slide-in-left', 'slide-in-right');
-    }, 400);
-
-    // Animate each card
-    const visibleCards = grid.querySelectorAll('.character');
-    visibleCards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('animated-entry');
-        card.style.animationDelay = `${index * 80}ms`;
-      }, 100);
-    });
-
-    updatePaginationButtons();
-  }, 250);
+      card.classList.add('animated-entry');
+      card.style.animationDelay = `${index * 80}ms`;
+    }, 100);
+  });
 }
 
-// Open the selected character details
-// Mostrar detalles del personaje
+// Mostrar detalles del personaje seleccionado
 function openCharacter(key) {
-  const char = characterData[key];  // Obtener los datos del personaje
+  const char = characterData[key];
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -885,22 +900,22 @@ function openCharacter(key) {
   // Crear el texto "FREE"
   freeText.className = 'free-text';
   freeText.textContent = 'FREE'; // Mostrar siempre el texto "FREE"
-  
+  vid.appendChild(freeText);  // Añadir el texto "FREE" al video
+
+  // Agregar el marco luminoso con el color del personaje
+  vid.style.setProperty('--accent-color', char.accent);
+
   // Establecer el contenido multimedia (video)
   vid.innerHTML = ` 
     <a href="${char.link}" target="_blank">
       <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
     </a>
   `;
-  vid.appendChild(freeText);  // Añadir el texto "FREE" al video
-
-  // Agregar el marco luminoso con el color del personaje
-  vid.style.setProperty('--accent-color', char.accent);
 
   // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-  // Ocultar la grilla y mostrar la vista del personaje
+  // Ocultar la cuadrícula y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('.arrow.left').style.display = 'none';
   document.querySelector('.arrow.right').style.display = 'none';
@@ -911,7 +926,7 @@ function openCharacter(key) {
   view.style.display = 'block'; // Mostrar la vista del personaje
 }
 
-// Close character details and return to grid
+// Cerrar la vista del personaje y volver a la cuadrícula
 function closeCharacter() {
   const characterGrid = document.getElementById('characterGrid');
   const characterView = document.getElementById('characterView');
@@ -921,9 +936,9 @@ function closeCharacter() {
     return;
   }
 
-  // Mostrar la grilla y ocultar la vista del personaje
-  characterGrid.style.display = 'grid'; // Mostrar la grilla
-  characterView.style.display = 'none'; // Ocultar la vista del personaje
+  // Mostrar la cuadrícula y ocultar la vista del personaje
+  characterGrid.style.display = 'grid'; 
+  characterView.style.display = 'none'; 
 
   // Mostrar la navegación de flechas y el título
   document.querySelector('.arrow.left').style.display = 'inline-block';
