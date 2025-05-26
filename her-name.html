@@ -39,22 +39,6 @@
       align-content: center;
     }
 
-    .character.animated-entry {
-      animation: fadePopIn 0.6s ease forwards;
-    }
-
-    .character.placeholder {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px dashed rgba(255, 255, 255, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85em;
-      color: rgba(255, 255, 255, 0.3);
-      font-style: italic;
-      pointer-events: none;
-    }
-
     .character {
       width: 160px;
       height: 160px;
@@ -97,12 +81,6 @@
     .character:hover {
       box-shadow: 0 0 20px var(--accent-color, #9866ff);
       border-color: var(--accent-color, #9866ff);
-    }
-
-    .character:hover img {
-      animation: subtleGlow 2.5s ease-in-out infinite;
-      transform: scale(1.2);
-      border: 2px solid red;
     }
 
     @keyframes subtleGlow {
@@ -159,12 +137,6 @@
       font-size: 2em;
     }
 
-    .character-info p {
-      font-size: 1.05em;
-      line-height: 1.6;
-      margin-bottom: 15px;
-    }
-
     .preview-video {
       width: 100%;
       border-radius: 12px;
@@ -213,47 +185,14 @@
       background: linear-gradient(135deg, #9866ff, #7a42ff);
     }
 
-    .character.new {
-      position: relative;
-      border: 2px solid #d6b663;
-      animation: goldenGlow 2s ease-in-out infinite;
-      box-shadow: 0 0 15px rgba(214, 182, 99, 0.3);
+    body.no-scroll {
+      overflow: hidden !important;
     }
-
-    .character.new::before {
-      content: "NEW!";
-      position: absolute;
-      bottom: 8px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 245, 200, 0.95);
-      color: #3a2800;
-      font-size: 0.7em;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 14px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      z-index: 3;
-      font-family: 'Segoe UI', sans-serif;
-      text-shadow: 0 1px 1px rgba(255,255,255,0.4);
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    @keyframes goldenGlow {
-      0%, 100% {
-        box-shadow: 0 0 10px rgba(214, 182, 99, 0.3);
-      }
-      50% {
-        box-shadow: 0 0 20px rgba(214, 182, 99, 0.6);
-      }
-    }
-
   </style>
 </head>
 <body>
 
-<!-- INTRO SCREEN (video overlay, initially hidden) -->
+<!-- INTRO SCREEN -->
 <div id="introScreen" style="
   position: fixed;
   top: 0; left: 0;
@@ -279,7 +218,7 @@
   width: 100vw; height: 100vh;
   background: black;
   color: white;
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -288,56 +227,14 @@
   z-index: 99998;
   text-align: center;
 ">
-  
-  <!-- START -->
-  <button onclick="startExperience()" style="
-    padding: 16px 48px;
-    font-size: 1.1em;
-    background: linear-gradient(135deg, #9866ff, #7a42ff);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
-  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    Start Experience
-  </button>
-
-<!-- CHECKBOX -->
-<label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
-  <input type="checkbox" id="skipIntroCheckbox" onchange="toggleWarning()" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
-  Don’t show this again
-</label>
-  <p id="loadWarning" style="display: none; color: #ffcc00; font-size: 0.95em; margin-top: 5px;">
-  The page might take longer to load resources.
-</p>
-
-
-  <!-- WARNING -->
-  <div id="noteText" style="
-    display: none;
-    font-size: 0.9em;
-    color: #999;
-    margin-top: -10px;
-  ">
-    The page might take longer to load resources.
-  </div>
-
-  <!-- BACK  -->
-  <button onclick="goBack()" style="
-    padding: 12px 32px;
-    font-size: 1em;
-    background: #111;
-    color: white;
-    border: 1px solid #555;
-    border-radius: 10px;
-    margin-top: 20px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.3s;
-  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-    Back
-  </button>
-
+  <button onclick="startExperience()" style="padding: 16px 48px; font-size: 1.1em; background: linear-gradient(135deg, #9866ff, #7a42ff); color: white; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, background 0.3s;">Start Experience</button>
+  <label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
+    <input type="checkbox" id="skipIntroCheckbox" onchange="toggleWarning()" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
+    Don’t show this again
+  </label>
+  <p id="loadWarning" style="display: none; color: #ffcc00; font-size: 0.95em; margin-top: 5px;">The page might take longer to load resources.</p>
+  <div id="noteText" style="display: none; font-size: 0.9em; color: #999; margin-top: -10px;">The page might take longer to load resources.</div>
+  <button onclick="goBack()" style="padding: 12px 32px; font-size: 1em; background: #111; color: white; border: 1px solid #555; border-radius: 10px; margin-top: 20px; cursor: pointer; transition: transform 0.2s, background 0.3s;">Back</button>
 </div>
 
   <div id="mainContent" style="display: none;">
@@ -416,6 +313,7 @@ fetch('characters.json')
     generateCharacterGrid();
     preloadCharacterAssets();
 
+    // Verifica si se debe saltar la intro
     if (localStorage.getItem('skipIntroForever') === 'true') {
       showMainContent();
     } else {
@@ -443,7 +341,7 @@ function preloadCharacterAssets() {
 let currentPage = 1;
 const charactersPerPage = 16;
 
-// Generate character grid with pagination
+// Generar la cuadrícula de personajes con paginación
 function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
   
@@ -452,7 +350,7 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Handle grid sliding animations
+  // Manejo de animaciones de deslizamiento de la cuadrícula
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
@@ -470,7 +368,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
-    // Create character cards
+    // Crear tarjetas de personajes
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -483,7 +381,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
-    // Add placeholders if not enough characters to fill the grid
+    // Agregar marcadores si no hay suficientes personajes para llenar la cuadrícula
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -492,7 +390,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Animate sliding in/out of the grid
+    // Animar el deslizamiento de la cuadrícula
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
@@ -503,7 +401,7 @@ function generateCharacterGrid(direction = null) {
       grid.classList.remove('slide-in-left', 'slide-in-right');
     }, 400);
 
-    // Animate each card
+    // Animar cada tarjeta
     const visibleCards = grid.querySelectorAll('.character');
     visibleCards.forEach((card, index) => {
       setTimeout(() => {
@@ -516,9 +414,9 @@ function generateCharacterGrid(direction = null) {
   }, 250);
 }
 
-// Open the selected character details
+// Abrir los detalles del personaje seleccionado
 function openCharacter(key) {
-  const char = characterData[key];  // Obtener los datos del personaje
+  const char = characterData[key];
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -584,6 +482,37 @@ function openCharacter(key) {
   document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
   view.style.display = 'block'; // Mostrar la vista del personaje
+}
+
+// Mostrar el contenido principal después de la introducción
+function showMainContent() {
+  introVideo.pause();
+  introVideo.currentTime = 0;
+  introScreen.style.display = 'none';
+  gameMenu.style.display = 'none';
+  mainContent.style.display = 'block';
+}
+
+// Control de retroceso
+function goBack() {
+  mainContent.style.display = 'none';
+  gameMenu.style.display = 'flex';
+}
+
+// Iniciar la experiencia (Pantalla de introducción)
+function startExperience() {
+  if (document.getElementById('skipIntroCheckbox').checked) {
+    localStorage.setItem('skipIntroForever', 'true');
+    showMainContent();
+  } else {
+    gameMenu.style.display = 'none';
+    introScreen.style.display = 'flex';
+    introScreen.style.zIndex = '99999';
+    introVideo.style.display = 'block';
+    introVideo.currentTime = 0;
+    introVideo.play();
+    introVideo.addEventListener('ended', showMainContent);
+  }
 }
 
 </script>
