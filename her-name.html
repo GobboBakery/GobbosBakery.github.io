@@ -291,12 +291,12 @@
   border-radius: 12px;
   margin-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  position: relative; /* Necesario para posicionar el texto encima del video */
-  overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
+  position: relative; 
+  overflow: hidden;  
 }
 
 .preview-video:hover {
-  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
+  box-shadow: 0 0 20px var(--accent-color); 
 }
 
 .preview-video .free-text {
@@ -310,7 +310,7 @@
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 8px;
-  display: block; /* Siempre visible */
+  display: block; 
 }
 
 .preview-video video {
@@ -887,7 +887,7 @@ function openCharacter(key) {
   freeText.textContent = 'FREE'; // Mostrar siempre el texto "FREE"
   
   // Establecer el contenido multimedia (video)
-  vid.innerHTML = `
+  vid.innerHTML = ` 
     <a href="${char.link}" target="_blank">
       <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
     </a>
