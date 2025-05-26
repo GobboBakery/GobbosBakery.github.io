@@ -816,8 +816,9 @@ function generateCharacterGrid(direction = null) {
 }
 
 // Open the selected character details
+// Mostrar detalles del personaje
 function openCharacter(key) {
-  const char = characterData[key];
+  const char = characterData[key];  // Obtener los datos del personaje
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -826,17 +827,16 @@ function openCharacter(key) {
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
 
-  // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
     console.error('Character view or media elements not found!');
     return;
   }
 
-  // Establecer el fondo y la información del personaje
+  // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
+  view.style.display = 'flex'; 
 
-  // Configurar los botones de navegación (back, prev, next)
+  // Configurar los botones de navegación
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
@@ -847,7 +847,7 @@ function openCharacter(key) {
     prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
   }
 
-  // Establecer detalles del personaje
+  // Mostrar información del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -862,12 +862,14 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  // Establecer el contenido multimedia (video e imagen)
+  // Mostrar el video del personaje con enlace
   vid.innerHTML = `
-  <a href="https://ejemplo.com" target="_blank">
-    <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
-  </a>
-`;
+    <a href="${char.video}" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  `;
+  
+  // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   // Ocultar la grilla y mostrar la vista del personaje
@@ -878,7 +880,7 @@ function openCharacter(key) {
   document.querySelector('.pagination').style.display = 'none';
   document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block'; // Asegúrate de mostrar la vista del personaje
+  view.style.display = 'block'; // Mostrar la vista del personaje
 }
 
 // Close character details and return to grid
