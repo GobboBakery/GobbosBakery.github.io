@@ -30,31 +30,13 @@
   padding: 0 20px;
 }
 
-
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 160px);
-  grid-auto-rows: 160px;
+  grid-auto-rows: 160px;                  
   gap: 28px;
   justify-content: center;
   align-content: center;
-  transition: transform 0.5s ease;
-}
-
-.grid.slide-out-left {
-  transform: translateX(-100%);
-}
-
-.grid.slide-in-right {
-  transform: translateX(0%);
-}
-
-.grid.slide-out-right {
-  transform: translateX(100%);
-}
-
-.grid.slide-in-left {
-  transform: translateX(0%);
 }
 
 
@@ -98,7 +80,7 @@
 }
 
 .character.animated-entry {
-  
+  animation: fadePopIn 0.6s ease forwards;
 }
 
     @media (max-width: 768px) {
@@ -412,7 +394,7 @@
   font-weight: bold;
 }
 
-.grid.slide-out-left {
+    .grid.slide-out-left {
   animation: slideOutLeft 0.4s forwards;
 }
 .grid.slide-in-right {
@@ -429,7 +411,6 @@
   from { transform: translateX(0); opacity: 1; }
   to { transform: translateX(-80px); opacity: 0; }
 }
-
 @keyframes slideInRight {
   from { transform: translateX(80px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -439,7 +420,6 @@
   from { transform: translateX(0); opacity: 1; }
   to { transform: translateX(80px); opacity: 0; }
 }
-
 @keyframes slideInLeft {
   from { transform: translateX(-80px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -782,22 +762,17 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Primero, eliminamos las animaciones previas
-  grid.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
-
-  // Aplicamos la animación de salida (slide-out) según la dirección
+  // Handle grid sliding animations
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
-  // Esperamos que termine la animación de salida antes de cambiar el contenido
   setTimeout(() => {
-    // Limpiar el contenido de la grilla
+    grid.classList.remove('slide-out-left', 'slide-out-right');
     grid.innerHTML = '';
 
-    // Obtener los personajes a mostrar
     const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
     if (currentPage > totalPages) currentPage = totalPages;
 
@@ -805,7 +780,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
-    // Crear las tarjetas de personajes
+    // Create character cards
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -818,7 +793,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
-    // Añadir placeholders si no hay suficientes personajes para llenar la grilla
+    // Add placeholders if not enough characters to fill the grid
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -827,20 +802,28 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Aplicamos la animación de entrada después de actualizar el contenido
+    // Animate sliding in/out of the grid
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
       grid.classList.add('slide-in-left');
     }
 
-    // Esperamos un tiempo para eliminar las clases de animación después de que se haya completado la animación de entrada
     setTimeout(() => {
       grid.classList.remove('slide-in-left', 'slide-in-right');
-    }, 500); // Asegurarse de que la animación de entrada termine antes de quitar la clase
+    }, 400);
+
+    // Animate each card
+    const visibleCards = grid.querySelectorAll('.character');
+    visibleCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animated-entry');
+        card.style.animationDelay = `${index * 80}ms`;
+      }, 100);
+    });
 
     updatePaginationButtons();
-  }, 500); // Asegúrate de que la animación de salida tenga suficiente tiempo antes de cambiar el contenido
+  }, 250);
 }
 
 // Open the selected character details
@@ -972,22 +955,20 @@ function startExperience() {
 }
 
 function showMainContent() {
-  const introVideo = document.getElementById('introVideo');
-  const introScreen = document.getElementById('introScreen');
-  
-  if (introVideo && introScreen) {
-    introVideo.pause();
-    introVideo.currentTime = 0;
-    introScreen.style.display = 'none'; // Solo modificar si el elemento existe
-  } else {
-    console.error('introVideo or introScreen not found');
-  }
-
+  introVideo.pause();
+  introVideo.currentTime = 0;
+  introScreen.style.display = 'none';
   gameMenu.style.display = 'none';
+
   mainContent.style.display = 'block';
   generateCharacterGrid();
   updatePaginationButtons();
   document.querySelector('.pagination').style.display = 'block';
+}
+
+function goBack() {
+  closeCharacter();
+  generateCharacterGrid();  
 }
 
   // Navegar al personaje anterior
