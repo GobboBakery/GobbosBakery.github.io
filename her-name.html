@@ -21,91 +21,176 @@
     }
 
     .grid-container {
-      width: 100%;
-      height: calc(100vh - 140px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-      padding: 0 20px;
-    }
+  width: 100%;
+  height: calc(100vh - 140px);
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  box-sizing: border-box;
+  padding: 0 20px;
+}
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(4, 160px);
-      grid-auto-rows: 160px;
-      gap: 28px;
-      justify-content: center;
-      align-content: center;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 160px);
+  grid-auto-rows: 160px;                  
+  gap: 28px;
+  justify-content: center;
+  align-content: center;
+}
+
+
+@media (max-width: 1400px) {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 22px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 500px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+.character.animated-entry {
+  animation: fadePopIn 0.6s ease forwards;
+}
+
+    @media (max-width: 768px) {
+     .grid {
+     grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+     gap: 12px;
+     padding: 15px;
     }
+   }
+
+    .character.placeholder {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85em;
+  color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+  pointer-events: none;
+}
+
 
     .character {
-      width: 160px;
-      height: 160px;
-      background: black;
-      border-radius: 10px;
-      cursor: pointer;
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-      border: 2px solid transparent;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.5);
-    }
+  width: 160px;
+  height: 160px;
+  background: black;
+  border-radius: 10px;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.5);
+}
 
     .character:hover img {
-      animation: subtleGlow 2.5s ease-in-out infinite;
-      transform: scale(1.1);
-    }
+  animation: subtleGlow 2.5s ease-in-out infinite;
+  transform: scale(1.1);
+}
 
     .character img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.3s ease, filter 0.3s ease;
-      filter: brightness(1.05);
-    }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(1.05);
+   }
 
     .character::after {
-      content: "";
-      position: absolute;
-      top: -40%;
-      left: -40%;
-      width: 180%;
-      height: 180%;
-      background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
-      pointer-events: none;
-      transform: rotate(25deg);
-      z-index: 2;
-    }
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 180%;
+  height: 180%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0));
+  pointer-events: none;
+  transform: rotate(25deg);
+  z-index: 2;
+}
 
     .character:hover {
-      box-shadow: 0 0 20px var(--accent-color, #9866ff);
-      border-color: var(--accent-color, #9866ff);
-    }
+  box-shadow: 0 0 20px var(--accent-color, #9866ff);
+  border-color: var(--accent-color, #9866ff);
+}
+
+    .character:hover img {
+  animation: subtleGlow 2.5s ease-in-out infinite;
+  transform: scale(1.2);
+  border: 2px solid red;
+}
 
     @keyframes subtleGlow {
-      0%, 100% {
-        filter: brightness(1.1) drop-shadow(0 0 4px var(--accent-color, #9866ff));
-      }
-      50% {
-        filter: brightness(1.2) drop-shadow(0 0 12px var(--accent-color, #9866ff));
-      }
-    }
+  0%, 100% {
+    filter: brightness(1.1) drop-shadow(0 0 4px var(--accent-color, #9866ff));
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 12px var(--accent-color, #9866ff));
+  }
+}
 
     .character-view {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-size: cover;
-      background-position: center;
-      background-color: rgba(0, 0, 0, 0.9);
-      z-index: 10000;
-      display: none;
-      overflow-y: auto;
-      padding: 40px 20px 20px;
-      box-sizing: border-box;
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100vw;
+     height: 100vh;
+     background-size: cover;
+     background-position: center;
+     background-color: rgba(0, 0, 0, 0.9);
+     z-index: 10000;
+     display: none;
+     overflow-y: auto;
+     padding: 40px 20px 20px;
+     box-sizing: border-box;
+    }
+
+    .character-view::-webkit-scrollbar {
+     width: 12px;
+    }
+
+    .character-view::-webkit-scrollbar-track {
+     background: #2a2a2a;
+    }
+
+    .character-view::-webkit-scrollbar-thumb {
+     background-color: #bbbbbb; 
+     border-radius: 6px;
+     border: 2px solid transparent;
+     background-clip: padding-box;
+    }
+
+    .character-view::-webkit-scrollbar-thumb:hover {
+     background-color: #e0e0e0;
+    }
+
+
+    .character-view {
+     scrollbar-width: thin;
+     scrollbar-color: #bbbbbb #2a2a2a;
     }
 
     .character-content {
@@ -124,8 +209,8 @@
       border-radius: 16px;
       max-width: 540px;
       width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
+      max-height: 85vh; 
+      overflow-y: auto;  
       box-shadow: 0 8px 30px rgba(0,0,0,0.6);
       text-align: center;
       z-index: 2;
@@ -136,6 +221,71 @@
       margin-bottom: 20px;
       font-size: 2em;
     }
+
+    .character-info p {
+      font-size: 1.05em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+   .character-info::-webkit-scrollbar {
+    width: 10px;
+   }
+
+   .character-info::-webkit-scrollbar-track {
+    background: rgba(50, 50, 50, 0.6); 
+    border-radius: 8px;
+   }
+
+   .character-info::-webkit-scrollbar-thumb {
+     background-color: #cccccc; 
+     border-radius: 8px;
+     border: 2px solid rgba(0, 0, 0, 0.2); 
+   }
+
+
+   .character-info::-webkit-scrollbar-thumb:hover {
+     background: linear-gradient(180deg, #a277ff 0%, #8852ff 100%);
+   }
+
+   .character-info .traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    justify-content: space-between;
+    margin-bottom: 20px;
+   }
+
+   .character-info .traits p {
+    flex: 1 1 45%;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 4px 0;
+    text-align: left;
+   }
+
+   #charDescriptionBox {
+    background-color: rgba(255, 255, 255, 0.05); 
+    border: 1px solid #9866ff; 
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-style: italic;
+    text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(152, 102, 255, 0.2);
+    }
+
+    #charDescriptionBox::-webkit-scrollbar {
+    width: 6px;
+    }
+
+    #charDescriptionBox::-webkit-scrollbar-thumb {
+     background: #9866ff;
+     border-radius: 4px;
+    }
+
 
     .preview-video {
       width: 100%;
@@ -149,15 +299,155 @@
       height: auto;
     }
 
+    .character-media {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+     .character-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    animation:
+    slideIn 0.9s ease-out forwards,
+    softGlow 3s ease-in-out infinite;
+    opacity: 0; 
+    }
+
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(80%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+    
+    @keyframes softGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.15));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255,255,255,0.25));
+    transform: scale(1.02);
+  }
+}
+
+    .back-button {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+
+    .pagination {
+      text-align: center;
+      margin: 20px;
+    }
+
+    .pagination button {
+      background: #222;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin: 0 5px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .pagination button:hover {
+      background: #444;
+    }
+
+    .pagination button.active {
+  background: #9866ff;
+  font-weight: bold;
+}
+
+    .grid.slide-out-left {
+  animation: slideOutLeft 0.4s forwards;
+}
+.grid.slide-in-right {
+  animation: slideInRight 0.4s forwards;
+}
+.grid.slide-out-right {
+  animation: slideOutRight 0.4s forwards;
+}
+.grid.slide-in-left {
+  animation: slideInLeft 0.4s forwards;
+}
+
+@keyframes slideOutLeft {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-80px); opacity: 0; }
+}
+@keyframes slideInRight {
+  from { transform: translateX(80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(80px); opacity: 0; }
+}
+@keyframes slideInLeft {
+  from { transform: translateX(-80px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+    .download-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #9866ff, #7a42ff);
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1em;
+      transition: background 0.3s ease;
+    }
+
+    .download-button:hover {
+      background: linear-gradient(135deg, #a277ff, #8852ff);
+   }
+
     .download-row {
       margin-top: 25px;
       display: flex;
       justify-content: center;
       gap: 12px;
       flex-wrap: wrap;
-    }
+   }
 
-    .btn-nav {
+    .character-nav-buttons {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 12px;
+      z-index: 10001;
+   }
+
+   .btn-nav {
       padding: 12px 20px;
       font-size: 0.95em;
       font-weight: bold;
@@ -167,32 +457,111 @@
       cursor: pointer;
       transition: transform 0.2s, background 0.3s;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    }
+   }
 
-    .btn-nav:hover {
+   .btn-nav:hover {
       transform: scale(1.05);
-    }
+   }
 
-    .btn-nav.back {
+   .btn-nav.back {
       background: linear-gradient(135deg, #ff6600, #ff3300);
-    }
+   }
 
     .btn-nav.prev {
       background: linear-gradient(135deg, #9866ff, #7a42ff);
-    }
+   }
 
-    .btn-nav.next {
-      background: linear-gradient(135deg, #9866ff, #7a42ff);
-    }
+   .btn-nav.next {
+     background: linear-gradient(135deg, #9866ff, #7a42ff);
+   }
 
     body.no-scroll {
-      overflow: hidden !important;
-    }
+     overflow: hidden !important;
+   }
+
+    .character.new {
+  position: relative;
+  border: 2px solid #d6b663;
+  animation: goldenGlow 2s ease-in-out infinite;
+  box-shadow: 0 0 15px rgba(214, 182, 99, 0.3);
+}
+
+.character.new::before {
+  content: "NEW!";
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 245, 200, 0.95);
+  color: #3a2800;
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  z-index: 3;
+  font-family: 'Segoe UI', sans-serif;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.4);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+
+@keyframes goldenGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(214, 182, 99, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(214, 182, 99, 0.6);
+  }
+}
+
+    .grid-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 140px);
+  gap: 40px;
+  position: relative;
+}
+
+.arrow {
+  font-size: 3rem;
+  color: white;
+  background: linear-gradient(135deg, #9866ff, #7a42ff);
+  border: none;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  transition: transform 0.2s, background 0.3s;
+  z-index: 10;
+}
+
+.arrow:hover {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, #a277ff, #8852ff);
+}
+
+.arrow.left {
+  order: 0;
+}
+
+.arrow.right {
+  order: 2;
+}
+
+.grid {
+  order: 1;
+}
+
+
   </style>
 </head>
 <body>
 
-<!-- INTRO SCREEN -->
+<!-- INTRO SCREEN (video overlay, initially hidden) -->
 <div id="introScreen" style="
   position: fixed;
   top: 0; left: 0;
@@ -218,7 +587,7 @@
   width: 100vw; height: 100vh;
   background: black;
   color: white;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -227,15 +596,59 @@
   z-index: 99998;
   text-align: center;
 ">
-  <button onclick="startExperience()" style="padding: 16px 48px; font-size: 1.1em; background: linear-gradient(135deg, #9866ff, #7a42ff); color: white; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.2s, background 0.3s;">Start Experience</button>
-  <label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
-    <input type="checkbox" id="skipIntroCheckbox" onchange="toggleWarning()" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
-    Don’t show this again
-  </label>
-  <p id="loadWarning" style="display: none; color: #ffcc00; font-size: 0.95em; margin-top: 5px;">The page might take longer to load resources.</p>
-  <div id="noteText" style="display: none; font-size: 0.9em; color: #999; margin-top: -10px;">The page might take longer to load resources.</div>
-  <button onclick="goBack()" style="padding: 12px 32px; font-size: 1em; background: #111; color: white; border: 1px solid #555; border-radius: 10px; margin-top: 20px; cursor: pointer; transition: transform 0.2s, background 0.3s;">Back</button>
+  
+  <!-- START -->
+  <button onclick="startExperience()" style="
+    padding: 16px 48px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #9866ff, #7a42ff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    Start Experience
+  </button>
+
+<!-- CHECKBOX -->
+<label style="display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 1em; cursor: pointer;">
+  <input type="checkbox" id="skipIntroCheckbox" onchange="toggleWarning()" style="width: 18px; height: 18px; accent-color: #9866ff; cursor: pointer;">
+  Don’t show this again
+</label>
+  <p id="loadWarning" style="display: none; color: #ffcc00; font-size: 0.95em; margin-top: 5px;">
+  The page might take longer to load resources.
+</p>
+
+
+  <!-- WARNING -->
+  <div id="noteText" style="
+    display: none;
+    font-size: 0.9em;
+    color: #999;
+    margin-top: -10px;
+  ">
+    The page might take longer to load resources.
+  </div>
+
+  <!-- BACK  -->
+  <button onclick="goBack()" style="
+    padding: 12px 32px;
+    font-size: 1em;
+    background: #111;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    Back
+  </button>
+
 </div>
+
+  
 
   <div id="mainContent" style="display: none;">
   <h1>Choose Your Dessert</h1>
@@ -254,42 +667,30 @@
 </div>
   <div class="character-content">
     <div class="character-media" id="charImage"></div>
-    <div class="character-info">
-      <h2 id="charName"></h2>
+<div class="character-info">
+  <h2 id="charName"></h2>
 
-      <div class="traits">
-        <p><strong>📅 Age:</strong> <span id="charAge"></span></p>
-        <p><strong>🌍 Origin:</strong> <span id="charOrigin"></span></p>
-        <p><strong>🎭 Personality:</strong> <span id="charPersonality"></span></p>
-        <p><strong>⚡ Powers:</strong> <span id="charPowers"></span></p>
-        <p><strong>💋 Good at:</strong> <span id="charGoodAt"></span></p>
-        <p><strong>🍽️ Flavor:</strong> <span id="charFlavor"></span></p>
-      </div>
+  <div class="traits">
+    <p><strong>📅 Age:</strong> <span id="charAge"></span></p>
+    <p><strong>🌍 Origin:</strong> <span id="charOrigin"></span></p>
+    <p><strong>🎭 Personality:</strong> <span id="charPersonality"></span></p>
+    <p><strong>⚡ Powers:</strong> <span id="charPowers"></span></p>
+    <p><strong>💋 Good at:</strong> <span id="charGoodAt"></span></p>
+    <p><strong>🍽️ Flavor:</strong> <span id="charFlavor"></span></p>
+  </div>
 
-      <div id="charDescriptionBox">
-        <p id="charDescription" style="margin: 0;"></p>
-      </div>
+  <div id="charDescriptionBox">
+    <p id="charDescription" style="margin: 0;"></p>
+  </div>
 
-      <div class="preview-video" id="charVideo"></div>
+  <div class="preview-video" id="charVideo"></div>
 
-      <div class="download-row">
-        <a id="watchButton" href="#" class="watch-button" target="_blank">Watch Video</a>
-        <button id="creditsButton" class="watch-button">Credits</button>
-      </div>
-    </div>
+  <div class="download-row">
+  <a id="watchButton" href="#" class="watch-button" target="_blank">Watch Video</a>
+</div>
+   </div>
   </div>
 </div>
-
-    <!-- CREDITS -->
-    <div id="creditsModal" class="credits-modal" style="display: none;">
-      <div class="credits-content">
-        <h2>Credits</h2>
-        <p><strong>Video Credits:</strong> <span id="videoCredits"></span></p>
-        <p><strong>Artist Credits:</strong> <span id="artistCredits"></span></p>
-        <button onclick="closeCreditsModal()">Close</button>
-      </div>
-    </div>
-
 
 <script>
 let characterData = {};
@@ -313,7 +714,6 @@ fetch('characters.json')
     generateCharacterGrid();
     preloadCharacterAssets();
 
-    // Verifica si se debe saltar la intro
     if (localStorage.getItem('skipIntroForever') === 'true') {
       showMainContent();
     } else {
@@ -341,7 +741,7 @@ function preloadCharacterAssets() {
 let currentPage = 1;
 const charactersPerPage = 16;
 
-// Generar la cuadrícula de personajes con paginación
+// Generate character grid with pagination
 function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
   
@@ -350,7 +750,7 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Manejo de animaciones de deslizamiento de la cuadrícula
+  // Handle grid sliding animations
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
@@ -368,7 +768,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
-    // Crear tarjetas de personajes
+    // Create character cards
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -381,7 +781,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
-    // Agregar marcadores si no hay suficientes personajes para llenar la cuadrícula
+    // Add placeholders if not enough characters to fill the grid
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -390,7 +790,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Animar el deslizamiento de la cuadrícula
+    // Animate sliding in/out of the grid
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
@@ -401,7 +801,7 @@ function generateCharacterGrid(direction = null) {
       grid.classList.remove('slide-in-left', 'slide-in-right');
     }, 400);
 
-    // Animar cada tarjeta
+    // Animate each card
     const visibleCards = grid.querySelectorAll('.character');
     visibleCards.forEach((card, index) => {
       setTimeout(() => {
@@ -414,9 +814,10 @@ function generateCharacterGrid(direction = null) {
   }, 250);
 }
 
-// Abrir los detalles del personaje seleccionado
+// Open the selected character details
+// Mostrar detalles del personaje
 function openCharacter(key) {
-  const char = characterData[key];
+  const char = characterData[key];  // Obtener los datos del personaje
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -430,6 +831,7 @@ function openCharacter(key) {
     return;
   }
 
+  // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
   view.style.display = 'flex'; 
 
@@ -469,9 +871,173 @@ function openCharacter(key) {
   // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-  // Mostrar el botón de créditos
-  const creditsButton = document.getElementById('creditsButton');
-  creditsButton.onclick = () => openCreditsModal(key);
+  // Ocultar la grilla y mostrar la vista del personaje
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.arrow.left').style.display = 'none';
+  document.querySelector('.arrow.right').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
+
+  view.style.display = 'block'; // Mostrar la vista del personaje
+}
+
+// Close character details and return to grid
+function closeCharacter() {
+  const characterGrid = document.getElementById('characterGrid');
+  const characterView = document.getElementById('characterView');
+
+  if (!characterGrid || !characterView) {
+    console.error('Character grid or view not found!');
+    return;
+  }
+
+  // Mostrar la grilla y ocultar la vista del personaje
+  characterGrid.style.display = 'grid'; // Mostrar la grilla
+  characterView.style.display = 'none'; // Ocultar la vista del personaje
+
+  // Mostrar la navegación de flechas y el título
+  document.querySelector('.arrow.left').style.display = 'inline-block';
+  document.querySelector('.arrow.right').style.display = 'inline-block';
+  document.querySelector('h1').style.display = 'block';
+  document.querySelector('.pagination').style.display = 'block';
+
+  // Restaurar el desplazamiento de la página
+  document.body.classList.remove('no-scroll');
+}
+
+// Pagination controls
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    generateCharacterGrid();
+  }
+}
+
+function nextPage() {
+  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+  if (currentPage < totalPages) {
+    currentPage++;
+    generateCharacterGrid();
+  }
+}
+
+function updatePaginationButtons() {
+  // Optional: Add logic to update pagination buttons, e.g., disabling them on the first/last page
+}
+
+// Start the experience
+function startExperience() {
+  if (document.getElementById('skipIntroCheckbox').checked) {
+    localStorage.setItem('skipIntroForever', 'true');
+    document.getElementById('noteText').style.display = 'block';
+    setTimeout(() => showMainContent(), 2500);
+  } else {
+    gameMenu.style.display = 'none';
+    introScreen.style.display = 'flex';
+    introScreen.style.zIndex = '99999';
+    introVideo.style.display = 'block';
+    void introScreen.offsetWidth;
+
+    introVideo.currentTime = 0;
+    introVideo.volume = 0.8;
+    introVideo.play();
+
+    introVideo.addEventListener('ended', showMainContent);
+    setTimeout(showMainContent, 15000);
+  }
+}
+
+function showMainContent() {
+  introVideo.pause();
+  introVideo.currentTime = 0;
+  introScreen.style.display = 'none';
+  gameMenu.style.display = 'none';
+
+  mainContent.style.display = 'block';
+  generateCharacterGrid();
+  updatePaginationButtons();
+  document.querySelector('.pagination').style.display = 'block';
+}
+
+function goBack() {
+  closeCharacter();
+  generateCharacterGrid();  
+}
+
+  // Navegar al personaje anterior
+function prevCharacter() {
+  if (currentCharacterIndex > 0) {
+    currentCharacterIndex--;  // Decrementar el índice
+    const prevCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(prevCharacterKey); // Mostrar el personaje anterior
+  }
+}
+
+// Navegar al siguiente personaje
+function nextCharacter() {
+  if (currentCharacterIndex < characterKeys.length - 1) {
+    currentCharacterIndex++;  // Incrementar el índice
+    const nextCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(nextCharacterKey); // Mostrar el siguiente personaje
+  }
+}
+
+// Función para abrir el personaje seleccionado
+function openCharacter(key) {
+  const char = characterData[key];  // Obtener los datos del personaje
+  currentCharacterIndex = characterKeys.indexOf(key); 
+  selectSound.currentTime = 0;
+  selectSound.play();
+
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
+
+  if (!view || !img || !vid) {
+    console.error('Character view or media elements not found!');
+    return;
+  }
+
+  // Establecer el fondo y la información del personaje
+  view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
+
+  // Configurar los botones de navegación
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  // Mostrar información del personaje
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
+
+  document.getElementById('charName').style.color = char.accent;
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+  // Mostrar el video del personaje con enlace
+  vid.innerHTML = `
+    <a href="${char.link}" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  `;
+  
+  // Mostrar la imagen del personaje
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
@@ -484,36 +1050,57 @@ function openCharacter(key) {
   view.style.display = 'block'; // Mostrar la vista del personaje
 }
 
-// Mostrar el contenido principal después de la introducción
-function showMainContent() {
-  introVideo.pause();
-  introVideo.currentTime = 0;
-  introScreen.style.display = 'none';
-  gameMenu.style.display = 'none';
-  mainContent.style.display = 'block';
-}
+  document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.getAttribute("data-title");
+      const data = videoData[id];
+      const modal = document.getElementById("artistModal");
 
-// Control de retroceso
-function goBack() {
-  mainContent.style.display = 'none';
-  gameMenu.style.display = 'flex';
-}
+      document.getElementById("modalTitle").textContent = data?.title || "Untitled";
 
-// Iniciar la experiencia (Pantalla de introducción)
-function startExperience() {
-  if (document.getElementById('skipIntroCheckbox').checked) {
-    localStorage.setItem('skipIntroForever', 'true');
-    showMainContent();
-  } else {
-    gameMenu.style.display = 'none';
-    introScreen.style.display = 'flex';
-    introScreen.style.zIndex = '99999';
-    introVideo.style.display = 'block';
-    introVideo.currentTime = 0;
-    introVideo.play();
-    introVideo.addEventListener('ended', showMainContent);
-  }
-}
+      if (data?.video) {
+        document.getElementById("modalPreview").style.display = 'block';
+        document.getElementById("modalVideoSrc").src = data.video;
+        document.getElementById("modalVideo").load();
+      } else {
+        document.getElementById("modalPreview").style.display = 'none';
+      }
+
+      const infoTextEl = document.getElementById("infoText");
+      const modalInfoEl = document.getElementById("modalInfo");
+      if (data?.infoText) {
+        infoTextEl.innerHTML = data.infoText;
+        modalInfoEl.style.display = 'block';
+      } else {
+        modalInfoEl.style.display = 'none';
+      }
+
+      const btn4k = document.getElementById("btn-4k");
+      const btnFullhd = document.getElementById("btn-fullhd");
+
+      // Aquí usamos el enlace común para todos los personajes (verificar contraseña en Infinity PHP)
+      const infinityLink = "https://infinitylink.com/verify-password?password=YOUR_SECRET_PASSWORD";
+
+      btn4k.style.display = infinityLink ? 'inline-block' : 'none';
+      btnFullhd.style.display = infinityLink ? 'inline-block' : 'none';
+
+      // Asignar la URL de Infinity para redirigir a Mega
+      btn4k.href = infinityLink;
+      btnFullhd.href = infinityLink;
+
+      modal.style.display = 'block';
+    });
+  });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    const modal = document.getElementById("artistModal");
+    document.getElementById("modalVideo").pause();
+    document.getElementById("modalVideo").currentTime = 0;
+    modal.style.display = "none";
+  });
+});
+
 
 </script>
 
