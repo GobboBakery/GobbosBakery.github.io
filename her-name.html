@@ -286,18 +286,41 @@
      border-radius: 4px;
     }
 
+.preview-video {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: relative; /* Necesario para posicionar el texto encima del video */
+  overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
+}
 
-    .preview-video {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
+.preview-video:hover {
+  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
+}
 
-    .preview-video video {
-      width: 100%;
-      height: auto;
-    }
+.preview-video .free-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: none; /* Inicialmente oculto */
+}
+
+.preview-video:hover .free-text {
+  display: block; /* Aparece cuando el video tiene hover */
+}
+
+.preview-video video {
+  width: 100%;
+  height: auto;
+}
 
     .character-media {
       position: absolute;
@@ -687,7 +710,6 @@
   <div class="download-row">
     <a href="#" class="download-button">⬇ 4K</a>
     <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
-    <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
     </div>
    </div>
   </div>
@@ -826,7 +848,9 @@ function openCharacter(key) {
   const view = document.getElementById('characterView');
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
+  const freeText = document.createElement('div'); // Crear el texto "FREE"
 
+  // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
     console.error('Character view or media elements not found!');
     return;
@@ -834,7 +858,7 @@ function openCharacter(key) {
 
   // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex'; 
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
   // Configurar los botones de navegación
   const backBtn = document.getElementById('backButton');
@@ -862,13 +886,19 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  // Mostrar el video del personaje con enlace
+  // Crear el texto "FREE"
+  freeText.className = 'free-text';
+  freeText.textContent = 'FREE'; 
   vid.innerHTML = `
-    <a href="${char.video}" target="_blank">
+    <a href="${char.link}" target="_blank">
       <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
     </a>
   `;
-  
+  vid.appendChild(freeText);  // Añadir el texto "FREE" al video
+
+  // Agregar el marco luminoso con el color del personaje
+  vid.style.setProperty('--accent-color', char.accent);
+
   // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
