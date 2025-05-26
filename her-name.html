@@ -764,18 +764,18 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Eliminar cualquier clase de animación anterior
+  // Eliminar la animación de desplazamiento previa
   grid.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
 
-  // Añadir las animaciones de desplazamiento según la dirección
+  // Establecer la animación de salida antes de cambiar el contenido
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
-  // Espera que la animación de salida termine antes de actualizar el contenido
   setTimeout(() => {
+    // Eliminar la animación de salida para preparar el contenido
     grid.classList.remove('slide-out-left', 'slide-out-right');
     grid.innerHTML = '';
 
@@ -808,21 +808,21 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Añadir la animación de entrada de acuerdo con la dirección
+    // Añadir la animación de entrada después de haber cambiado el contenido
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
       grid.classList.add('slide-in-left');
     }
 
-    // Eliminar las clases de animación después de que termine
     setTimeout(() => {
       grid.classList.remove('slide-in-left', 'slide-in-right');
-    }, 400);
+    }, 400); // Asegurarse de que la animación termine antes de eliminar la clase
 
     updatePaginationButtons();
-  }, 400); // Asegúrate de que la animación de salida tenga tiempo de ejecutarse antes de cambiar el contenido
+  }, 400); // Asegúrate de que la animación de salida tenga tiempo para ejecutarse
 }
+
 
 // Open the selected character details
 function openCharacter(key) {
