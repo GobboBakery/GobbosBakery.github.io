@@ -686,7 +686,10 @@
   <div class="preview-video" id="charVideo"></div>
 
   <div class="download-row">
+  <!-- Elimina los botones de 4K y FullHD -->
   <a id="watchButton" href="#" class="watch-button" target="_blank">Watch Video</a>
+  <!-- Nuevo botón para ver créditos -->
+  <button id="creditsButton" class="watch-button">Credits</button>
 </div>
    </div>
   </div>
@@ -833,7 +836,13 @@ function openCharacter(key) {
 
   // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex'; 
+  view.style.display = 'flex';
+
+    // Mostrar el botón de "Watch Video" con el enlace correspondiente
+  document.getElementById('watchButton').href = char.video; // Asegúrate de que char.video contenga el enlace del video.
+  
+  // Mostrar el botón de "Credits"
+  document.getElementById('creditsButton').onclick = () => openCreditsModal(key); // Maneja el botón de créditos según corresponda
 
   // Configurar los botones de navegación
   const backBtn = document.getElementById('backButton');
@@ -1078,16 +1087,6 @@ function openCharacter(key) {
 
       const btn4k = document.getElementById("btn-4k");
       const btnFullhd = document.getElementById("btn-fullhd");
-
-      // Aquí usamos el enlace común para todos los personajes (verificar contraseña en Infinity PHP)
-      const infinityLink = "https://infinitylink.com/verify-password?password=YOUR_SECRET_PASSWORD";
-
-      btn4k.style.display = infinityLink ? 'inline-block' : 'none';
-      btnFullhd.style.display = infinityLink ? 'inline-block' : 'none';
-
-      // Asignar la URL de Infinity para redirigir a Mega
-      btn4k.href = infinityLink;
-      btnFullhd.href = infinityLink;
 
       modal.style.display = 'block';
     });
