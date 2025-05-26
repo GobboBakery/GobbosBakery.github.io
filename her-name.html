@@ -863,7 +863,11 @@ function openCharacter(key) {
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
   // Establecer el contenido multimedia (video e imagen)
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
+  vid.innerHTML = `
+  <a href="https://ejemplo.com" target="_blank">
+    <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+  </a>
+`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   // Ocultar la grilla y mostrar la vista del personaje
@@ -989,14 +993,16 @@ function openCharacter(key) {
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
 
+  // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
     console.error('Character view or media elements not found!');
     return;
   }
 
   view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex';
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
+  // Configurar los botones de navegación (back, prev, next)
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
@@ -1021,7 +1027,13 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
+  // Actualizar el video con enlace
+  vid.innerHTML = `
+    <a href="https://ejemplo.com" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  `;
+  
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
   document.getElementById('characterGrid').style.display = 'none';
@@ -1029,9 +1041,9 @@ function openCharacter(key) {
   document.querySelector('.arrow.right').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll');
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block';
+  view.style.display = 'block'; // Asegúrate de mostrar la vista del personaje
 }
 
 </script>
