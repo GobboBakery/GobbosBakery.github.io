@@ -37,6 +37,23 @@
   gap: 28px;
   justify-content: center;
   align-content: center;
+  transition: transform 0.5s ease;
+}
+
+.grid.slide-out-left {
+  transform: translateX(-100%);
+}
+
+.grid.slide-in-right {
+  transform: translateX(100%);
+}
+
+.grid.slide-out-right {
+  transform: translateX(100%);
+}
+
+.grid.slide-in-left {
+  transform: translateX(-100%);
 }
 
 
@@ -764,21 +781,22 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Eliminar la animación de desplazamiento previa
+  // Eliminar cualquier animación previa antes de aplicar una nueva
   grid.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
 
-  // Establecer la animación de salida antes de cambiar el contenido
+  // Aplicamos la animación de desplazamiento de salida (slide-out)
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
+  // Esperamos que termine la animación de salida antes de cambiar el contenido
   setTimeout(() => {
-    // Eliminar la animación de salida para preparar el contenido
-    grid.classList.remove('slide-out-left', 'slide-out-right');
+    // Limpiar el contenido de la grilla
     grid.innerHTML = '';
 
+    // Obtener los personajes que se mostrarán en la página actual
     const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
     if (currentPage > totalPages) currentPage = totalPages;
 
@@ -786,7 +804,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
-    // Crear tarjetas de personajes
+    // Crear las tarjetas de personajes
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -799,7 +817,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
-    // Agregar placeholders si no hay suficientes personajes para llenar la grilla
+    // Añadir placeholders si no hay suficientes personajes para llenar la grilla
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -808,7 +826,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Añadir la animación de entrada después de haber cambiado el contenido
+    // Aplicamos la animación de desplazamiento de entrada (slide-in)
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
@@ -817,10 +835,10 @@ function generateCharacterGrid(direction = null) {
 
     setTimeout(() => {
       grid.classList.remove('slide-in-left', 'slide-in-right');
-    }, 400); // Asegurarse de que la animación termine antes de eliminar la clase
+    }, 500); // Asegúrate de que la animación termine antes de eliminar la clase
 
     updatePaginationButtons();
-  }, 400); // Asegúrate de que la animación de salida tenga tiempo para ejecutarse
+  }, 500); // Tiempo suficiente para que se complete la animación de salida
 }
 
 
