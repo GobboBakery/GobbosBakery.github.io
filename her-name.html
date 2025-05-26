@@ -473,28 +473,28 @@ function openCharacter(key) {
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
 
-  // Check for valid elements
+  // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
     console.error('Character view or media elements not found!');
     return;
   }
 
-  // Set background and character info
+  // Configurar fondo e información del personaje
   view.style.backgroundImage = `url(${char.background})`;
   view.style.display = 'flex';
 
+  // Configurar los detalles de navegación (botones)
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
 
-  // Set the navigation buttons' styles
   if (backBtn && nextBtn && prevBtn) {
     backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
     nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
     prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
   }
 
-  // Set character details
+  // Establecer detalles del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -509,11 +509,11 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  // Set the media content
+  // Establecer el contenido multimedia (video y imagen)
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-  // Hide the grid and show character view
+  // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('.arrow.left').style.display = 'none';
   document.querySelector('.arrow.right').style.display = 'none';
@@ -534,17 +534,17 @@ function closeCharacter() {
     return;
   }
 
-  // Hide character view and show grid again
-  characterGrid.style.display = 'grid';  // Show the grid
-  characterView.style.display = 'none'; // Hide the character view
+  // Mostrar la grilla y ocultar la vista del personaje
+  characterGrid.style.display = 'grid'; // Mostrar la grilla
+  characterView.style.display = 'none'; // Ocultar la vista del personaje
 
-  // Show the pagination controls
+  // Restablecer controles de navegación y el encabezado
   document.querySelector('.arrow.left').style.display = 'inline-block';
   document.querySelector('.arrow.right').style.display = 'inline-block';
   document.querySelector('h1').style.display = 'block';
   document.querySelector('.pagination').style.display = 'block';
 
-  // Restore scrolling
+  // Restaurar el desplazamiento de la página
   document.body.classList.remove('no-scroll');
 }
 
@@ -606,7 +606,6 @@ function goBack() {
   closeCharacter();
   generateCharacterGrid();  
 }
-
 
 </script>
 
