@@ -556,6 +556,47 @@
   order: 1;
 }
 
+    /* Estilo para el modal de créditos */
+.credits-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10001;
+}
+
+.credits-content {
+  background-color: #2a2a2a;
+  padding: 30px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  width: 400px;
+}
+
+.credits-content h2 {
+  margin-bottom: 20px;
+}
+
+.credits-content button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.credits-content button:hover {
+  background-color: #ff3300;
+}
+
 
   </style>
 </head>
@@ -685,12 +726,24 @@
 
   <div class="preview-video" id="charVideo"></div>
 
-  <div class="download-row">
+<div class="download-row">
   <a id="watchButton" href="#" class="watch-button" target="_blank">Watch Video</a>
+  <button id="creditsButton" class="watch-button">Credits</button>
 </div>
    </div>
   </div>
 </div>
+
+    <!-- CREDITS -->
+<div id="creditsModal" class="credits-modal" style="display: none;">
+  <div class="credits-content">
+    <h2>Credits</h2>
+    <p><strong>Video Credits:</strong> <span id="videoCredits"></span></p>
+    <p><strong>Artist Credits:</strong> <span id="artistCredits"></span></p>
+    <button onclick="closeCreditsModal()">Close</button>
+  </div>
+</div>
+
 
 <script>
 let characterData = {};
@@ -1080,14 +1133,13 @@ function openCharacter(key) {
       const btnFullhd = document.getElementById("btn-fullhd");
 
       // Aquí usamos el enlace común para todos los personajes (verificar contraseña en Infinity PHP)
-      const infinityLink = "https://infinitylink.com/verify-password?password=YOUR_SECRET_PASSWORD";
+      // Eliminar las referencias a Infinity y usar enlaces normales
+btn4k.style.display = 'inline-block';
+btnFullhd.style.display = 'inline-block';
 
-      btn4k.style.display = infinityLink ? 'inline-block' : 'none';
-      btnFullhd.style.display = infinityLink ? 'inline-block' : 'none';
-
-      // Asignar la URL de Infinity para redirigir a Mega
-      btn4k.href = infinityLink;
-      btnFullhd.href = infinityLink;
+// Enlace a la página o descarga deseada
+btn4k.href = "your_video_4k_link"; // Sustituir con el enlace correcto
+btnFullhd.href = "your_video_fullhd_link"; // Sustituir con el enlace correcto
 
       modal.style.display = 'block';
     });
@@ -1101,6 +1153,92 @@ function openCharacter(key) {
   });
 });
 
+  // Función para abrir el modal de créditos
+function openCreditsModal(key) {
+  const char = characterData[key];  // Obtener los datos del personaje
+
+  // Rellenar los créditos en el modal
+  document.getElementById('videoCredits').textContent = char.videoCredits;
+  document.getElementById('artistCredits').textContent = char.artistCredits;
+
+  // Mostrar el modal
+  document.getElementById('creditsModal').style.display = 'flex';
+}
+
+// Función para cerrar el modal de créditos
+function closeCreditsModal() {
+  document.getElementById('creditsModal').style.display = 'none';
+}
+
+// Modificar la función `openCharacter` para que abra el modal de créditos cuando se haga clic en el botón
+function openCharacter(key) {
+  const char = characterData[key];  // Obtener los datos del personaje
+  currentCharacterIndex = characterKeys.indexOf(key); 
+  selectSound.currentTime = 0;
+  selectSound.play();
+
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
+
+  if (!view || !img || !vid) {
+    console.error('Character view or media elements not found!');
+    return;
+  }
+
+  view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex'; 
+
+  // Configurar los botones de navegación
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  // Mostrar información del personaje
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
+
+  document.getElementById('charName').style.color = char.accent;
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+  // Mostrar el video del personaje con enlace
+  vid.innerHTML = `
+    <a href="${char.video}" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  `;
+  
+  // Mostrar la imagen del personaje
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+  // Mostrar el botón de créditos
+  const creditsButton = document.getElementById('creditsButton');
+  creditsButton.onclick = () => openCreditsModal(key);
+
+  // Ocultar la grilla y mostrar la vista del personaje
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.arrow.left').style.display = 'none';
+  document.querySelector('.arrow.right').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
+
+  view.style.display = 'block'; // Mostrar la vista del personaje
+}
 
 </script>
 
