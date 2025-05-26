@@ -972,9 +972,171 @@ function startExperience() {
     introVideo.volume = 0.8;
     introVideo.play();
 
-    introVideo.addEventListener('ended', showMainContent);
-    setTimeout(showMainContent, 15000);
-  }
+    // Espera a que el video de intro termine
+introVideo.addEventListener('ended', function() {
+    showMainContent();            // Muestra el contenido principal
+    generateCharacterGrid();      // Genera la cuadrícula de personajes después de la intro
+    enableHoverFunctionality();   // Habilita las interacciones de hover después de la intro
+});
+
+function showMainContent() {
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    introScreen.style.display = 'none';
+    gameMenu.style.display = 'none';
+
+    mainContent.style.display = 'block'; // Mostrar el contenido principal
+    document.querySelector('.pagination').style.display = 'block'; // Mostrar paginación
+    document.querySelector('.arrow.left').style.display = 'inline-block'; // Mostrar flechas de navegación
+    document.querySelector('.arrow.right').style.display = 'inline-block'; // Mostrar flechas de navegación
+
+    // Asegurarse de que la cuadrícula y los botones estén disponibles después de la intro
+    generateCharacterGrid();
+}
+
+// Esta función habilita el hover una vez que todo esté cargado
+function enableHoverFunctionality() {
+    const characters = document.querySelectorAll('.character');
+    characters.forEach(char => {
+        char.addEventListener('mouseover', function() {
+            char.style.transform = 'scale(1.1)';
+        });
+
+        char.addEventListener('mouseout', function() {
+            char.style.transform = 'scale(1)';
+        });
+    });
+}
+
+function generateCharacterGrid() {
+    const grid = document.getElementById('characterGrid');
+    
+    if (!grid) {
+        console.error('Grid element not found!');
+        return;
+    }
+
+    grid.innerHTML = ''; // Limpiar la cuadrícula antes de rellenarla
+
+    const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * charactersPerPage;
+    const end = start + charactersPerPage;
+    const visibleCharacters = characterKeys.slice(start, end);
+
+    // Crear las tarjetas de personajes
+    visibleCharacters.forEach((key, index) => {
+        const char = characterData[key];
+        const card = document.createElement('div');
+        card.className = 'character';
+        card.style.setProperty('--accent-color', char.accent);
+        card.onclick = () => openCharacter(key);
+        card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+        if (char.isNew) card.classList.add('new');
+        card.dataset.index = index;
+        grid.appendChild(card);
+    });
+
+    // Añadir marcadores si no hay suficientes personajes
+    const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
+    for (let i = 0; i < placeholdersToAdd; i++) {
+        const placeholder = document.createElement('div');
+        placeholder.className = 'character placeholder';
+        placeholder.textContent = 'Coming Soon';
+        grid.appendChild(placeholder);
+    }
+}
+
+// Abre los detalles del personaje
+function openCharacter(key) {
+    const char = characterData[key]; // Obtener los datos del personaje
+    currentCharacterIndex = characterKeys.indexOf(key); 
+
+    selectSound.currentTime = 0;
+    selectSound.play();
+
+    const view = document.getElementById('characterView');
+    const img = document.getElementById('charImage');
+    const vid = document.getElementById('charVideo');
+    const freeText = document.createElement('div'); // Crear el texto "FREE"
+
+    // Verificar si los elementos están presentes
+    if (!view || !img || !vid) {
+        console.error('Character view or media elements not found!');
+        return;
+    }
+
+    // Establecer el fondo de la vista
+    view.style.backgroundImage = `url(${char.background})`;
+    view.style.display = 'flex'; // Asegurarse de que la vista esté visible
+
+    // Mostrar información del personaje
+    document.getElementById('charName').textContent = char.name;
+    document.getElementById('charAge').textContent = char.age;
+    document.getElementById('charOrigin').textContent = char.origin;
+    document.getElementById('charPersonality').textContent = char.personality;
+    document.getElementById('charPowers').textContent = char.powers;
+    document.getElementById('charGoodAt').textContent = char.goodAt;
+    document.getElementById('charFlavor').textContent = char.flavor;
+    document.getElementById('charDescription').textContent = char.description;
+
+    document.getElementById('charName').style.color = char.accent;
+    const descBox = document.getElementById('charDescriptionBox');
+    descBox.style.border = `1px solid ${char.accent}`;
+    descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+    // Crear el texto "FREE"
+    freeText.className = 'free-text';
+    freeText.textContent = 'FREE'; // Mostrar siempre el texto "FREE"
+    vid.appendChild(freeText);  // Añadir el texto "FREE" al video
+
+    // Agregar el marco luminoso con el color del personaje
+    vid.style.setProperty('--accent-color', char.accent);
+
+    // Establecer el contenido multimedia (video)
+    vid.innerHTML = ` 
+        <a href="${char.link}" target="_blank">
+            <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+        </a>
+    `;
+
+    // Mostrar la imagen del personaje
+    img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+    // Ocultar la cuadrícula y mostrar la vista del personaje
+    document.getElementById('characterGrid').style.display = 'none';
+    document.querySelector('.arrow.left').style.display = 'none';
+    document.querySelector('.arrow.right').style.display = 'none';
+    document.querySelector('h1').style.display = 'none';
+    document.querySelector('.pagination').style.display = 'none';
+    document.body.classList.add('no-scroll'); // Desactivar desplazamiento
+
+    view.style.display = 'block'; // Mostrar la vista del personaje
+}
+
+// Volver a la cuadrícula de personajes
+function closeCharacter() {
+    const characterGrid = document.getElementById('characterGrid');
+    const characterView = document.getElementById('characterView');
+
+    if (!characterGrid || !characterView) {
+        console.error('Character grid or view not found!');
+        return;
+    }
+
+    // Mostrar la cuadrícula y ocultar la vista del personaje
+    characterGrid.style.display = 'grid';
+    characterView.style.display = 'none';
+
+    // Mostrar la navegación de flechas y el título
+    document.querySelector('.arrow.left').style.display = 'inline-block';
+    document.querySelector('.arrow.right').style.display = 'inline-block';
+    document.querySelector('h1').style.display = 'block';
+    document.querySelector('.pagination').style.display = 'block';
+
+    // Restaurar el desplazamiento de la página
+    document.body.classList.remove('no-scroll');
 }
 
 function showMainContent() {
