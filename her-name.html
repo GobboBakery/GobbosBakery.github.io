@@ -291,12 +291,12 @@
   border-radius: 12px;
   margin-bottom: 20px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  position: relative; 
-  overflow: hidden;  
+  position: relative; /* Necesario para posicionar el texto encima del video */
+  overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
 }
 
 .preview-video:hover {
-  box-shadow: 0 0 20px var(--accent-color); 
+  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
 }
 
 .preview-video .free-text {
@@ -310,13 +310,18 @@
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 8px;
-  display: block; 
+  display: block; /* Siempre visible */
 }
 
 .preview-video video {
   width: 100%;
   height: auto;
 }
+
+.preview-video:hover .free-text {
+  opacity: 1; /* Asegura que el texto no desaparezca */
+}
+
 
     .character-media {
       position: absolute;
