@@ -13,7 +13,9 @@
     "background": "HerName/BackgroundG/sombra_bg.jpg",
     "video": "HerName/Preview/sombra_preview.mp4",
     "accent": "#ff44aa",
-    "link": "https://google.com"
+    "link": "https://google.com",
+    "videoCredits": "Directed by John Doe, Produced by Jane Smith",
+    "artistCredits": "Art by Artist1, Animation by Animator1"
   },
   "SquirrelGirl": {
     "name": "Doreen Green – Squirrel Girl",
@@ -30,6 +32,8 @@
     "video": "HerName/Preview/squirrel_preview.mp4",
     "accent": "#ff8800",
     "isNew": true,
-    "link": "https://google.com"
+    "link": "https://google.com",
+    "videoCredits": "Directed by Alice Brown, Produced by Bob White",
+    "artistCredits": "Art by Artist2, Animation by Animator2"
   }
 }
