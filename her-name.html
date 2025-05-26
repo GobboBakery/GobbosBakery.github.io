@@ -310,11 +310,7 @@
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 8px;
-  display: none; /* Inicialmente oculto */
-}
-
-.preview-video:hover .free-text {
-  display: block; /* Aparece cuando el video tiene hover */
+  display: block; /* Siempre visible */
 }
 
 .preview-video video {
@@ -888,7 +884,9 @@ function openCharacter(key) {
 
   // Crear el texto "FREE"
   freeText.className = 'free-text';
-  freeText.textContent = 'FREE'; 
+  freeText.textContent = 'FREE'; // Mostrar siempre el texto "FREE"
+  
+  // Establecer el contenido multimedia (video)
   vid.innerHTML = `
     <a href="${char.link}" target="_blank">
       <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
