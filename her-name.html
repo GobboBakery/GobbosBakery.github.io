@@ -648,14 +648,20 @@
 
 </div>
 
+  
+
   <div id="mainContent" style="display: none;">
   <h1>Choose Your Dessert</h1>
 
-  
 <div class="grid-navigation">
   <button class="arrow left" onclick="prevPage()">❮</button>
   <div class="grid" id="characterGrid"></div>
   <button class="arrow right" onclick="nextPage()">❯</button>
+</div>
+
+    <div class="download-row">
+  <a id="btn-4k" href="HerName4K.php" class="download-button">⬇ 4K</a>
+  <a id="btn-fullhd" href="HerNameHD.php" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
 </div>
 
 <div class="character-view" id="characterView">
@@ -1049,6 +1055,58 @@ function openCharacter(key) {
 
   view.style.display = 'block'; // Mostrar la vista del personaje
 }
+
+  document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.thumb-wrapper').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.getAttribute("data-title");
+      const data = videoData[id];
+      const modal = document.getElementById("artistModal");
+
+      document.getElementById("modalTitle").textContent = data?.title || "Untitled";
+
+      if (data?.video) {
+        document.getElementById("modalPreview").style.display = 'block';
+        document.getElementById("modalVideoSrc").src = data.video;
+        document.getElementById("modalVideo").load();
+      } else {
+        document.getElementById("modalPreview").style.display = 'none';
+      }
+
+      const infoTextEl = document.getElementById("infoText");
+      const modalInfoEl = document.getElementById("modalInfo");
+      if (data?.infoText) {
+        infoTextEl.innerHTML = data.infoText;
+        modalInfoEl.style.display = 'block';
+      } else {
+        modalInfoEl.style.display = 'none';
+      }
+
+      const btn4k = document.getElementById("btn-4k");
+      const btnFullhd = document.getElementById("btn-fullhd");
+
+      // Aquí usamos el enlace común para todos los personajes (verificar contraseña en Infinity PHP)
+      const infinityLink = "https://infinitylink.com/verify-password?password=YOUR_SECRET_PASSWORD";
+
+      btn4k.style.display = infinityLink ? 'inline-block' : 'none';
+      btnFullhd.style.display = infinityLink ? 'inline-block' : 'none';
+
+      // Asignar la URL de Infinity para redirigir a Mega
+      btn4k.href = infinityLink;
+      btnFullhd.href = infinityLink;
+
+      modal.style.display = 'block';
+    });
+  });
+
+  document.querySelector(".close").addEventListener("click", () => {
+    const modal = document.getElementById("artistModal");
+    document.getElementById("modalVideo").pause();
+    document.getElementById("modalVideo").currentTime = 0;
+    modal.style.display = "none";
+  });
+});
+
 
 </script>
 
