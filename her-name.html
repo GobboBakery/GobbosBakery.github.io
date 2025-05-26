@@ -1076,6 +1076,23 @@ function openCharacter(key) {
         modalInfoEl.style.display = 'none';
       }
 
+      const btn4k = document.getElementById("btn-4k");
+      const btnFullhd = document.getElementById("btn-fullhd");
+
+      // Aquí usamos el enlace común para todos los personajes (verificar contraseña en Infinity PHP)
+      const infinityLink = "https://infinitylink.com/verify-password?password=YOUR_SECRET_PASSWORD";
+
+      btn4k.style.display = infinityLink ? 'inline-block' : 'none';
+      btnFullhd.style.display = infinityLink ? 'inline-block' : 'none';
+
+      // Asignar la URL de Infinity para redirigir a Mega
+      btn4k.href = infinityLink;
+      btnFullhd.href = infinityLink;
+
+      modal.style.display = 'block';
+    });
+  });
+
   document.querySelector(".close").addEventListener("click", () => {
     const modal = document.getElementById("artistModal");
     document.getElementById("modalVideo").pause();
