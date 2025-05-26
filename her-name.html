@@ -782,10 +782,10 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Eliminar cualquier animación previa antes de aplicar una nueva
+  // Primero, eliminamos las animaciones previas
   grid.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
 
-  // Aplicamos la animación de desplazamiento de salida (slide-out)
+  // Aplicamos la animación de salida (slide-out) según la dirección
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
@@ -797,7 +797,7 @@ function generateCharacterGrid(direction = null) {
     // Limpiar el contenido de la grilla
     grid.innerHTML = '';
 
-    // Obtener los personajes que se mostrarán en la página actual
+    // Obtener los personajes a mostrar
     const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
     if (currentPage > totalPages) currentPage = totalPages;
 
@@ -827,21 +827,21 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Aplicamos la animación de desplazamiento de entrada (slide-in)
+    // Aplicamos la animación de entrada después de actualizar el contenido
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
       grid.classList.add('slide-in-left');
     }
 
+    // Esperamos un tiempo para eliminar las clases de animación después de que se haya completado la animación de entrada
     setTimeout(() => {
       grid.classList.remove('slide-in-left', 'slide-in-right');
-    }, 500); // Asegúrate de que la animación termine antes de eliminar la clase
+    }, 500); // Asegurarse de que la animación de entrada termine antes de quitar la clase
 
     updatePaginationButtons();
-  }, 500); // Tiempo suficiente para que se complete la animación de salida
+  }, 500); // Asegúrate de que la animación de salida tenga suficiente tiempo antes de cambiar el contenido
 }
-
 
 // Open the selected character details
 function openCharacter(key) {
