@@ -13,7 +13,8 @@
     "background": "HerName/BackgroundG/sombra_bg.jpg",
     "video": "HerName/Preview/sombra_preview.mp4",
     "accent": "#ff44aa",
-    "isNew": true
+    "isNew": true,
+    "link": "https://google.com"
   },
   "SquirrelGirl": {
     "name": "Doreen Green – Squirrel Girl",
@@ -28,6 +29,7 @@
     "img": "HerName/Girls/squirrel.png",
     "background": "HerName/BackgroundG/squirrel_bg.jpg",
     "video": "HerName/Preview/squirrel_preview.mp4",
-    "accent": "#ff8800"
+    "accent": "#ff8800",
+    "link": "https://google.com"
   }
 }
