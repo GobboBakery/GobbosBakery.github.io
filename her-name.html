@@ -685,9 +685,10 @@
 
   <div class="preview-video" id="charVideo"></div>
 
-  <div class="Watch-Video">
+  <div class="download-row">
   <a id="watchButton" href="#" class="watch-button" target="_blank">Watch Video</a>
-      </div>
+  <button id="creditsButton" class="credits-button" onclick="showCredits()">Credits</button>
+</div>
    </div>
   </div>
 </div>
@@ -1008,13 +1009,6 @@ function openCharacter(key) {
   const descBox = document.getElementById('charDescriptionBox');
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
-
-  // Mostrar el video del personaje con enlace
-  vid.innerHTML = `
-    <a href="${char.link}" target="_blank">
-      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
-    </a>
-  `;
   
   // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
@@ -1080,6 +1074,37 @@ function openCharacter(key) {
     modal.style.display = "none";
   });
 });
+
+  function showCredits() {
+  const creditsModal = document.createElement('div');
+  creditsModal.style.position = 'fixed';
+  creditsModal.style.top = '0';
+  creditsModal.style.left = '0';
+  creditsModal.style.width = '100vw';
+  creditsModal.style.height = '100vh';
+  creditsModal.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+  creditsModal.style.color = 'white';
+  creditsModal.style.padding = '40px';
+  creditsModal.style.zIndex = '10000';
+  creditsModal.innerHTML = `
+    <h2>Credits</h2>
+    <p><strong>Video Credits:</strong> <span id="videoCredits"></span></p>
+    <p><strong>Artists:</strong> <span id="artistCredits"></span></p>
+    <button onclick="closeCredits()">Close</button>
+  `;
+  document.body.appendChild(creditsModal);
+
+  
+  document.getElementById('videoCredits').textContent = char.videoCredits;
+  document.getElementById('artistCredits').textContent = char.artistCredits;
+}
+
+function closeCredits() {
+  const creditsModal = document.querySelector('div[style*="z-index: 10000"]');
+  if (creditsModal) {
+    creditsModal.remove();
+  }
+}
 
 
 </script>
