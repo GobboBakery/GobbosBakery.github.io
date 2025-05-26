@@ -295,10 +295,6 @@
   overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
 }
 
-.preview-video:hover {
-  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
-}
-
 .preview-video .free-text {
   position: absolute;
   top: 50%;
@@ -310,16 +306,25 @@
   background: rgba(0, 0, 0, 0.5);
   padding: 10px 20px;
   border-radius: 8px;
-  display: block; /* Siempre visible */
+  z-index: 2; /* Asegura que el texto esté siempre sobre el video */
+}
+
+.preview-video:hover {
+  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
 }
 
 .preview-video video {
   width: 100%;
   height: auto;
+  transition: transform 0.3s ease;  /* Añadir transición de transform para hacer efecto de hover */
+}
+
+.preview-video:hover video {
+  transform: scale(1.05);  /* Efecto al hacer hover sobre el video */
 }
 
 .preview-video:hover .free-text {
-  opacity: 1; /* Asegura que el texto no desaparezca */
+  opacity: 1; /* Asegura que el texto "FREE" no desaparezca */
 }
 
 
@@ -860,17 +865,6 @@ function openCharacter(key) {
   // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
   view.style.display = 'flex'; // Asegurarse de que la vista esté visible
-
-  // Configurar los botones de navegación
-  const backBtn = document.getElementById('backButton');
-  const nextBtn = document.getElementById('nextButton');
-  const prevBtn = document.getElementById('prevButton');
-
-  if (backBtn && nextBtn && prevBtn) {
-    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-  }
 
   // Mostrar información del personaje
   document.getElementById('charName').textContent = char.name;
