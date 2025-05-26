@@ -534,15 +534,17 @@ function closeCharacter() {
     return;
   }
 
-  // Restore grid and related elements
-  characterGrid.style.display = 'grid';
+  // Hide character view and show grid again
+  characterGrid.style.display = 'grid';  // Show the grid
+  characterView.style.display = 'none'; // Hide the character view
+
+  // Show the pagination controls
   document.querySelector('.arrow.left').style.display = 'inline-block';
   document.querySelector('.arrow.right').style.display = 'inline-block';
   document.querySelector('h1').style.display = 'block';
   document.querySelector('.pagination').style.display = 'block';
 
-  // Hide character view and restore scrolling
-  characterView.style.display = 'none';
+  // Restore scrolling
   document.body.classList.remove('no-scroll');
 }
 
@@ -602,6 +604,7 @@ function showMainContent() {
 
 function goBack() {
   closeCharacter();
+  generateCharacterGrid();  
 }
 
 
