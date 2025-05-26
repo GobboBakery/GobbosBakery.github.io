@@ -972,20 +972,22 @@ function startExperience() {
 }
 
 function showMainContent() {
-  introVideo.pause();
-  introVideo.currentTime = 0;
-  introScreen.style.display = 'none';
-  gameMenu.style.display = 'none';
+  const introVideo = document.getElementById('introVideo');
+  const introScreen = document.getElementById('introScreen');
+  
+  if (introVideo && introScreen) {
+    introVideo.pause();
+    introVideo.currentTime = 0;
+    introScreen.style.display = 'none'; // Solo modificar si el elemento existe
+  } else {
+    console.error('introVideo or introScreen not found');
+  }
 
+  gameMenu.style.display = 'none';
   mainContent.style.display = 'block';
   generateCharacterGrid();
   updatePaginationButtons();
   document.querySelector('.pagination').style.display = 'block';
-}
-
-function goBack() {
-  closeCharacter();
-  generateCharacterGrid();  
 }
 
   // Navegar al personaje anterior
