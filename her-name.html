@@ -480,8 +480,8 @@ function openCharacter(key) {
   }
 
   // Configurar fondo e información del personaje
-  view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex';
+  view.style.backgroundImage = `url(${char.background})`; // Fondo de personaje
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
   // Configurar los detalles de navegación (botones)
   const backBtn = document.getElementById('backButton');
@@ -521,7 +521,7 @@ function openCharacter(key) {
   document.querySelector('.pagination').style.display = 'none';
   document.body.classList.add('no-scroll');
 
-  view.style.display = 'block';
+  view.style.display = 'block';  // Mostrar la vista del personaje
 }
 
 // Close character details and return to grid
