@@ -394,7 +394,7 @@
   font-weight: bold;
 }
 
-    .grid.slide-out-left {
+.grid.slide-out-left {
   animation: slideOutLeft 0.4s forwards;
 }
 .grid.slide-in-right {
@@ -411,6 +411,7 @@
   from { transform: translateX(0); opacity: 1; }
   to { transform: translateX(-80px); opacity: 0; }
 }
+
 @keyframes slideInRight {
   from { transform: translateX(80px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -420,6 +421,7 @@
   from { transform: translateX(0); opacity: 1; }
   to { transform: translateX(80px); opacity: 0; }
 }
+
 @keyframes slideInLeft {
   from { transform: translateX(-80px); opacity: 0; }
   to { transform: translateX(0); opacity: 1; }
@@ -762,16 +764,17 @@ function generateCharacterGrid(direction = null) {
     return;
   }
 
-  // Eliminar la animación de entrada
+  // Eliminar cualquier clase de animación anterior
   grid.classList.remove('slide-in-right', 'slide-in-left', 'slide-out-left', 'slide-out-right');
 
-  // Animación solo de desplazamiento
+  // Añadir las animaciones de desplazamiento según la dirección
   if (direction === 'next') {
     grid.classList.add('slide-out-left');
   } else if (direction === 'prev') {
     grid.classList.add('slide-out-right');
   }
 
+  // Espera que la animación de salida termine antes de actualizar el contenido
   setTimeout(() => {
     grid.classList.remove('slide-out-left', 'slide-out-right');
     grid.innerHTML = '';
@@ -783,7 +786,7 @@ function generateCharacterGrid(direction = null) {
     const end = start + charactersPerPage;
     const visibleCharacters = characterKeys.slice(start, end);
 
-    // Create character cards
+    // Crear tarjetas de personajes
     visibleCharacters.forEach((key, index) => {
       const char = characterData[key];
       const card = document.createElement('div');
@@ -796,7 +799,7 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(card);
     });
 
-    // Add placeholders if not enough characters to fill the grid
+    // Agregar placeholders si no hay suficientes personajes para llenar la grilla
     const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
     for (let i = 0; i < placeholdersToAdd; i++) {
       const placeholder = document.createElement('div');
@@ -805,19 +808,20 @@ function generateCharacterGrid(direction = null) {
       grid.appendChild(placeholder);
     }
 
-    // Animate sliding in/out of the grid
+    // Añadir la animación de entrada de acuerdo con la dirección
     if (direction === 'next') {
       grid.classList.add('slide-in-right');
     } else if (direction === 'prev') {
       grid.classList.add('slide-in-left');
     }
 
+    // Eliminar las clases de animación después de que termine
     setTimeout(() => {
       grid.classList.remove('slide-in-left', 'slide-in-right');
     }, 400);
 
     updatePaginationButtons();
-  }, 250);
+  }, 400); // Asegúrate de que la animación de salida tenga tiempo de ejecutarse antes de cambiar el contenido
 }
 
 // Open the selected character details
