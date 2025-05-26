@@ -68,6 +68,17 @@
   }
 }
 
+    @keyframes fadePopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .character.animated-entry {
   animation: fadePopIn 0.6s ease forwards;
 }
@@ -286,48 +297,18 @@
      border-radius: 4px;
     }
 
-.preview-video {
-  width: 100%;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  position: relative; /* Necesario para posicionar el texto encima del video */
-  overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
-}
 
-.preview-video .free-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2em;
-  font-weight: bold;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-  border-radius: 8px;
-  z-index: 2; /* Asegura que el texto esté siempre sobre el video */
-  opacity: 0; /* Comienza invisible */
-  transition: opacity 0.3s ease; /* Añadir una transición suave para la visibilidad */
-}
+    .preview-video {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
 
-.preview-video:hover .free-text {
-  opacity: 1; /* Asegura que el texto "FREE" se haga visible en hover */
-}
-
-.preview-video:hover {
-  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
-}
-
-.preview-video video {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;  /* Añadir transición de transform para hacer efecto de hover */
-}
-
-.preview-video:hover video {
-  transform: scale(1.05);  /* Efecto al hacer hover sobre el video */
-}
+    .preview-video video {
+      width: 100%;
+      height: auto;
+    }
 
     .character-media {
       position: absolute;
@@ -717,6 +698,7 @@
   <div class="download-row">
     <a href="#" class="download-button">⬇ 4K</a>
     <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
+    <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
     </div>
    </div>
   </div>
@@ -768,42 +750,11 @@ function preloadCharacterAssets() {
   });
 }
 
-// Espera a que el video de intro termine antes de mostrar el contenido
-introVideo.addEventListener('ended', function() {
-    showMainContent();  // Muestra el contenido principal
-    generateCharacterGrid();  // Genera la cuadrícula de personajes después de la intro
-    enableHoverFunctionality();  // Habilita las interacciones de hover después de la intro
-});
+let currentPage = 1;
+const charactersPerPage = 16;
 
-// Mostrar contenido principal después de la intro
-function showMainContent() {
-  introVideo.pause();
-  introVideo.currentTime = 0;
-  introScreen.style.display = 'none';  // Ocultar la pantalla de intro
-  gameMenu.style.display = 'none';  // Ocultar el menú de juego
-
-  mainContent.style.display = 'block';  // Mostrar el contenido principal
-  generateCharacterGrid();  // Genera la cuadrícula de personajes
-  updatePaginationButtons();  // Asegúrate de que la paginación esté actualizada
-  document.querySelector('.pagination').style.display = 'block';
-}
-
-// Habilitar las interacciones de hover después de que la página y la intro se hayan cargado
-function enableHoverFunctionality() {
-  const characters = document.querySelectorAll('.character');
-  characters.forEach(char => {
-    char.addEventListener('mouseover', function() {
-      char.style.transform = 'scale(1.1)';
-    });
-
-    char.addEventListener('mouseout', function() {
-      char.style.transform = 'scale(1)';
-    });
-  });
-}
-
-// Función para cargar y mostrar la cuadrícula de personajes
-function generateCharacterGrid() {
+// Generate character grid with pagination
+function generateCharacterGrid(direction = null) {
   const grid = document.getElementById('characterGrid');
   
   if (!grid) {
@@ -811,56 +762,71 @@ function generateCharacterGrid() {
     return;
   }
 
-  grid.innerHTML = '';  // Limpiar la cuadrícula antes de agregar nuevos elementos
-
-  const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
-  if (currentPage > totalPages) currentPage = totalPages;
-
-  const start = (currentPage - 1) * charactersPerPage;
-  const end = start + charactersPerPage;
-  const visibleCharacters = characterKeys.slice(start, end);
-
-  // Crear tarjetas para cada personaje visible
-  visibleCharacters.forEach((key, index) => {
-    const char = characterData[key];
-    const card = document.createElement('div');
-    card.className = 'character';
-    card.style.setProperty('--accent-color', char.accent);
-    card.onclick = () => openCharacter(key);
-    card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
-    if (char.isNew) card.classList.add('new');
-    card.dataset.index = index;
-    grid.appendChild(card);
-  });
-
-  // Si no hay suficientes personajes, agregar marcadores de "Coming Soon"
-  const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
-  for (let i = 0; i < placeholdersToAdd; i++) {
-    const placeholder = document.createElement('div');
-    placeholder.className = 'character placeholder';
-    placeholder.textContent = 'Coming Soon';
-    grid.appendChild(placeholder);
+  // Handle grid sliding animations
+  if (direction === 'next') {
+    grid.classList.add('slide-out-left');
+  } else if (direction === 'prev') {
+    grid.classList.add('slide-out-right');
   }
 
-  // Animar el deslizamiento de la cuadrícula
-  const direction = (currentPage > 1) ? 'next' : 'prev'; // Simplemente para identificar la dirección
-  grid.classList.add(direction === 'next' ? 'slide-in-right' : 'slide-in-left');
-
   setTimeout(() => {
-    grid.classList.remove('slide-in-left', 'slide-in-right');
-  }, 400);
+    grid.classList.remove('slide-out-left', 'slide-out-right');
+    grid.innerHTML = '';
 
-  // Animar las tarjetas de los personajes
-  const visibleCards = grid.querySelectorAll('.character');
-  visibleCards.forEach((card, index) => {
+    const totalPages = Math.ceil(characterKeys.length / charactersPerPage);
+    if (currentPage > totalPages) currentPage = totalPages;
+
+    const start = (currentPage - 1) * charactersPerPage;
+    const end = start + charactersPerPage;
+    const visibleCharacters = characterKeys.slice(start, end);
+
+    // Create character cards
+    visibleCharacters.forEach((key, index) => {
+      const char = characterData[key];
+      const card = document.createElement('div');
+      card.className = 'character';
+      card.style.setProperty('--accent-color', char.accent);
+      card.onclick = () => openCharacter(key);
+      card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+      if (char.isNew) card.classList.add('new');
+      card.dataset.index = index;
+      grid.appendChild(card);
+    });
+
+    // Add placeholders if not enough characters to fill the grid
+    const placeholdersToAdd = charactersPerPage - visibleCharacters.length;
+    for (let i = 0; i < placeholdersToAdd; i++) {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'character placeholder';
+      placeholder.textContent = 'Coming Soon';
+      grid.appendChild(placeholder);
+    }
+
+    // Animate sliding in/out of the grid
+    if (direction === 'next') {
+      grid.classList.add('slide-in-right');
+    } else if (direction === 'prev') {
+      grid.classList.add('slide-in-left');
+    }
+
     setTimeout(() => {
-      card.classList.add('animated-entry');
-      card.style.animationDelay = `${index * 80}ms`;
-    }, 100);
-  });
+      grid.classList.remove('slide-in-left', 'slide-in-right');
+    }, 400);
+
+    // Animate each card
+    const visibleCards = grid.querySelectorAll('.character');
+    visibleCards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animated-entry');
+        card.style.animationDelay = `${index * 80}ms`;
+      }, 100);
+    });
+
+    updatePaginationButtons();
+  }, 250);
 }
 
-// Mostrar detalles del personaje seleccionado
+// Open the selected character details
 function openCharacter(key) {
   const char = characterData[key];
   currentCharacterIndex = characterKeys.indexOf(key); 
@@ -870,7 +836,6 @@ function openCharacter(key) {
   const view = document.getElementById('characterView');
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
-  const freeText = document.createElement('div'); // Crear el texto "FREE"
 
   // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
@@ -878,11 +843,22 @@ function openCharacter(key) {
     return;
   }
 
-  // Establecer el fondo de la vista
+  // Establecer el fondo y la información del personaje
   view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex';  // Asegurarse de que la vista esté visible
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
-  // Mostrar información del personaje
+  // Configurar los botones de navegación (back, prev, next)
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  // Establecer detalles del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -897,36 +873,22 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  // Crear el texto "FREE"
-  freeText.className = 'free-text';
-  freeText.textContent = 'FREE';  // Mostrar siempre el texto "FREE"
-  vid.appendChild(freeText);  // Añadir el texto "FREE" al video
-
-  // Agregar el marco luminoso con el color del personaje
-  vid.style.setProperty('--accent-color', char.accent);
-
-  // Establecer el contenido multimedia (video)
-  vid.innerHTML = ` 
-    <a href="${char.link}" target="_blank">
-      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
-    </a>
-  `;
-
-  // Mostrar la imagen del personaje
+  // Establecer el contenido multimedia (video e imagen)
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
-  // Ocultar la cuadrícula y mostrar la vista del personaje
+  // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('.arrow.left').style.display = 'none';
   document.querySelector('.arrow.right').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll');  // Desactivar desplazamiento
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block';  // Mostrar la vista del personaje
+  view.style.display = 'block'; // Asegúrate de mostrar la vista del personaje
 }
 
-// Cerrar la vista del personaje y volver a la cuadrícula
+// Close character details and return to grid
 function closeCharacter() {
   const characterGrid = document.getElementById('characterGrid');
   const characterView = document.getElementById('characterView');
@@ -936,9 +898,9 @@ function closeCharacter() {
     return;
   }
 
-  // Mostrar la cuadrícula y ocultar la vista del personaje
-  characterGrid.style.display = 'grid'; 
-  characterView.style.display = 'none'; 
+  // Mostrar la grilla y ocultar la vista del personaje
+  characterGrid.style.display = 'grid'; // Mostrar la grilla
+  characterView.style.display = 'none'; // Ocultar la vista del personaje
 
   // Mostrar la navegación de flechas y el título
   document.querySelector('.arrow.left').style.display = 'inline-block';
@@ -987,14 +949,102 @@ function startExperience() {
     introVideo.volume = 0.8;
     introVideo.play();
 
-    // Espera a que el video de intro termine
-    introVideo.addEventListener('ended', function() {
-      showMainContent();  // Muestra el contenido principal
-      generateCharacterGrid();  // Genera la cuadrícula de personajes después de la intro
-      enableHoverFunctionality();  // Habilita las interacciones de hover después de la intro
-    });
+    introVideo.addEventListener('ended', showMainContent);
+    setTimeout(showMainContent, 15000);
   }
 }
+
+function showMainContent() {
+  introVideo.pause();
+  introVideo.currentTime = 0;
+  introScreen.style.display = 'none';
+  gameMenu.style.display = 'none';
+
+  mainContent.style.display = 'block';
+  generateCharacterGrid();
+  updatePaginationButtons();
+  document.querySelector('.pagination').style.display = 'block';
+}
+
+function goBack() {
+  closeCharacter();
+  generateCharacterGrid();  
+}
+
+  // Navegar al personaje anterior
+function prevCharacter() {
+  if (currentCharacterIndex > 0) {
+    currentCharacterIndex--;  // Decrementar el índice
+    const prevCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(prevCharacterKey); // Mostrar el personaje anterior
+  }
+}
+
+// Navegar al siguiente personaje
+function nextCharacter() {
+  if (currentCharacterIndex < characterKeys.length - 1) {
+    currentCharacterIndex++;  // Incrementar el índice
+    const nextCharacterKey = characterKeys[currentCharacterIndex];
+    openCharacter(nextCharacterKey); // Mostrar el siguiente personaje
+  }
+}
+
+// Función para abrir el personaje seleccionado
+function openCharacter(key) {
+  const char = characterData[key];
+  currentCharacterIndex = characterKeys.indexOf(key); 
+  selectSound.currentTime = 0;
+  selectSound.play();
+
+  const view = document.getElementById('characterView');
+  const img = document.getElementById('charImage');
+  const vid = document.getElementById('charVideo');
+
+  if (!view || !img || !vid) {
+    console.error('Character view or media elements not found!');
+    return;
+  }
+
+  view.style.backgroundImage = `url(${char.background})`;
+  view.style.display = 'flex';
+
+  const backBtn = document.getElementById('backButton');
+  const nextBtn = document.getElementById('nextButton');
+  const prevBtn = document.getElementById('prevButton');
+
+  if (backBtn && nextBtn && prevBtn) {
+    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
+    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+  }
+
+  document.getElementById('charName').textContent = char.name;
+  document.getElementById('charAge').textContent = char.age;
+  document.getElementById('charOrigin').textContent = char.origin;
+  document.getElementById('charPersonality').textContent = char.personality;
+  document.getElementById('charPowers').textContent = char.powers;
+  document.getElementById('charGoodAt').textContent = char.goodAt;
+  document.getElementById('charFlavor').textContent = char.flavor;
+  document.getElementById('charDescription').textContent = char.description;
+
+  document.getElementById('charName').style.color = char.accent;
+  const descBox = document.getElementById('charDescriptionBox');
+  descBox.style.border = `1px solid ${char.accent}`;
+  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
+  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+
+  document.getElementById('characterGrid').style.display = 'none';
+  document.querySelector('.arrow.left').style.display = 'none';
+  document.querySelector('.arrow.right').style.display = 'none';
+  document.querySelector('h1').style.display = 'none';
+  document.querySelector('.pagination').style.display = 'none';
+  document.body.classList.add('no-scroll');
+
+  view.style.display = 'block';
+}
+
 </script>
 
 </body>
