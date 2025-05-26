@@ -307,6 +307,12 @@
   padding: 10px 20px;
   border-radius: 8px;
   z-index: 2; /* Asegura que el texto esté siempre sobre el video */
+  opacity: 0; /* Comienza invisible */
+  transition: opacity 0.3s ease; /* Añadir una transición suave para la visibilidad */
+}
+
+.preview-video:hover .free-text {
+  opacity: 1; /* Asegura que el texto "FREE" se haga visible en hover */
 }
 
 .preview-video:hover {
@@ -322,11 +328,6 @@
 .preview-video:hover video {
   transform: scale(1.05);  /* Efecto al hacer hover sobre el video */
 }
-
-.preview-video:hover .free-text {
-  opacity: 1; /* Asegura que el texto "FREE" no desaparezca */
-}
-
 
     .character-media {
       position: absolute;
