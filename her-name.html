@@ -68,17 +68,6 @@
   }
 }
 
-    @keyframes fadePopIn {
-  0% {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
 .character.animated-entry {
   animation: fadePopIn 0.6s ease forwards;
 }
@@ -297,18 +286,47 @@
      border-radius: 4px;
     }
 
+.preview-video {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  position: relative; /* Necesario para posicionar el texto encima del video */
+  overflow: hidden;  /* Asegura que el texto no se salga del contorno del video */
+}
 
-    .preview-video {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
+.preview-video .free-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  font-weight: bold;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 8px;
+  z-index: 2; /* Asegura que el texto esté siempre sobre el video */
+}
 
-    .preview-video video {
-      width: 100%;
-      height: auto;
-    }
+.preview-video:hover {
+  box-shadow: 0 0 20px var(--accent-color); /* Marco luminoso */
+}
+
+.preview-video video {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;  /* Añadir transición de transform para hacer efecto de hover */
+}
+
+.preview-video:hover video {
+  transform: scale(1.05);  /* Efecto al hacer hover sobre el video */
+}
+
+.preview-video:hover .free-text {
+  opacity: 1; /* Asegura que el texto "FREE" no desaparezca */
+}
+
 
     .character-media {
       position: absolute;
@@ -698,7 +716,6 @@
   <div class="download-row">
     <a href="#" class="download-button">⬇ 4K</a>
     <a href="#" class="download-button" style="background: linear-gradient(135deg, #aaa, #888);">⬇ FullHD</a>
-    <a href="#" class="download-button" style="background: linear-gradient(135deg, #44c767, #28a745);">⬇ Free</a>
     </div>
    </div>
   </div>
@@ -787,7 +804,7 @@ function generateCharacterGrid(direction = null) {
       card.className = 'character';
       card.style.setProperty('--accent-color', char.accent);
       card.onclick = () => openCharacter(key);
-      card.innerHTML = `<img src="${char.icon}" alt="${key}">`;
+      card.innerHTML = <img src="${char.icon}" alt="${key}">;
       if (char.isNew) card.classList.add('new');
       card.dataset.index = index;
       grid.appendChild(card);
@@ -818,7 +835,7 @@ function generateCharacterGrid(direction = null) {
     visibleCards.forEach((card, index) => {
       setTimeout(() => {
         card.classList.add('animated-entry');
-        card.style.animationDelay = `${index * 80}ms`;
+        card.style.animationDelay = ${index * 80}ms;
       }, 100);
     });
 
@@ -827,8 +844,9 @@ function generateCharacterGrid(direction = null) {
 }
 
 // Open the selected character details
+// Mostrar detalles del personaje
 function openCharacter(key) {
-  const char = characterData[key];
+  const char = characterData[key];  // Obtener los datos del personaje
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -836,6 +854,7 @@ function openCharacter(key) {
   const view = document.getElementById('characterView');
   const img = document.getElementById('charImage');
   const vid = document.getElementById('charVideo');
+  const freeText = document.createElement('div'); // Crear el texto "FREE"
 
   // Verificar si los elementos están presentes
   if (!view || !img || !vid) {
@@ -843,22 +862,11 @@ function openCharacter(key) {
     return;
   }
 
-  // Establecer el fondo y la información del personaje
-  view.style.backgroundImage = `url(${char.background})`;
+  // Establecer el fondo de la vista
+  view.style.backgroundImage = url(${char.background});
   view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
-  // Configurar los botones de navegación (back, prev, next)
-  const backBtn = document.getElementById('backButton');
-  const nextBtn = document.getElementById('nextButton');
-  const prevBtn = document.getElementById('prevButton');
-
-  if (backBtn && nextBtn && prevBtn) {
-    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-  }
-
-  // Establecer detalles del personaje
+  // Mostrar información del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -870,12 +878,26 @@ function openCharacter(key) {
 
   document.getElementById('charName').style.color = char.accent;
   const descBox = document.getElementById('charDescriptionBox');
-  descBox.style.border = `1px solid ${char.accent}`;
-  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+  descBox.style.border = 1px solid ${char.accent};
+  descBox.style.boxShadow = 0 0 10px ${char.accent}66;
 
-  // Establecer el contenido multimedia (video e imagen)
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
-  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+  // Crear el texto "FREE"
+  freeText.className = 'free-text';
+  freeText.textContent = 'FREE'; // Mostrar siempre el texto "FREE"
+  
+  // Establecer el contenido multimedia (video)
+  vid.innerHTML =  
+    <a href="${char.link}" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  ;
+  vid.appendChild(freeText);  // Añadir el texto "FREE" al video
+
+  // Agregar el marco luminoso con el color del personaje
+  vid.style.setProperty('--accent-color', char.accent);
+
+  // Mostrar la imagen del personaje
+  img.innerHTML = <img src="${char.img}" alt="${char.name}">;
 
   // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
@@ -885,7 +907,7 @@ function openCharacter(key) {
   document.querySelector('.pagination').style.display = 'none';
   document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block'; // Asegúrate de mostrar la vista del personaje
+  view.style.display = 'block'; // Mostrar la vista del personaje
 }
 
 // Close character details and return to grid
@@ -991,7 +1013,7 @@ function nextCharacter() {
 
 // Función para abrir el personaje seleccionado
 function openCharacter(key) {
-  const char = characterData[key];
+  const char = characterData[key];  // Obtener los datos del personaje
   currentCharacterIndex = characterKeys.indexOf(key); 
   selectSound.currentTime = 0;
   selectSound.play();
@@ -1005,19 +1027,22 @@ function openCharacter(key) {
     return;
   }
 
-  view.style.backgroundImage = `url(${char.background})`;
-  view.style.display = 'flex';
+  // Establecer el fondo y la información del personaje
+  view.style.backgroundImage = url(${char.background});
+  view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
+  // Configurar los botones de navegación
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
 
   if (backBtn && nextBtn && prevBtn) {
-    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
+    backBtn.style.background = linear-gradient(135deg, ${char.accent}, #222);
+    nextBtn.style.background = linear-gradient(135deg, ${char.accent}, #444);
+    prevBtn.style.background = linear-gradient(135deg, ${char.accent}, #444);
   }
 
+  // Mostrar información del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -1029,20 +1054,28 @@ function openCharacter(key) {
 
   document.getElementById('charName').style.color = char.accent;
   const descBox = document.getElementById('charDescriptionBox');
-  descBox.style.border = `1px solid ${char.accent}`;
-  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+  descBox.style.border = 1px solid ${char.accent};
+  descBox.style.boxShadow = 0 0 10px ${char.accent}66;
 
-  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
-  img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+  // Mostrar el video del personaje con enlace
+  vid.innerHTML = 
+    <a href="${char.link}" target="_blank">
+      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+    </a>
+  ;
+  
+  // Mostrar la imagen del personaje
+  img.innerHTML = <img src="${char.img}" alt="${char.name}">;
 
+  // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
   document.querySelector('.arrow.left').style.display = 'none';
   document.querySelector('.arrow.right').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll');
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block';
+  view.style.display = 'block'; // Mostrar la vista del personaje
 }
 
 </script>
