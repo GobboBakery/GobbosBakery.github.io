@@ -479,11 +479,11 @@ function openCharacter(key) {
     return;
   }
 
-  // Configurar fondo e información del personaje
-  view.style.backgroundImage = `url(${char.background})`; // Fondo de personaje
+  // Establecer el fondo y la información del personaje
+  view.style.backgroundImage = `url(${char.background})`;
   view.style.display = 'flex'; // Asegurarse de que la vista esté visible
 
-  // Configurar los detalles de navegación (botones)
+  // Configurar los botones de navegación (back, prev, next)
   const backBtn = document.getElementById('backButton');
   const nextBtn = document.getElementById('nextButton');
   const prevBtn = document.getElementById('prevButton');
@@ -509,7 +509,7 @@ function openCharacter(key) {
   descBox.style.border = `1px solid ${char.accent}`;
   descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
 
-  // Establecer el contenido multimedia (video y imagen)
+  // Establecer el contenido multimedia (video e imagen)
   vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
 
@@ -519,9 +519,9 @@ function openCharacter(key) {
   document.querySelector('.arrow.right').style.display = 'none';
   document.querySelector('h1').style.display = 'none';
   document.querySelector('.pagination').style.display = 'none';
-  document.body.classList.add('no-scroll');
+  document.body.classList.add('no-scroll'); // Desactivar desplazamiento
 
-  view.style.display = 'block';  // Mostrar la vista del personaje
+  view.style.display = 'block'; // Asegúrate de mostrar la vista del personaje
 }
 
 // Close character details and return to grid
@@ -538,7 +538,7 @@ function closeCharacter() {
   characterGrid.style.display = 'grid'; // Mostrar la grilla
   characterView.style.display = 'none'; // Ocultar la vista del personaje
 
-  // Restablecer controles de navegación y el encabezado
+  // Mostrar la navegación de flechas y el título
   document.querySelector('.arrow.left').style.display = 'inline-block';
   document.querySelector('.arrow.right').style.display = 'inline-block';
   document.querySelector('h1').style.display = 'block';
