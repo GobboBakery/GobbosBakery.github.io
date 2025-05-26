@@ -872,10 +872,8 @@ function openCharacter(key) {
 
   // Mostrar el video del personaje con enlace
   vid.innerHTML = `
-    <a href="${char.video}" target="_blank">
-      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
-    </a>
-  `;
+  <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
+`;
   
   // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
