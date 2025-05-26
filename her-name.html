@@ -818,7 +818,7 @@ function generateCharacterGrid(direction = null) {
 // Mostrar detalles del personaje
 function openCharacter(key) {
   const char = characterData[key];  // Obtener los datos del personaje
-  currentCharacterIndex = characterKeys.indexOf(key); 
+  currentCharacterIndex = characterKeys.indexOf(key);
   selectSound.currentTime = 0;
   selectSound.play();
 
@@ -831,22 +831,9 @@ function openCharacter(key) {
     return;
   }
 
-  // Establecer el fondo de la vista
   view.style.backgroundImage = `url(${char.background})`;
   view.style.display = 'flex'; 
 
-  // Configurar los botones de navegación
-  const backBtn = document.getElementById('backButton');
-  const nextBtn = document.getElementById('nextButton');
-  const prevBtn = document.getElementById('prevButton');
-
-  if (backBtn && nextBtn && prevBtn) {
-    backBtn.style.background = `linear-gradient(135deg, ${char.accent}, #222)`;
-    nextBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-    prevBtn.style.background = `linear-gradient(135deg, ${char.accent}, #444)`;
-  }
-
-  // Mostrar información del personaje
   document.getElementById('charName').textContent = char.name;
   document.getElementById('charAge').textContent = char.age;
   document.getElementById('charOrigin').textContent = char.origin;
@@ -856,20 +843,13 @@ function openCharacter(key) {
   document.getElementById('charFlavor').textContent = char.flavor;
   document.getElementById('charDescription').textContent = char.description;
 
-  document.getElementById('charName').style.color = char.accent;
-  const descBox = document.getElementById('charDescriptionBox');
-  descBox.style.border = `1px solid ${char.accent}`;
-  descBox.style.boxShadow = `0 0 10px ${char.accent}66`;
+  // Establecer el enlace para "Watch Video"
+  const watchButton = document.getElementById('watchButton');
+  watchButton.href = char.videoLink; // Asegúrate de tener este enlace en los datos del personaje
+  watchButton.style.display = 'inline-block'; // Mostrar el botón
 
-  // Mostrar el video del personaje con enlace
-  vid.innerHTML = `
-    <a href="${char.video}" target="_blank">
-      <video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>
-    </a>
-  `;
-  
-  // Mostrar la imagen del personaje
   img.innerHTML = `<img src="${char.img}" alt="${char.name}">`;
+  vid.innerHTML = `<video src="${char.video}" autoplay muted loop playsinline preload="auto"></video>`;
 
   // Ocultar la grilla y mostrar la vista del personaje
   document.getElementById('characterGrid').style.display = 'none';
